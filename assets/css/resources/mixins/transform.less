@@ -1,0 +1,186 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ transform
+// http://www.css3-generator.de/transform.html
+// #transform > .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
+// #transform > .origin(~"20% top");
+// #transform > .translate(20px, 10px);
+// #transform > .translateX(20px);
+// #transform > .translateY(20px);
+// #transform > .translate3d(20px, 10px, 30px);
+// #transform > .scale(0.5, 0.8);
+// #transform > .scaleX(0.5);
+// #transform > .scaleY(0.5);
+// #transform > .skew(35deg, 0deg);
+// #transform > .skewX(35deg);
+// #transform > .skewY(35deg);
+// #transform > .rotate(35deg);
+// #transform > .rotate3d(35deg, 15deg, 10deg);
+// #transform > .style(preserve-3d);
+
+// @helper methode: ../elements/helper.less
+// .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
+
+// @namespace: #transform
+
+#transform {
+    
+    // @methode: .transform
+    // @usage: #transform > .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
+    
+    .transform(@var-webkit, @var-ms: false) {
+        .inseption(@var, @var-1) when (@var-1 = false) {
+            -webkit-transform: @var;
+               -moz-transform: @var;
+                -ms-transform: @var;
+                 -o-transform: @var;
+                    transform: @var;
+        }
+        .inseption(@var, @var-1) when not (@var-1 = false) {
+            -webkit-transform: @var;
+               -moz-transform: @var;
+                -ms-transform: @var-1;
+                 -o-transform: @var;
+                    transform: @var;
+        }
+        .inseption(@var-webkit, @var-ms);
+    }
+    
+    // @methode: .origin
+    // @usage: #transform > .origin(~"20% top");
+    
+    .origin(@var) {
+        -webkit-transform-origin: @var;
+           -moz-transform-origin: @var;
+            -ms-transform-origin: @var;
+             -o-transform-origin: @var;
+                transform-origin: @var;
+    }
+    
+    // @methode: .translate
+    // @usage: #transform > .translate(20px, 10px);
+    
+    .translate(@var-x, @var-y) {
+        @var: translate(@var-x, @var-y);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .translateX
+    // @usage: #transform > .translateX(20px);
+    
+    .translateX(@var-x) {
+        @var: translateX(@var-x);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .translateY
+    // @usage: #transform > .translateY(20px);
+    
+    .translateY(@var-y) {
+        @var: translateX(@var-y);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .translate3d
+    // @usage: #transform > .translate3d(20px, 10px, 30px);
+    
+    .translate3d(@var-x, @var-y, @var-z) {
+        @var: translate3d(@var-x, @var-y, @var-z);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .scale
+    // @usage: #transform > .scale(0.5);
+    
+    .scale(@var-x, @var-y: false) {
+        .inseption(@var, @var-1) when (@var-1 = false) {
+            @var-2: scale(@var);
+            #transform > .transform(@var-2, @var-2);
+        }
+        .inseption(@var, @var-1) when not (@var-1 = false) {
+            @var-2: scale(@var, @var-1);
+            #transform > .transform(@var-2, @var-2);
+        }
+        .inseption(@var-x, @var-y);
+    }
+    
+    // @methode: .scaleX
+    // @usage: #transform > .scaleX(0.5);
+    
+    .scaleX(@var-ratio) {
+        @var: scaleX(@var-ratio);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .scaleY
+    // @usage: #transform > .scaleY(0.5);
+    
+    .scaleY(@var-ratio) {
+        @var: scaleY(@var-ratio);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .skew
+    // @usage: #transform > .skew(35deg, 0deg);
+    
+    .skew(@var-x, @var-y: false) {
+        .inseption(@var, @var-1) when (@var-1 = false) {
+            @var-webkit: skew(@var);
+            @var-ms: skewX(@var) skewY(@var);
+            #transform > .transform(@var-webkit, @var-ms);
+        }
+        .inseption(@var, @var-1) when not (@var-1 = false) {
+            @var-webkit: skew(@var, @var-1);
+            @var-ms: skewX(@var) skewY(@var-1);
+            #transform > .transform(@var-webkit, @var-ms);
+        }
+        .inseption(@var-x, @var-y);
+        #base > .backface-visibility(hidden);
+    }
+    
+    // @methode: .skewX
+    // @usage: #transform > .skewX(35deg);
+    
+    .skewX(@var-deg) {
+        @var: skewX(@var-deg);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .skewY
+    // @usage: #transform > .skewY(35deg);
+    
+    .skewY(@var-deg) {
+        @var: skewY(@var-deg);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .rotate
+    // @usage: #transform > .rotate(35deg);
+    
+    .rotate(@var-deg) {
+        @var: rotate(@var-deg);
+        #transform > .transform(@var, @var);
+    }
+    
+    // @methode: .rotate3d
+    // @usage: #transform > .rotate3d(35deg, 15deg, 10deg);
+    
+    .rotate3d(@var-x, @var-y: 0, @var-z: 0) {
+        @var: rotateX(@var-x) rotateY(@var-y) rotateZ(@var-z);
+        #transform > .transform(@var, @var);
+        #transform > .style(preserve-3d);
+    }
+    
+    // @methode: .style
+    // @usage: #transform > .style(preserve-3d);
+    
+    .style(@var) {
+        -webkit-transform-style: @var;
+           -moz-transform-style: @var;
+            -ms-transform-style: @var;
+             -o-transform-style: @var;
+                transform-style: @var;
+    }
+}

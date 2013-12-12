@@ -1,0 +1,121 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ animation
+// #animation > .animation(~"my-animation 6s backwards 2s, my-second-animation 3s linear alternate infinite");
+// #animation > .delay(~"200ms, 2s");
+// #animation > .direction(~"normal, alternate");
+// #animation > .duration(~"3s, 2s");
+// #animation > .fill-mode(forwards);
+// #animation > .timing-function(ease-in-out);
+// #animation > .iteration-count(3);
+// #animation > .name(myanimation);
+// #animation > .play-state(paused);
+
+// @helper methode: ../elements/helper.less
+// @usage: .animation(~"my-animation 6s backwards 2s, my-second-animation 3s linear alternate infinite");
+
+// @namespace: #animation
+
+#animation {
+    
+    // @methode: .animation
+    // @usage: #animation > .animation(~"my-animation 6s backwards 2s, my-second-animation 3s linear alternate infinite");
+    
+    .animation(@var) {
+        -webkit-animation: @var;
+           -moz-animation: @var;
+            -ms-animation: @var;
+             -o-animation: @var;
+                animation: @var;
+    }
+    
+    // @methode: .delay
+    // @usage: #animation > .delay(2s);
+    
+    .delay(@var) {
+        -webkit-animation-delay: @var;
+           -moz-animation-delay: @var;
+            -ms-animation-delay: @var;
+             -o-animation-delay: @var;
+                animation-delay: @var;
+    }
+    
+    // @methode: .direction
+    // @usage: #animation > .direction(~"normal, alternate");
+    
+    .direction(@var) {
+        -webkit-animation-direction: @var;
+           -moz-animation-direction: @var;
+            -ms-animation-direction: @var;
+             -o-animation-direction: @var;
+                animation-direction: @var;
+    }
+    
+    // @methode: .duration
+    // @usage: #animation > .duration(~"3s, 2s");
+    
+    .duration(@var) {
+        -webkit-animation-duration: @var;
+           -moz-animation-duration: @var;
+            -ms-animation-duration: @var;
+             -o-animation-duration: @var;
+                animation-duration: @var;
+    }
+    
+    // @methode: .fill-mode
+    // @usage: #animation > .fill-mode(forwards);
+    
+    .fill-mode(@var) {
+        -webkit-animation-fill-mode: @var;
+           -moz-animation-fill-mode: @var;
+             -o-animation-fill-mode: @var;
+                animation-fill-mode: @var;
+    }
+    
+    // @methode: .timing-function
+    // @usage: #animation > .timing-function(ease-in-out); linear|ease-in-out|ease-in|ease-out|ease|cubic-bezier(n,n,n,n)
+    
+    .timing-function(@var) {
+        -webkit-animation-timing-function: @var;
+           -moz-animation-timing-function: @var;
+            -ms-animation-timing-function: @var;
+             -o-animation-timing-function: @var;
+                animation-timing-function: @var;
+
+    }
+    
+    // @methode: .iteration-count
+    // @usage: #animation > .iteration-count(3);
+    
+    .iteration-count(@var) {
+        -webkit-animation-iteration-count: @var;
+           -moz-animation-iteration-count: @var;
+            -ms-animation-iteration-count: @var;
+             -o-animation-iteration-count: @var;
+                animation-iteration-count: @var;
+    }
+    
+    // @methode: .name
+    // @usage: #animation > .name(myanimation);
+    
+    .name(@var) {
+        -webkit-animation-name: @var;
+           -moz-animation-name: @var;
+            -ms-animation-name: @var;
+             -o-animation-name: @var;
+                animation-name: @var;
+    }
+    
+    // @methode: .play-state
+    // @usage: #animation > .play-state(paused);
+    
+    .play-state(@var) {
+        -webkit-animation-play-state: @var;
+           -moz-animation-play-state: @var;
+            -ms-animation-play-state: @var;
+             -o-animation-play-state: @var;
+                animation-play-state: @var;
+    }
+}

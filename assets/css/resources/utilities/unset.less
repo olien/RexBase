@@ -1,0 +1,72 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ unsets
+// #unset > .distances();
+// #unset > .list();
+// #unset > .outline();
+// #unset > .grid();
+
+// @namespace: #unset
+
+#unset {
+    
+    // @methode: .distances
+    // @usage: #unset > .distances();
+    
+    .distances() {
+        margin: 0;
+        padding: 0;
+    }
+    
+    // @methode: .list
+    // @usage: #unset > .list();
+    
+    .list() {
+        #unset > .distances();
+        list-style: none;
+        
+        li {
+            #unset > .distances();
+        }
+    }
+    
+    // @methode: .outline
+    // @usage: #unset > .outline();
+    
+    .outline() {
+        outline: 0 none !important;
+        
+        &:hover,
+        &:focus,
+        &:visited,
+        &:active {
+            outline: 0 none !important;
+        }
+        &::-moz-focus-inner {
+            border: 0 solid transparent;
+        }
+    }
+    
+    // @methode: .grid
+    // @usage: #unset > .grid();
+    
+    .grid() {
+        width: auto;
+        
+        .row {
+            margin: 0;
+            
+            [class*="col-"] {
+                margin: 0;
+                width: auto;
+                float: inherit;
+                #box > .display(block);
+            }
+            [class*="offset-"] {
+                margin: 0;
+            }
+        }
+    }
+}

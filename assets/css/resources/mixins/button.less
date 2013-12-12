@@ -1,0 +1,134 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ button
+// #button > .base(12px, normal, sans-serif, 0.5em 1em, 0);
+// #button > .color(#333, #fff, #fff);
+// #button > .border(1px solid #d4d4d4, 1px solid #d4d4d4, 1px solid #d4d4d4, 0.2em);
+// #button > .background(#ddd);
+// #button > .background-gradient(#f4f4f4, #599bdc, #3072b3, #ececec, #3072b3, #599bdc);
+
+// @namespace: #button
+
+#button {
+    
+    // @methode: .base
+    // @usage: #button > .base();
+    
+    .base(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-font-weight: normal, @var-font-family: inherit, @var-distance: @base-distance, @var-padding-top-bottom-factor: 0.2, @var-padding-left-right-factor: 0.4, @var-margin-bottom-factor: 0.75) {
+        .inseption(@var) when not (@var = false) {
+            #box > .shadow(@var);
+        }
+        #base > .pointer();
+        #unset > .outline();
+        #box > .display(inline-block);
+        position: relative;
+        overflow: visible;
+        padding: ceil(@var-distance * @var-padding-top-bottom-factor) ceil(@var-distance * @var-padding-left-right-factor);
+        margin: 0 0 ceil(@var-distance * @var-margin-bottom-factor) 0;
+        font-size: @var-size;
+        font-weight: @var-font-weight;
+        font-family: @var-font-family;
+        line-height: @var-line-height;
+        text-decoration: none;
+        text-align: center;
+        white-space: nowrap;
+        zoom: 1;
+        *display: inline;
+        
+        &::-moz-focus-inner {
+            #unset > .distances();
+        }
+        i[class^="icon-"],
+        i[class*=" icon-"] {
+            min-width: inherit;
+            margin-left: 0;
+        }
+        
+        .inseption(@var-shadow);
+    }
+    
+    // @methode: .color
+    // @usage: #button > .color();
+    
+    .color(@var-color, @var-hover-color, @var-activ-color) {
+        color: @var-color;
+        
+        &:hover,
+        &:focus,
+        &:active {
+            color: @var-hover-color;
+        }
+    }
+    
+    // @methode: .border
+    // @usage: #button > .border();
+    
+    .border(@var-border: @base-button-border, @var-border-hover: @base-button-border-hover, @var-border-active: @base-button-border-hover, @var-border-radius: @base-button-radius) {
+        #border > .radius(@var-border-radius);
+        #border > .border(@var-border);
+        
+        &:hover,
+        &:focus,
+        &:active {
+            border-color: @var-border-hover;
+        }
+        &:active,
+        &.active {
+            border-color: @var-border-active;
+        }
+    }
+    
+    // @methode: .background
+    // @usage: #button > .background();
+    
+    .background(@var-color: @base-button-background-color, @var-hover-color: @base-button-background-color-hover) {
+        #background > .background(@var-color);
+        
+        &:hover,
+        &:focus,
+        &:active {
+            #background > .background(@var-hover-color);
+        }
+    }
+    
+    // @methode: .background-gradient
+    // @usage: #button > .background-gradient();
+    
+    .background-gradient ( 
+      @start-color, @start-hover-color, @start-active-color, @end-color, @end-hover-color, @end-active-color,
+      @between-color : '', @between-hover-color : '', @between-active-color : '', @color-stop : 50%
+    ) {
+        #gradient > .vertical(@start-color, @end-color, @between-color, @color-stop);
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+          #gradient > .vertical(@start-hover-color, @end-hover-color, @between-hover-color, @color-stop);
+        }
+        &:active,
+        &.active {
+          #gradient > .vertical(@start-active-color, @end-active-color, @between-active-color, @color-stop);
+        }
+    }
+    
+    // @methode: .text-shadow
+    // @usage: #button > .text-shadow();
+    
+    .text-shadow(@text-shadow : 1px 1px 0 #fff, @text-shadow-hover : -1px -1px 0 rgba(0, 0, 0, 0.3), @text-shaodw-active : -1px -1px 0 rgba(0, 0, 0, 0.3)) {
+        #box > .text-shadow(@text-shadow);
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            #text > .shadow(@text-shadow-hover);
+        }
+        &:active,
+        &.active {
+            #text > .shadow(@text-shaodw-active);
+        }
+    }
+}

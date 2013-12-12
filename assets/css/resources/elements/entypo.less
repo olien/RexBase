@@ -1,0 +1,341 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// entypo pictograms by Daniel Bruce — www.entypo.com
+// licensed under CC BY-SA 3.0 and the font under SIL Open Font License
+
+// ----------------------------------------------------- ~ entypo
+// #entypo > .load();
+// #entypo > .inseption();
+
+// @helper methode: helper.less
+// .entypo();
+
+// @namespace: #entypo
+
+#entypo {
+    
+    // @methode: .load
+    // @usage: #entypo > .load();
+    
+    .load() {
+        #font > .face(entypo, "../fonts/entypo", "entypo", normal, normal, true, embedded-opentype);
+        #font > .face(entypo-social, "../fonts/entypo-social", "entypo-social", normal, normal, true, embedded-opentype);
+    }
+    
+    // @methode: .inseption
+    // @usage: #entypo > .inseption();
+    
+    .inseption() {
+        [class^="icon-entypo-"],
+        [class*=" icon-entypo-"] {
+            #icon > .base(entypo);
+        }
+        
+        [class^="icon-entypo-social-"],
+        [class*=" icon-entypo-social-"] {
+            #icon > .base(entypo-social);
+        }
+        
+        i[class^="icon-entypo-"],
+        i[class*=" icon-entypo-"] {
+            text-decoration: none;
+            font-style: normal;
+            display: inline-block;
+            position: static;
+            min-width: 20px;
+            height: inherit;
+            margin: 0 5px;
+            text-align: center;
+            zoom: 1;
+        }
+        
+        // entypo icon charset
+        #icon > .element(icon-entypo-phone, "\1F4DE");
+        #icon > .element(icon-entypo-mobile, "\1F4F1");
+        #icon > .element(icon-entypo-mouse, "\E789");
+        #icon > .element(icon-entypo-address, "\E723");
+        #icon > .element(icon-entypo-mail, "\2709");
+        #icon > .element(icon-entypo-paper-plane, "\1F53F");
+        #icon > .element(icon-entypo-pencil, "\270E");
+        #icon > .element(icon-entypo-feather, "\2712");
+        #icon > .element(icon-entypo-attach, "\1F4CE");
+        #icon > .element(icon-entypo-inbox, "\E777");
+        #icon > .element(icon-entypo-reply, "\E712");
+        #icon > .element(icon-entypo-reply-all, "\E713");
+        #icon > .element(icon-entypo-forward, "\27A6");
+        #icon > .element(icon-entypo-user, "\1F464");
+        #icon > .element(icon-entypo-users, "\1F465");
+        #icon > .element(icon-entypo-add-user, "\E700");
+        #icon > .element(icon-entypo-vcard, "\E722");
+        #icon > .element(icon-entypo-export, "\E715");
+        #icon > .element(icon-entypo-location, "\E724");
+        #icon > .element(icon-entypo-map, "\E727");
+        #icon > .element(icon-entypo-compass, "\E728");
+        #icon > .element(icon-entypo-direction, "\27A2");
+        #icon > .element(icon-entypo-hair-cross, "\1F3AF");
+        #icon > .element(icon-entypo-share, "\E73C");
+        #icon > .element(icon-entypo-shareable, "\E73E");
+        #icon > .element(icon-entypo-heart, "\2665");
+        #icon > .element(icon-entypo-heart-empty, "\2661");
+        #icon > .element(icon-entypo-star, "\2605");
+        #icon > .element(icon-entypo-star-empty, "\2606");
+        #icon > .element(icon-entypo-thumbs-up, "\1F44D");
+        #icon > .element(icon-entypo-thumbs-down, "\1F44E");
+        #icon > .element(icon-entypo-chat, "\E720");
+        #icon > .element(icon-entypo-comment, "\E718");
+        #icon > .element(icon-entypo-quote, "\275E");
+        #icon > .element(icon-entypo-home, "\2302");
+        #icon > .element(icon-entypo-popup, "\E74C");
+        #icon > .element(icon-entypo-search, "\1F50D");
+        #icon > .element(icon-entypo-flashlight, "\1F526");
+        #icon > .element(icon-entypo-print, "\E716");
+        #icon > .element(icon-entypo-bell, "\1F514");
+        #icon > .element(icon-entypo-link, "\1F517");
+        #icon > .element(icon-entypo-flag, "\2691");
+        #icon > .element(icon-entypo-cog, "\2699");
+        #icon > .element(icon-entypo-tools, "\2692");
+        #icon > .element(icon-entypo-trophy, "\1F3C6");
+        #icon > .element(icon-entypo-tag, "\E70C");
+        #icon > .element(icon-entypo-camera, "\1F4F7");
+        #icon > .element(icon-entypo-megaphone, "1F4E3");
+        #icon > .element(icon-entypo-moon, "\0045");
+        #icon > .element(icon-entypo-palette, "\1F3A8");
+        #icon > .element(icon-entypo-leaf, "\1F342");
+        #icon > .element(icon-entypo-note, "\266A");
+        #icon > .element(icon-entypo-beamed-note, "\266B");
+        #icon > .element(icon-entypo-new, "\1F4A5");
+        #icon > .element(icon-entypo-graduation-cap, "\1F393");
+        #icon > .element(icon-entypo-book, "\1F4D5");
+        #icon > .element(icon-entypo-newspaper, "\1F4F0");
+        #icon > .element(icon-entypo-bag, "\1F45C");
+        #icon > .element(icon-entypo-airplane, "\2708");
+        #icon > .element(icon-entypo-lifebuoy, "\E788");
+        #icon > .element(icon-entypo-eye, "\E70A");
+        #icon > .element(icon-entypo-clock, "\1F554");
+        #icon > .element(icon-entypo-mic, "\1F3A4");
+        #icon > .element(icon-entypo-calendar, "\1F4C5");
+        #icon > .element(icon-entypo-flash, "\26A1");
+        #icon > .element(icon-entypo-thunder-cloud, "\26C8");
+        #icon > .element(icon-entypo-droplet, "\1F4A7");
+        #icon > .element(icon-entypo-cd, "\1F4BF");
+        #icon > .element(icon-entypo-briefcase, "\1F4BC");
+        #icon > .element(icon-entypo-air, "\1F4A8");
+        #icon > .element(icon-entypo-hourglass, "\23F3");
+        #icon > .element(icon-entypo-gauge, "\1F6C7");
+        #icon > .element(icon-entypo-language, "\1F394");
+        #icon > .element(icon-entypo-network, "\E776");
+        #icon > .element(icon-entypo-key, "\1F511");
+        #icon > .element(icon-entypo-battery, "\1F50B");
+        #icon > .element(icon-entypo-bucket, "\1F4FE");
+        #icon > .element(icon-entypo-magnet, "\E7A1");
+        #icon > .element(icon-entypo-drive, "\1F4FD");
+        #icon > .element(icon-entypo-cup, "\2615");
+        #icon > .element(icon-entypo-rocket, "\1F680");
+        #icon > .element(icon-entypo-brush, "\E79A");
+        #icon > .element(icon-entypo-suitcase, "\1F6C6");
+        #icon > .element(icon-entypo-traffic-cone, "\1F6C8");
+        #icon > .element(icon-entypo-globe, "\1F30E");
+        #icon > .element(icon-entypo-keyboard, "\2328");
+        #icon > .element(icon-entypo-browser, "\E74E");
+        #icon > .element(icon-entypo-publish, "\E74D");
+        #icon > .element(icon-entypo-progress-3, "\E76B");
+        #icon > .element(icon-entypo-progress-2, "\E76A");
+        #icon > .element(icon-entypo-progress-1, "\E769");
+        #icon > .element(icon-entypo-progress-0, "\E768");
+        #icon > .element(icon-entypo-light-down, "\1F505");
+        #icon > .element(icon-entypo-light-up, "\1F506");
+        #icon > .element(icon-entypo-adjust, "\25D1");
+        #icon > .element(icon-entypo-code, "\E714");
+        #icon > .element(icon-entypo-monitor, "\1F4BB");
+        #icon > .element(icon-entypo-infinity, "\221E");
+        #icon > .element(icon-entypo-light-bulb, "\1F4A1");
+        #icon > .element(icon-entypo-credit-card, "\1F4B3");
+        #icon > .element(icon-entypo-database, "\1F4F8");
+        #icon > .element(icon-entypo-voicemail, "\2707");
+        #icon > .element(icon-entypo-clipboard, "\1F4CB");
+        #icon > .element(icon-entypo-cart, "\E73D");
+        #icon > .element(icon-entypo-box, "\1F4E6");
+        #icon > .element(icon-entypo-ticket, "\1F3AB");
+        #icon > .element(icon-entypo-rss, "\E73A");
+        #icon > .element(icon-entypo-signal, "\1F4F6");
+        #icon > .element(icon-entypo-thermometer, "\1F4FF");
+        #icon > .element(icon-entypo-water, "\1F4A6");
+        #icon > .element(icon-entypo-sweden, "\F601");
+        #icon > .element(icon-entypo-line-graph, "\1F4C8");
+        #icon > .element(icon-entypo-pie-chart, "\25F4");
+        #icon > .element(icon-entypo-bar-graph, "\1F4CA");
+        #icon > .element(icon-entypo-area-graph, "\1F53E");
+        #icon > .element(icon-entypo-lock, "\1F512");
+        #icon > .element(icon-entypo-lock-open, "\1F513");
+        #icon > .element(icon-entypo-logout, "\E741");
+        #icon > .element(icon-entypo-login, "\E740");
+        #icon > .element(icon-entypo-check, "\2713");
+        #icon > .element(icon-entypo-cross, "\274C");
+        #icon > .element(icon-entypo-squared-minus, "\229F");
+        #icon > .element(icon-entypo-squared-plus, "\229E");
+        #icon > .element(icon-entypo-squared-cross, "\274E");
+        #icon > .element(icon-entypo-circled-minus, "\2296");
+        #icon > .element(icon-entypo-circled-plus, "\2295");
+        #icon > .element(icon-entypo-circled-cross, "\2716");
+        #icon > .element(icon-entypo-minus, "\2796");
+        #icon > .element(icon-entypo-plus, "\2795");
+        #icon > .element(icon-entypo-erase, "\232B");
+        #icon > .element(icon-entypo-block, "\1F6AB");
+        #icon > .element(icon-entypo-info, "\2139");
+        #icon > .element(icon-entypo-circled-info, "\E705");
+        #icon > .element(icon-entypo-help, "\2753");
+        #icon > .element(icon-entypo-circled-help, "\E704");
+        #icon > .element(icon-entypo-warning, "\26A0");
+        #icon > .element(icon-entypo-cycle, "\1F504");
+        #icon > .element(icon-entypo-cw, "\27F3");
+        #icon > .element(icon-entypo-ccw, "\27F2");
+        #icon > .element(icon-entypo-shuffle, "\1F500");
+        #icon > .element(icon-entypo-back, "\1F519");
+        #icon > .element(icon-entypo-level-down, "\21B3");
+        #icon > .element(icon-entypo-retweet, "\E717");
+        #icon > .element(icon-entypo-loop, "\1F501");
+        #icon > .element(icon-entypo-back-in-time, "\E771");
+        #icon > .element(icon-entypo-level-up, "\21B0");
+        #icon > .element(icon-entypo-switch, "\21C6");
+        #icon > .element(icon-entypo-numbered-list, "\E005");
+        #icon > .element(icon-entypo-add-to-list, "\E003");
+        #icon > .element(icon-entypo-layout, "\268F");
+        #icon > .element(icon-entypo-list, "\2630");
+        #icon > .element(icon-entypo-text-doc, "\1F4C4");
+        #icon > .element(icon-entypo-text-doc-inverted, "\E731");
+        #icon > .element(icon-entypo-doc, "\E730");
+        #icon > .element(icon-entypo-docs, "\E736");
+        #icon > .element(icon-entypo-landscape-doc, "\E737");
+        #icon > .element(icon-entypo-picture, "\1F304");
+        #icon > .element(icon-entypo-video, "\1F3AC");
+        #icon > .element(icon-entypo-music, "\1F3B5");
+        #icon > .element(icon-entypo-folder, "\1F4C1");
+        #icon > .element(icon-entypo-archive, "\E800");
+        #icon > .element(icon-entypo-trash, "\E729");
+        #icon > .element(icon-entypo-upload, "\1F4E4");
+        #icon > .element(icon-entypo-download, "\1F4E5");
+        #icon > .element(icon-entypo-save, "\1F4BE");
+        #icon > .element(icon-entypo-install, "\E778");
+        #icon > .element(icon-entypo-cloud, "\2601");
+        #icon > .element(icon-entypo-upload-cloud, "\E711");
+        #icon > .element(icon-entypo-bookmark, "\1F516");
+        #icon > .element(icon-entypo-bookmarks, "\1F4D1");
+        #icon > .element(icon-entypo-open-book, "\1F4D6");
+        #icon > .element(icon-entypo-play, "\25B6");
+        #icon > .element(icon-entypo-paus, "\2016");
+        #icon > .element(icon-entypo-record, "\25CF");
+        #icon > .element(icon-entypo-stop, "\25A0");
+        #icon > .element(icon-entypo-ff, "\23E9");
+        #icon > .element(icon-entypo-fb, "\23EA");
+        #icon > .element(icon-entypo-to-start, "\23EE");
+        #icon > .element(icon-entypo-to-end, "\23ED");
+        #icon > .element(icon-entypo-resize-full, "\E744");
+        #icon > .element(icon-entypo-resize-small, "\E746");
+        #icon > .element(icon-entypo-volume, "\23F7");
+        #icon > .element(icon-entypo-sound, "\1F50A");
+        #icon > .element(icon-entypo-mute, "\1F507");
+        #icon > .element(icon-entypo-flow-cascade, "\1F568");
+        #icon > .element(icon-entypo-flow-branch, "\1F569");
+        #icon > .element(icon-entypo-flow-tree, "\1F56A");
+        #icon > .element(icon-entypo-flow-line, "\1F56B");
+        #icon > .element(icon-entypo-flow-parallel, "\1F56C");
+        #icon > .element(icon-entypo-left-bold, "\E4AD");
+        #icon > .element(icon-entypo-down-bold, "\E4B0");
+        #icon > .element(icon-entypo-up-bold, "\E4AF");
+        #icon > .element(icon-entypo-right-bold, "\E4AE");
+        #icon > .element(icon-entypo-left, "\2B05");
+        #icon > .element(icon-entypo-down, "\2B07");
+        #icon > .element(icon-entypo-up, "\2B06");
+        #icon > .element(icon-entypo-right, "\27A1");
+        #icon > .element(icon-entypo-circled-left, "\E759");
+        #icon > .element(icon-entypo-circled-down, "\E758");
+        #icon > .element(icon-entypo-circled-up, "\E75B");
+        #icon > .element(icon-entypo-circled-right, "\E75A");
+        #icon > .element(icon-entypo-triangle-left, "\25C2");
+        #icon > .element(icon-entypo-triangle-down, "\25BE");
+        #icon > .element(icon-entypo-triangle-up, "\25B4");
+        #icon > .element(icon-entypo-triangle-right, "\25B8");
+        #icon > .element(icon-entypo-chevron-left, "\E75D");
+        #icon > .element(icon-entypo-chevron-down, "\E75C");
+        #icon > .element(icon-entypo-chevron-up, "\E75F");
+        #icon > .element(icon-entypo-chevron-right, "\E75E");
+        #icon > .element(icon-entypo-chevron-small-left, "\E761");
+        #icon > .element(icon-entypo-chevron-small-down, "\E760");
+        #icon > .element(icon-entypo-chevron-small-up, "\E763");
+        #icon > .element(icon-entypo-chevron-small-right, "\E762");
+        #icon > .element(icon-entypo-chevron-thin-left, "\E765");
+        #icon > .element(icon-entypo-chevron-thin-down, "\E764");
+        #icon > .element(icon-entypo-chevron-thin-up, "\E767");
+        #icon > .element(icon-entypo-chevron-thin-right, "\E766");
+        #icon > .element(icon-entypo-left-thin, "\2190");
+        #icon > .element(icon-entypo-down-thin, "\2193");
+        #icon > .element(icon-entypo-up-thin, "\2191");
+        #icon > .element(icon-entypo-right-thin, "\2192");
+        #icon > .element(icon-entypo-arrow-combo, "\E74F");
+        #icon > .element(icon-entypo-three-dots, "\23F6");
+        #icon > .element(icon-entypo-two-dots, "\23F5");
+        #icon > .element(icon-entypo-dot, "\23F4");
+        #icon > .element(icon-entypo-cc, "\1F545");
+        #icon > .element(icon-entypo-cc-by, "\1F546");
+        #icon > .element(icon-entypo-cc-nc, "\1F547");
+        #icon > .element(icon-entypo-cc-nc-eu, "\1F548");
+        #icon > .element(icon-entypo-cc-nc-jp, "\1F549");
+        #icon > .element(icon-entypo-cc-sa, "\1F54A");
+        #icon > .element(icon-entypo-cc-nd, "\1F54B");
+        #icon > .element(icon-entypo-cc-pd, "\1F54C");
+        #icon > .element(icon-entypo-cc-zero, "\1F54D");
+        #icon > .element(icon-entypo-cc-share, "\1F54E");
+        #icon > .element(icon-entypo-cc-remix, "\1F54F");
+        #icon > .element(icon-entypo-db-logo, "\1F5F9");
+        #icon > .element(icon-entypo-db-shape, "\1F5FA");
+        
+        #icon > .element(icon-entypo-social-github, "\F300");
+        #icon > .element(icon-entypo-social-c-github, "\F301");
+        #icon > .element(icon-entypo-social-flickr, "\F303");
+        #icon > .element(icon-entypo-social-c-flickr, "\F304");
+        #icon > .element(icon-entypo-social-vimeo, "\F306");
+        #icon > .element(icon-entypo-social-c-vimeo, "\F307");
+        #icon > .element(icon-entypo-social-twitter, "\F309");
+        #icon > .element(icon-entypo-social-c-twitter, "\F30A");
+        #icon > .element(icon-entypo-social-facebook, "\F30C");
+        #icon > .element(icon-entypo-social-c-facebook, "\F30D");
+        #icon > .element(icon-entypo-social-s-facebook, "\F30E");
+        #icon > .element(icon-entypo-social-google-plus, "\F30F");
+        #icon > .element(icon-entypo-social-c-google-plus, "\F310");
+        #icon > .element(icon-entypo-social-pinterest, "\F312");
+        #icon > .element(icon-entypo-social-c-pinterest, "\F313");
+        #icon > .element(icon-entypo-social-tumblr, "\F315");
+        #icon > .element(icon-entypo-social-c-tumblr, "\F316");
+        #icon > .element(icon-entypo-social-linkedin, "\F318");
+        #icon > .element(icon-entypo-social-c-linkedin, "\F319");
+        #icon > .element(icon-entypo-social-dribbble, "\F31B");
+        #icon > .element(icon-entypo-social-c-dribbble, "\F31C");
+        #icon > .element(icon-entypo-social-stumbleupon, "\F31E");
+        #icon > .element(icon-entypo-social-c-stumbleupon, "\F31F");
+        #icon > .element(icon-entypo-social-lastfm, "\F321");
+        #icon > .element(icon-entypo-social-c-lastfm, "\F322");
+        #icon > .element(icon-entypo-social-rdio, "\F324");
+        #icon > .element(icon-entypo-social-c-rdio, "\F325");
+        #icon > .element(icon-entypo-social-spotify, "\F327");
+        #icon > .element(icon-entypo-social-c-spotify, "\F328");
+        #icon > .element(icon-entypo-social-qq, "\F32A");
+        #icon > .element(icon-entypo-social-instagram, "\F32D");
+        #icon > .element(icon-entypo-social-dropbox, "\F330");
+        #icon > .element(icon-entypo-social-evernote, "\F333");
+        #icon > .element(icon-entypo-social-flattr, "\F336");
+        #icon > .element(icon-entypo-social-skype, "\F339");
+        #icon > .element(icon-entypo-social-c-skype, "\F33A");
+        #icon > .element(icon-entypo-social-renren, "\F33C");
+        #icon > .element(icon-entypo-social-sina-weibo, "\F33F");
+        #icon > .element(icon-entypo-social-paypal, "\F342");
+        #icon > .element(icon-entypo-social-picasa, "\F345");
+        #icon > .element(icon-entypo-social-soundcloud, "\F348");
+        #icon > .element(icon-entypo-social-mixi, "\F34B");
+        #icon > .element(icon-entypo-social-behance, "\F34E");
+        #icon > .element(icon-entypo-social-google-circles, "\F351");
+        #icon > .element(icon-entypo-social-vk, "\F354");
+        #icon > .element(icon-entypo-social-smashing, "\F357");
+    }
+}

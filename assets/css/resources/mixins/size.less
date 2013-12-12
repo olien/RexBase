@@ -1,0 +1,38 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ size
+// #size > .size(500px, 300px);
+// #size > .size(100%);
+// #size > .square(100%);
+
+// @namespace: #size
+
+#size {
+    
+    // @methode: .size
+    // @usage: #size > .size(100px, 100px);
+    // @usage: #size > .size(100px);
+    
+    .size(@var-width: false, @var-height: false) {
+        .size-inseption(@var-width, @var-height) {
+            width: @var-width;
+            height: @var-height;
+        }
+        .inseption(@var, @var-1) when not (@var-1 = false) {
+            .size-inseption(@var-width, @var-height);
+        }
+        .inseption(@var, @var-1) when (@var-1 = false) {
+            .size-inseption(@var-width, @var);
+        }
+        .inseption(@var-width, @var-height);
+    }
+    
+    // @mehtode: .square
+    // @usage: #size > .square(100px);
+    
+    .square(@var-size) {
+        #size > .size(@var-size);
+    }
+}

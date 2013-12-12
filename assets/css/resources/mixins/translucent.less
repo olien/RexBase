@@ -1,0 +1,42 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ translucent
+// #translucent > .background(#f57e20, 0.5);
+// #translucent > .border(#f57e20, 0.5);
+
+// Add an alphatransparency value to any background or border color (via Elyse Holladay)
+
+// @namespace: #translucent
+
+#translucent {
+    
+    // @namespace: .background
+    // @usage: #translucent > .background(#f57e20, 0.5);
+    
+    .background(@var-color: #000, @var-alpha: 1) {
+        .inseption(@var, @var-1) when (iscolor(@var)) and (isnumber(@var-1)) {
+            @var-2: hsla(hue(@var), saturation(@var), lightness(@var), @var-1);
+            @var-3: argb(@var-2);
+            background-color: @var-2;
+            /* IE hacks */
+            zoom: 1;
+            background-color: transparent\9;
+            -ms-filter:  "progid:DXImageTransform.Microsoft.gradient(startColorstr=@{var-3}, endColorstr=@{var-3})";
+                filter: ~"progid:DXImageTransform.Microsoft.gradient(startColorstr=@{var-3}, endColorstr=@{var-3})";
+        }
+        .inseption(@var-color, @var-alpha);
+    }
+    
+    // @namespace: .border
+    // @usage: #translucent > .border(#f57e20, 0.5);
+    
+    .border(@var-color: #000, @var-alpha: 1) {
+        .inseption(@var, @var-1) when (iscolor(@var)) and (isnumber(@var-1)) {
+            border-color: hsla(hue(@var), saturation(@var), lightness(@var), @var-1);
+            #background > .clip(padding-box);
+        }
+        .inseption(@var-color, @var-alpha);
+    }
+}

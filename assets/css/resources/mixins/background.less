@@ -1,0 +1,88 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ background
+// #background > .background(transparent, ~"../img/logo.png", no-repeat, center center, fixed);
+// #background > .background(~"transparent url(../img/logo.png) no-repeat center center");
+// #background > .background(#f57e20, 0.5);
+// #background > .background(#f57e20);
+// #background > .clip(border-box);
+// #background > .origin(padding-box);
+// #background > .size(contain);
+// #background > .size(100px, 20%);
+
+// @helper methode: ../elements/helper.less
+// .background(transparent, ~"../img/logo.png", no-repeat, center center);
+// .background(#f57e20, 0.5);
+// .background(#f57e20);
+
+// @namespace: #background
+
+#background {
+    
+    // @methode: .background
+    // @usage: #background > .background(transparent, ~"../img/logo.png", no-repeat, center center, fixed); // repeat-x|repeat-y|no-repeat|repeat // top|center|left|bottom // scroll|fixed|local
+    // @usage: #background > .background(~"transparent url(../img/logo.png) no-repeat center center");
+    // @usage: #background > .background(#f57e20, 0.5);
+    // @usage: #background > .background(#f57e20);
+    
+    .background(@var-color: transparent, @var-image: false, @var-repeat: repeat, @var-position: left top, @var-attachment: false) {
+        .inception(@var, @var-1, @var-2, @var-3) when not (@var-1 = false) and not (isnumber(@var-1)) {
+            background: @var url(@var-1) @var-2 @var-3;
+        }
+        .inception(@var, @var-1, @var-2, @var-3) when (@var-1 = false) {
+            background: @var;
+        }
+        .inception(@var, @var-1, @var-2, @var-3) when not (@var-1 = false) and (isnumber(@var-1)) {
+            #translucent > .background(@var, @var-1);
+        }
+        .attachment-inception(@var) when not (@var = false) {
+            background-attachment: @var;
+        }
+        .inception(@var-color, @var-image, @var-repeat, @var-position);
+        .attachment-inception(@var-attachment);
+    }
+    
+    // @methode: .clip
+    // @usage: #background > .clip(border-box); // border-box|padding-box|content-box
+    
+    .clip(@var: border-box) {
+        -webkit-background-clip: @var;
+           -moz-background-clip: @var;
+             -o-background-clip: @var;
+                background-clip: @var;
+    }
+    
+    // @methode: .origin
+    // @usage: #background > .origin(padding-box); // padding-box|border-box|content-box
+    
+    .origin(@var: padding-box) {
+        -webkit-background-origin: @var;
+           -moz-background-origin: @var;
+             -o-background-origin: @var;
+                background-origin: @var;
+    }
+    
+    // @methode: .size
+    // @usage #background > .size(100px, 100px); // length|percentage|cover|contain
+    // @usage #background > .size(contain);
+    
+    .size(@var-or-width: contain, @var-height: false) {
+        .size-inception(@var) {
+            -webkit-background-size: @var;
+               -moz-background-size: @var;
+                 -o-background-size: @var;
+                    background-size: @var;
+        }
+        .inception(@var, @var-1) when not (isnumber(@var)) and (@var-1 = false) {
+            @var-2: @var;
+            .size-inception(@var-2);
+        }
+        .inception(@var, @var-1) when (isnumber(@var)) and (isnumber(@var)) {
+            @var-2: @var @var-1;
+            .size-inception(@var-2);
+        }
+        .inception(@var-or-width, @var-height);
+    }
+}

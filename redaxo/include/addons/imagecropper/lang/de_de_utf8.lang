@@ -1,0 +1,102 @@
+﻿# addon: imagecropper de_de
+
+a135_title = ImageCropper
+a135_title_cropimg = Medienpool - Bildbearbeitung
+a135_head = Einstellungen
+a135_head_help = Hilfe
+
+a135_subheader_thumb = Bildausschnitt festlegen
+a135_subheader_params = Bildausgabe und Bildbearbeitungen festlegen
+a135_subheader_cfg = Vorgaben für Bildausschnitte
+
+a135_subnavi_back = Zurück zum Medienpool
+a135_subnavi_index = Einstellungen
+a135_subnavi_help = Hilfe
+
+a135_save = Speichern
+a135_settings_saved = Die Einstellungen wurden gespeichert!
+a135_submit = Es ist ein Fehler aufgetreten!\nBitte füllen Sie mindestens alle Pflichtfelder aus, um die Bildbearbeitung abschließen zu können.
+a135_error = Es ist ein Fehler aufgetreten!
+a135_notice = Hinweis
+a135_selimg = Gewähltes Bild
+a135_bh = B/H
+a135_norights = <strong>Unzureichende Benutzerrechte.</strong><br />Für Änderungen an den Einstellungen wenden Sie sich bitte an Ihren Administrator.
+a135_edit = Bild bearbeiten...
+a135_preview = Vorschau des erstellten Bildes
+a135_info = Hinweise
+a135_ratio = Seitenverhältniss
+a135_imgparams = Bildparameter
+
+a135_dir = Verzeichnis
+a135_destdir = Zielverzeichnis
+a135_notdeleted = konnte nicht gelöscht werden
+a135_notcopyed = konnte nicht kopiert werden
+
+a135_cfg_preset1 = #1
+a135_cfg_preset2 = #2
+a135_cfg_preset3 = #3
+a135_cfg_preset4 = #4
+a135_cfg_preset5 = #5
+a135_cfg_format = Format
+
+a135_thumb_ratio = Seitenverhältniss beibehalten (3/2)
+a135_thumb_presets = Vorgaben
+a135_thumb_imagecrop = Bildausschnitt hier wählen
+a135_thumb_release = Auswahl löschen
+
+a135_param_headerfile = Angaben zur neuen Bilddatei
+a135_param_headeredit = Bildänderungen
+a135_param_headersave = Speicherort
+a135_param_filename = Dateiname
+a135_param_filetype = Dateityp
+a135_param_filequal = Bildqualität (*.jpg)
+a135_param_filter = Effektfilter
+a135_param_filterlevel = Stärke des Effektes
+a135_param_turn = Bild drehen
+a135_param_resize = Neue Bildgröße (B/H)
+a135_param_respixel = Bildgröße in Pixel
+a135_param_savedir = in gleicher Medienkategorie wie das Original speichern
+a135_param_savedir_cat = Kategorie
+a135_param_nocat = Keine Kategorie (Root)
+
+a135_paramopt_nochange = - keine Änderung -
+a135_paramopt_width = neue Breite (width)
+a135_paramopt_height = neue Höhe (height)
+a135_paramopt_90uzs = 90° UZS
+a135_paramopt_180uzs = 180° UZS
+a135_paramopt_270uzs = 270° UZS
+
+a135_paramopt_f_negate = Negativ
+a135_paramopt_f_grayscale = Graustufen
+a135_paramopt_f_brightness = Helligkeit erhöhen (Stärke...)
+a135_paramopt_f_contrast = Kontrast erhöhen (Stärke...)
+a135_paramopt_f_edgedetect = Kanten finden
+a135_paramopt_f_emboss = Relief
+a135_paramopt_f_gauss = Gaußscher Weichzeichner
+a135_paramopt_f_blur = Weichzeichnen
+a135_paramopt_f_removal = Skizzierung
+a135_paramopt_f_smooth = Weichzeichnen (Stärke...)
+a135_paramopt_f_pixelate = Verpixeln (Stärke...)
+a135_paramopt_f_mirrorx = Spiegelung horizontal
+a135_paramopt_f_mirrory = Spiegelung vertikal
+a135_paramopt_f_sharpening = Scharfzeichnen (Stärke...)
+a135_paramopt_f_scatter = Scatter-Effekt (Stärke...)
+
+a135_cropimg_text1 = Wählen Sie in der Bildvorschau durch "Klicken und Ziehen" Ihren gewünschten Bildauschnitt oder geben für eine Größenänderung Ihre neuen Bilddimensionen in den entsprechenden Feldern an.<br />Starten Sie abschließend die Bearbeitung Ihres Bildes mit Klick auf "Neues Bild erzeugen...".
+a135_cropimg_text2 = Hinweise:<br />Entfernen Sie die Auswahl, wenn Sie ein Bild z.B. nur drehen oder verkleinern möchten.<br />Ist der Speicherort des Originals nicht aktiviert, dann wird das neue Bild in der obersten Medienkategorie abgelegt.<br />Einige Funktionen (z.B. Drehung, Effektfilter) sind nur bei entsprechend konfigurierten Servern möglich.
+
+a135_help_text1 = Addon zur Einbindung einer Bildbearbeitung auf Basis des jQuery-jCrop-Plugins.<br />Dieses Addon basiert auf der Originalversion von Jungwirth Media (ImageCrop 1.3.4).<br /><br />Die Funktionen wurden für Redaxo 4.2x und höher erweitert.<br /><br />Servervoraussetzung: PHP5+ und GD2+
+a135_help_text2a = Innerhalb des Medienpools kann über die Schaltfläche "Bild bearbeiten..." der ImageCropper gestartet werden.<br />In der folgenden Maske wird mittels Mausauswahl (Linksklick + Ziehen innerhalb der Bildvorschau) ein Ausschnitt festgelegt. Mittels der hinterlegbaren Vorgaben kann ein Ausschnitt mit einer fest definierten Zielgröße definiert werden.
+a135_help_text2b = Mittels der Funktionen zur Bildänderung kann zusätzlich die Endgröße verändert werden. Diese umfasst je nach Serverfunktionen die Drehung von Bildern, die Vergrößerung/Verkleinerung und die Anwendung von Effektfiltern.<br />Soll ein Bild z.B. nur Verkleinert werden, dann ist kein Aussschnitt zu wählen. Als neue Bildgröße gibt man z.B. "neue Breite" an und hinterlegt die gewünschte Zielgröße im Feld "Bildgröße".
+a135_help_text3 = Als Administrator können Sie bis zu 5 Vorgaben für Bildgrößen definieren. Diese Vorgaben können von den Nutzern zur Erstellung von Bildauschnitten genutzt werden.<br />Legen Sie diese im Format "200x100" an.
+a135_help_textheader1 = Funktionen
+a135_help_textheader2 = Bedienung
+a135_help_textheader3 = Einstellungen
+
+a135_makeimg_success = Bildbearbeitung erfolgreich ausgeführt.
+a135_newfile = Neue Datei
+a135_makeimg_error1 = Bildbearbeitung konnte nicht beendet werden (Grund: Probleme beim Speichern der Datei)
+a135_makeimg_error2 = Bildbearbeitung konnte nicht ausgeführt werden (Grund: Dateiname und Dateipfad sind fehlerhaft).
+a135_preview = Vorschau des erstellten Bildes
+a135_makeimg_info1 = Die Funktion zum Drehen von Bildern ist auf diesem Server/dieser Domain nicht verfügbar.
+a135_makeimg_info2 = Die Funktion zum Hinzufügen von Effekten ist auf diesem Server/dieser Domain nur eingeschränkt verfügbar.

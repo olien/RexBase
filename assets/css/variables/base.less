@@ -1,0 +1,129 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ colors
+
+// black white
+@black:                                 #000;
+@white:                                 #fff;
+
+// gray
+@gray-darker:                           lighten(@black, 13.5%); // #222
+@gray-dark:                             lighten(@black, 20%);   // #333
+@gray:                                  lighten(@black, 33.5%); // #555
+@gray-light:                            lighten(@black, 60%);   // #999
+@gray-lighter:                          lighten(@black, 93.5%); // #eee
+@gray-more-lighter:                     lighten(@black, 96.5%); // #f6f6f6
+
+// colors
+@blue:                                  #049cdb;
+@blue-dark:                             #0064cd;
+@h5blue:                                #b3d4fc;
+@cyan:                                  #08cccc;
+@green:                                 #46a546;
+@red:                                   #9d261d;
+@yellow:                                #ffc40d;
+@orange:                                #f89406;
+@pink:                                  #c3325f;
+@purple:                                #7a43b6;
+
+// ----------------------------------------------------- ~ font-familys
+
+@sans-font-family:                      "Helvetica Neue", Helvetica, Arial, Verdana, sans-serif;
+@serif-font-family:                     Georgia, "Times New Roman", Times, serif;
+@lucida-font-family:                    "Lucida Sans Unicode", "Lucida Grande", Helvetica, sans-serif;
+@mono-font-family:                      Monaco, Menlo, Consolas, "Courier New", monospace;
+@andale-font-family:                    'andale mono', 'lucida console', monospace;
+
+
+// ----------------------------------------------------- ~ global grid settings
+
+@base-number-of-columns:                12;
+@base-column-width:                     60px;
+@base-gutter-width:                     20px;
+
+// ----------------------------------------------------- ~ base distance
+
+@base-distance:                         20px;
+
+// ----------------------------------------------------- ~ font-style
+
+@base-font-family:                      @sans-font-family;
+@base-font-weight:                      500;
+@base-line-height:                      1.428;
+@base-color:                            @black;
+@base-background:                       @white;
+
+@base-font-size:                        14px;
+@base-font-size-large:                  ceil(@base-font-size * 1.25);
+@base-font-size-small:                  ceil(@base-font-size * 0.85);
+
+// ----------------------------------------------------- ~ typo
+
+// headline factors
+@base-headline-distance-factor-top:     1;
+@base-headline-distance-factor-bottom:  0.5;
+
+// headline font sizes
+@base-font-size-h1:                     floor(@base-font-size * 2.6);
+@base-font-size-h2:                     floor(@base-font-size * 2.15);
+@base-font-size-h3:                     ceil(@base-font-size * 1.7);
+@base-font-size-h4:                     ceil(@base-font-size * 1.25);
+@base-font-size-h5:                     @base-font-size;
+@base-font-size-h6:                     ceil(@base-font-size * 0.85);
+
+// other headline basics
+@base-headline-size-small:              65%;
+@base-headline-line-height:             @base-line-height * 0.75;
+
+// ----------------------------------------------------- ~ table
+
+// table factors
+@base-table-cell-inner-factor:          0.4;
+@base-table-distance-factor-top:        1;
+@base-table-distance-factor-bottom:     1;
+
+// other talbes basics
+@base-table-bg:                         transparent;
+@base-table-bg-accent:                  #f9f9f9;
+@base-table-thead-border:               ~"2px solid #ddd";
+@base-table-tbody-border:               ~"1px solid #ddd";
+@base-table-tfoot-border:               ~"1px solid #ddd";
+
+// ----------------------------------------------------- ~ form
+
+@base-form-legend-color:                @gray-dark;
+@base-form-legend-border:               ~"1px solid #ddd; border-top: none; border-left: none; border-right: none;";
+@base-form-legend-size:                 @base-font-size-large;
+
+@base-form-fieldset-border:             ~"0";
+
+@base-form-label-distance-factor:       0.25;
+@base-font-label-weight:                normal;
+
+@base-form-input-color:                 @gray-dark;
+@base-form-input-border:                ~"1px solid #ccc";
+@base-form-input-border-focus:          lighten(@black, 60%);
+@base-form-input-shadow:                ~"inset 0 1px 1px rgba(0,0,0,0.075)";
+@base-form-input-radius:                3px;
+
+@base-form-area-border:                 @base-form-input-border;
+@base-form-area-border-focus:           @base-form-input-border-focus;
+@base-form-area-shadow:                 @base-form-input-shadow;
+@base-form-area-radius:                 @base-form-input-radius;
+
+@base-form-select-border:               @base-form-input-border;
+@base-form-select-border-focus:         @base-form-input-border-focus;
+@base-form-select-shadow:               @base-form-input-shadow;
+@base-form-select-radius:               @base-form-input-radius;
+
+// ----------------------------------------------------- ~ buttons
+
+@base-button-border:                    @base-form-input-border;
+@base-button-border-hover:              @base-form-input-border-focus;
+@base-button-radius:                    @base-form-input-radius;
+
+@base-button-shadow:                    @base-form-input-shadow;
+@base-button-background-color:          #efefef;
+@base-button-background-color-hover:    #ddd;

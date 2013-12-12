@@ -1,0 +1,228 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ typo
+// #typo > .defaults();
+// #typo > .headlines();
+// #typo > .headlines-top-span();
+// #typo > .paragraphs();
+// #typo > .inline-elements();
+// #typo > .pre-code();
+// #typo > .lists();
+// #typo > .other-elements();
+// #typo > .pre-code();
+
+// @namespace: #typo
+
+#typo {
+    
+    // @methode: .defaults
+    // @usage: #typo > .defaults();
+    
+    .defaults() {
+        #typo > .headlines();
+        #typo > .headlines-top-span();
+        #typo > .paragraphs();
+        #typo > .inline-elements();
+        #typo > .lists();
+        #typo > .other-elements();
+        #typo > .pre-code();
+    }
+    
+    // @methode: .headlines
+    // @usage: #typo > .headlines(36px, 30px, 24px, 18px, 14px, 12px, 1.1, 20px, 1.1, 0.6, 65%);
+    
+    .headlines(@var-size-h1: @base-font-size-h1, @var-size-h2: @base-font-size-h2, @var-size-h3: @base-font-size-h3, @var-size-h4: @base-font-size-h4, @var-size-h5: @base-font-size-h5, @var-size-h6: @base-font-size-h6, @var-line-height: @base-headline-line-height, @var-distance: @base-distance, @var-distance-factor-top: @base-headline-distance-factor-top, @var-distance-factor-bottom: @base-headline-distance-factor-bottom, @var-size-small: @base-headline-size-small) {
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            line-height: @var-line-height;
+            text-rendering: optimizelegibility;
+            margin-top: ceil(@var-distance * @var-distance-factor-top);
+            margin-bottom: ceil(@var-distance * @var-distance-factor-bottom);
+            clear: both;
+            
+            small {
+                .font-size(@var-size-small);
+            }
+        }
+        h1 {
+            .font-size(@var-size-h1);
+        }
+        h2 {
+            .font-size(@var-size-h2);
+        }
+        h3 {
+            .font-size(@var-size-h3);
+        }
+        h4 {
+            .font-size(@var-size-h4);
+        }
+        h5 {
+            .font-size(@var-size-h5);
+        }
+        h6 {
+            .font-size(@var-size-h6);
+        }
+    }
+    
+    // @methode: .headlines-top-span
+    // @usage: #typo > .headlines-top-span(20px, 1.5, 0.5);
+    
+    .headlines-top-span(@var-distance: @base-distance, @var-distance-factor-top-1: 1.5, @var-distance-factor-top-2: 1) {
+        * + h1,
+        * + h2,
+        * + h3 {
+            margin-top: ceil(@var-distance * @var-distance-factor-top-1);
+        }
+        h1 + h2,
+        h2 + h3,
+        h3 + h4,
+        h4 + h5,
+        h5 + h6 {
+            margin-top: ceil(@var-distance * @var-distance-factor-top-2);
+        }
+    }
+    
+    // @methode: .headlines-bottom-span
+    // @usage: #typo > .headlines-botttom-span(20px, 1.5, 0.5);
+    
+    .headlines-botttom-span(@var-distance: @base-distance, @var-distance-factor-top-1: 1.5, @var-distance-factor-top-2: 1) {
+        h1,
+        h2,
+        h3 {
+            margin-bottom: ceil(@var-distance * @var-distance-factor-top-1);
+        }
+        h4,
+        h5,
+        h6 {
+            margin-top: ceil(@var-distance * @var-distance-factor-top-2);
+        }
+    }
+    
+    // @methode: .paragraphs
+    // @usage: #typo > .paragraphs(14px, 1.6, 20px, 0.75);
+    
+    .paragraphs(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75) {
+        p {
+            margin: ceil(@var-distance * @var-distance-factor) 0;
+            #font > .shorthand(@var-size, normal, @var-line-height);
+        }
+    }
+    
+    // @methode: .inline-elements
+    // @usage: #typo > .inline-elements(75%);
+    
+    .inline-elements(@var-size-small: @base-font-size-small) {
+        b,
+        dfn,
+        strong {
+            font-weight: bold;
+        }
+        dfn,
+        em {
+            font-style: italic;
+        }
+        strike {
+            text-decoration: line-through;
+        }
+        span {
+        }
+        small {
+            .font-size(@var-size-small);
+        }
+        cite {
+            font-weight: normal;
+        }
+    }
+    
+    // @methode: .lists
+    // @usage: #typo > .lists(14px, 1.6, 20px, 0.75);
+    
+    .lists(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75) {
+        dl,
+        ol,
+        ul {
+            margin: ceil(@var-distance * @var-distance-factor) 0;
+            #font > .shorthand(@var-size, normal, @var-line-height);
+        }
+        ol,
+        ul {
+            li {
+            }
+        }
+        dl {
+            dd,
+            dl {
+            }
+            dd {
+            }
+            dt {
+                font-weight: bold;
+            }
+        }
+    }
+    
+    // @methode: .pre-code
+    // @usage: #typo > .pre-code(80%, @mono-font-family, @blue-dark, @gray-more-lighter, 3px, 3px);
+    
+    .pre-code(@var-size: 80%, @var-code-font-family: @mono-font-family, @var-color: @red, @var-background-color: @gray-more-lighter, @var-code-padding: 3px, @var-code-radius: 3px) {
+        pre,
+        code {
+            .font-size(@var-size);
+            #border > .radius(@var-code-radius);
+            color: @var-color;
+            white-space: nowrap;
+            background-color: @var-background-color;
+            font-family: @var-code-font-family;
+            padding: @var-code-padding;
+        }
+        pre {
+            border: 1px solid darken(@var-background-color, 15%);
+            white-space: pre;
+            vertical-align: baseline;
+        }
+    }
+    
+    // @methode: .other-elements
+    // @usage: #typo > .other-elements(14px, 24px, 1.6, 20px, 0.75, @gray-light);
+    
+    .other-elements(@var-address-font-size: @base-font-size, @var-blockquote-font-size: @base-font-size-h4, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75, @var-line-color: @gray-light) {
+        .vcard,
+        .vevent,
+        .hreview,
+        address {
+            margin: ceil(@var-distance * @var-distance-factor) 0;
+            #font > .shorthand(@var-address-font-size, normal, @var-line-height);
+            font-style: normal;
+        }
+        blockquote {
+            #font > .shorthand(@var-blockquote-font-size, ~"", @var-line-height);
+            
+            p {
+                .font-size(@var-blockquote-font-size);
+            }
+            small {
+                #box > .display(block);
+                
+                &:before {
+                    content: '\2014 \00A0';
+                }
+            }
+            &:before
+            &:after {
+                content: "";
+            }
+        }
+        acronym,
+        abbr[title],
+        abbr[data-original-title] {
+            cursor: help;
+            border-bottom: 1px dotted @var-line-color;
+        }
+    }
+}

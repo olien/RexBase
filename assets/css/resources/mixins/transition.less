@@ -1,0 +1,83 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ transition
+// #transition > .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
+// #transition > .transform(~"150ms ease-in-out, border 150ms ease-in-out");
+// #transition > .set(all, 2s, linear);
+// #transition > .delay(40ms);
+// #transition > .duration(15ms);
+
+// @helper methode: ../elements/helper.less
+// #transition > .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
+// #transition > .transition(~"150ms ease-in-out, background 150ms ease-in-out, border 150ms ease-in-out", transform);
+
+// @namespace: #transition
+
+#transition {
+    
+    // @methode: .transition
+    // @usage: #transition > .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
+    // @usage: #transition > .transition(~"150ms ease-in-out, background 150ms ease-in-out, border 150ms ease-in-out", transform);
+    
+    .transition(@var, @type: false) {
+        .inseption(@var, @var-1) when (@var-1 = transform) {
+            -webkit-transition: -webkit-transform @var;
+               -moz-transition: -moz-transform @var;
+                -ms-transition: -ms-transform @var;
+                 -o-transition: -o-transform @var;
+                    transition: transform @var;
+        }
+        .inseption(@var, @var-1) when not (@var-1 = transform) {
+            -webkit-transition: @var;
+               -moz-transition: @var;
+                -ms-transition: @var;
+                 -o-transition: @var;
+                    transition: @var;
+        }
+        .inseption(@var, @type);
+    }
+    
+    // @methode: .transform
+    // @usage: #transition > .transform(~"150ms ease-in-out, border 150ms ease-in-out");
+    
+    .transform(@var) {
+        #transition > .transition(@var, transform);
+    }
+    
+    // @methode: .delay
+    // @usage: #transition > .delay(40ms);
+    
+    .delay(@var) {
+        -webkit-transition-delay: @var;
+           -moz-transition-delay: @var;
+             -o-transition-delay: @var;
+                transition-delay: @var;
+    }
+    
+    // @methode: .duration
+    // @usage: #transition > .duration(15ms);
+    
+    .duration(@var) {
+        -webkit-transition-duration: @var;
+           -moz-transition-duration: @var;
+             -o-transition-duration: @var;
+                transition-duration: @var;
+    }
+    
+    // @methode: .set
+    // @usage: #transition > .set(all, 2s, linear);
+    
+    .set(@prop: all, @time: 1s, @ease: linear) {
+        .inseption(@var, @var-1, @var-2) when (@var = transform) {
+            @var-3: @var-1 @var-2;
+            #transition > .transition(@var-3, @var);
+        }
+        .inseption(@var, @var-1, @var-2) when not (@var = transform) {
+            @var-3: @var @var-1 @var-2;
+            #transition > .transition(@var-3);
+        }
+        .inseption(@prop, @time, @ease);
+    }
+}

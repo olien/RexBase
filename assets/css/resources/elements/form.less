@@ -1,0 +1,189 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ forms
+// #form > .form();
+
+#form {
+    
+    // @methode: .defaults
+    // @usage: #form > .defaults();
+    
+    .defaults() {
+        #form > .form();
+        #form > .labels();
+        #form > .textareas();
+        #form > .inputs();
+        #form > .selects();
+        #form > .checkboxes();
+        #form > .radios();
+        #form > .buttons();
+    }
+    
+    // @methode: .form()
+    // @usage: #form > .form();
+    
+    .form(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75, @var-legend-size: @base-form-legend-size, @var-legend-color: @base-form-legend-color, @var-legend-border: @base-form-legend-border, @var-label-weight: @base-font-label-weight) {
+        form {
+            #box > .display(block);
+            #unset > .distances();
+            margin: ceil(@var-distance * @var-distance-factor) 0;
+            #form > .shorthand(@var-size, normal, @var-line-height);
+            #form > .legend(@var-legend-size, @var-line-height, @var-legend-color, @var-legend-border, @var-distance);
+            
+            fieldset {
+                #box > .display(block);
+                #unset > .distances();
+                border: @base-form-fieldset-border;
+                
+                > div {
+                    #box > .display(block);
+                }
+            }
+            legend {
+                #unset > .distances();
+                #box > .display(block);
+                color: @var-legend-color;
+                border: @var-legend-border;
+                width: 100%;
+                #font > .shorthand(@var-legend-size, normal, @var-line-height);
+                
+                + * {
+                    padding-top: @var-distance;
+                }
+            }
+            label {
+                font-weight: @var-label-weight;
+            }
+            > div {
+                #box > .display(block);
+            }
+        }
+    }
+    
+    // @methode: .labels
+    // @usage: #form > .labels();
+    
+    .labels(@var-weight: @base-font-label-weight, @var-distance: @base-distance, @var-factor: @base-form-label-distance-factor) {
+        label {
+            #box > .display(block);
+            margin-bottom: ceil(@var-distance * @var-factor);
+            font-weight: @var-weight;
+        }
+    }
+    
+    // @methode: .inputs
+    // @usage: #form > .inputs();
+    
+    .inputs(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-input-border, @var-border-focus: @base-form-input-border-focus, @var-shadow: @base-form-input-shadow, @var-radius: @base-form-input-radius) {
+        input {
+            &[type="text"],
+            &[type="password"],
+            &[type="datetime"],
+            &[type="datetime-local"],
+            &[type="date"],
+            &[type="month"],
+            &[type="time"],
+            &[type="week"],
+            &[type="number"],
+            &[type="email"],
+            &[type="url"],
+            &[type="search"],
+            &[type="tel"],
+            &[type="color"] {
+                #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+                #form > .input-focus(@var-border-focus);
+            }
+            &[type="file"] {
+                #box > .display(block);
+                #base > .backface-visibility(show);
+            }
+        }
+    }
+    
+    // @methode: .textareas
+    // @usage: #form > .textareas();
+    
+    .textareas(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-area-border, @var-border-focus: @base-form-area-border-focus, @var-shadow: @base-form-area-shadow, @var-radius: @base-form-area-radius) {
+        textarea {
+            #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+            #form > .input-focus(@var-border-focus);
+        }
+    }
+    
+    // @methode: .checkboxes
+    // @usage: #form > .checkboxes();
+    
+    .checkboxes(@var-distance: @base-distance) {
+        input {
+            &[type="checkbox"]{
+                float: left;
+                margin: ceil(@var-distance * 0.1) ceil(@var-distance * 0.25) 0 0;
+                line-height: normal;
+                width: auto;
+            }
+        }
+    }
+    
+    // @methode: .radios
+    // @usage: #form > .radios();
+    
+    .radios(@var-distance: @base-distance) {
+        input {
+            &[type="radio"]{
+                float: left;
+                margin: ceil(@var-distance * 0.1) ceil(@var-distance * 0.25) 0 0;
+                line-height: normal;
+                width: auto;
+            }
+        }
+    }
+    
+    // @methode: .selects
+    // @usage: #form > .selects();
+    
+    .selects(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-select-border, @var-border-focus: @base-form-select-border-focus, @var-shadow: @base-form-select-shadow, @var-radius: @base-form-select-radius) {
+        select {
+            #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+            #form > .input-focus(@var-border-focus);
+        }
+    }
+    
+    // @methode: .buttons
+    // @usage: #form > .buttons();
+    
+    .buttons(@var-distance: @base-distance) {
+        .button-style() {
+            #button > .base();
+            #button > .border();
+            #button > .background();
+        }
+        input {
+            &[type="button"],
+            &[type="reset"],
+            &[type="submit"] {
+                .button-style();
+            }
+        }
+        button {
+            .button-style()
+        }
+        div {
+            &:first-child {
+                &[type="button"]:first-child,
+                &[type="reset"]:first-child,
+                &[type="submit"]:first-child,
+                button:first-child {
+                    margin-top: 0;
+                }
+            }
+            &[type="button"]:first-child,
+            &[type="reset"]:first-child,
+            &[type="submit"]:first-child,
+            button:first-child {
+                margin-top: ceil(@var-distance * 0.75);
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ opacity
+// #transparency > .opacity(0.5);
+// #transparency > .background(@black, 0.5);
+// #transparency > .border(@black, 0.5);
+
+// @helper methode: ../../elements/helper.less
+// @usage: .opacity(0.5);
+
+// @namespace: #transparency
+
+#transparency {
+    
+    // @methode: .opacity
+    // @usage: #transparency > .opacity(0.5);
+    
+    .opacity(@alpha) {
+        @msOpacity: @alpha * 100;
+        -webkit-opacity: @alpha;
+         -khtml-opacity: @alpha;
+           -moz-opacity: @alpha;
+                opacity: @alpha;
+             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{msOpacity})";
+    }
+    
+    // @methode: .background
+    // @usage: #transparency > .background(@black, 0.5);
+    
+    .background(@var-color, @var-alpha) {
+        #translucent > .background(@var-color, @var-alpha);
+    }
+    
+    // @methode: .border
+    // @usage: #transparency > .border(@black, 0.5);
+    
+    .border(@color, @alpha) {
+        #translucent > .border(@color, @alpha);
+    }
+}

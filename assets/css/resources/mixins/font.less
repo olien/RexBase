@@ -1,0 +1,99 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@var-basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ font
+// #font > .font(ubuntu, ~"../fonts/ubuntu", ubuntu-filename);
+// #font > .font-face(entypo, ~"../fonts/entypo", entypo-filename, 400, normal, false, ie9-skip-eot);
+// #font > .shorthand(12px, normal, 1.4em);
+// #font > .smoothing();
+
+// @helper methode: ../elements/helper.less
+// .font-size(16px);
+
+// @var-namespace: #font
+
+#font {
+    
+    // @methode: .face
+    // @usage: #font > .face(ubuntu, ~"../fonts/ubuntu", ubuntu-filename);
+    // @usage: #font > .face(entypo, ~"../fonts/entypo", entypo-filename, 400, normal, false, ie9-skip-eot);
+    
+    .face(@var-font-name, @var-font-path, @var-font-file-name, @var-font-weight: @base-font-weight, @var-font-style: normal, @var-include-svg: false, @var-format: embedded-opentype) {
+        .inception(@var, @var-1, @var-2, @var-3, @var-4) when not (@var-3 = false) {
+            src: url('@{var-1}/@{var-2}.eot');
+            src: url('@{var-1}/@{var-2}.eot?#iefix') format('@{var-4}'),
+                 url('@{var-1}/@{var-2}.woff') format('woff'),
+                 url('@{var-1}/@{var-2}.ttf') format('truetype'),
+                 url('@{var-1}/@{var-2}.svg#@{var}') format('svg');
+        }
+        .inception(@var, @var-1, @var-2, @var-3, @var-4) when (@var-3 = false) {
+            src: url('@{var-1}/@{var-2}.eot');
+            src: url('@{var-1}/@{var-2}.eot?#iefix') format('@{var-4}'),
+                 url('@{var-1}/@{var-2}.woff') format('woff'),
+                 url('@{var-1}/@{var-2}.ttf') format('truetype');
+        }
+        @font-face {
+            font-family: @var-font-name;
+            .inception(@var-font-name, @var-font-path, @var-font-file-name, @var-include-svg, @var-format);
+            font-weight: @var-font-weight;
+            font-style: normal;
+        }
+    }
+    
+    // @methode: .font-face
+    // @usage: #font > .font-face(ubuntu, ~"../fonts/ubuntu", ubuntu-filename);
+    // @usage: #font > .font-face(entypo, ~"../fonts/entypo", entypo-filename, 400, normal, false, ie9-skip-eot);
+    
+    .font-face(@var-font-name, @var-font-path, @var-font-file-name, @var-font-weight, @var-font-style, @var-include-svg, @var-format) {
+        #font > .face(@var-font-name, @var-font-path, @var-font-file-name, @var-font-weight, @var-font-style, @var-include-svg, @var-format);
+    }
+    
+    // @methode: .size
+    // @usage: #font > .size(16px); // em|px|%
+    
+    .size(@var-size: @base-font-size, @var-base-size: 16px) {
+        .inception(@var, @var-1) when not (ispercentage(@var)) and not (isem(@var)) {
+            @var-size: unit(@var);
+            @var-base-size: unit(@var-1);
+            @var-rem: (@var-size / @var-base-size);
+            font-size: ~"@{var-size}px"; 
+            font-size: ~"@{var-rem}rem";
+        }
+        .inception(@var, @var-1) when (isem(@var)) {
+            @var-size: unit(@var);
+            @var-base-size: unit(@var-1);
+            @var-px: (@var-size * @var-base-size);
+            font-size: ~"@{var-px}px"; 
+            font-size: ~"@{var-size}rem";
+        }
+        .inception(@var, @var-1) when (ispercentage(@var)) {
+            font-size: @var; 
+        }
+        .inception(@var-size, @var-base-size);
+    }
+    
+    // @methode: .shorthand
+    // @usage: #font > .shorthand(12px, normal, 120%);
+    
+    .shorthand(@var-size: 12px, @var-weight: normal, @var-line-height: 120%) {
+        .font-size(@var-size);
+        font-weight: @var-weight;
+        line-height: @var-line-height;
+    }
+    
+    // @methode: .smoothing
+    // @usage: #font > .smoothing(off); off|antialiased|subpixel-antialiased
+    
+    .smoothing(@var: subpixel-antialiased) {
+        .inseption(@var) when not (@var = subpixel-antialiased) {
+             -webkit-font-smoothing: @var;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        .inseption(@var) when (@var = subpixel-antialiased) {
+             -webkit-font-smoothing: @var;
+            -moz-osx-font-smoothing: auto;
+        }
+        .inseption(@var);
+    }
+}

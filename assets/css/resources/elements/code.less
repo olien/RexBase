@@ -1,0 +1,82 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ prettyprint
+// #code > .prettyprint();
+
+// @namespace: #code
+
+#code {
+    
+    // @methode: .prettyprint
+    // @usage: #code > .prettyprint(13, 20px, 1.4, @mono-font-family);
+    
+    .prettyprint(@var-size: 11px, @var-distance: @base-distance, @var-line-height: @base-line-height, @var-font: @mono-font-family) {
+        .com {
+            color: #93a1a1;
+        }
+        .lit {
+            color: #195f91;
+        }
+        .pun,
+        .opn,
+        .clo {
+            color: #93a1a1;
+        }
+        .fun {
+            color: #dc322f;
+        }
+        .str,
+        .atv {
+            color: #D14;
+        }
+        .kwd,
+        .prettyprint .tag {
+            color: #1e347b;
+        }
+        .typ,
+        .atn,
+        .dec,
+        .var {
+            color: teal;
+        }
+        .pln {
+            color: #48484c;
+        }
+        pre {
+            font-family: @var-font;
+            
+            * {
+                font-family: @var-font;
+            }
+        }
+        .prettyprint {
+            #border > .radius(3px);
+            
+            font-size: @var-size;
+            padding: ceil((@var-distance / 2) * 0.8);
+            margin: @var-distance 0;
+            background-color: #f7f7f9;
+            border: 1px solid #e1e1e8;
+            
+            &.linenums {
+                @shadow: inset ceil(@var-distance * 2) 0 0 #fbfbfc, inset ceil((@var-distance * 2) + 1) 0 0 #ececf0;
+                #box > .shadow(@shadow);
+            }
+            ol.linenums {
+                margin: 0;
+                padding: 0 0 0 ceil(@var-distance * 1.65);
+                *margin: 0 0 0 ceil(@var-distance * 1.65);
+                
+                li {
+                    #box > .shadow (0, 1px, 0, #fff, 0.5);
+                    
+                    padding-left: ceil(@var-distance * 0.25);
+                    color: #bebec5;
+                    line-height: @var-line-height;
+                }
+            }
+        }
+    }
+}

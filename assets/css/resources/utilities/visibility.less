@@ -1,0 +1,286 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ visibility
+// #visibility > .hide-text();
+// #visibility > .invisible();
+// #visibility > .visible();
+// #visibility > .responsive();
+// #visibility > .print();
+
+// @helper methode: ../../elements/helper.less
+// @usage: .hide-text();
+
+// @namespace: #visibility
+
+#visibility {
+    
+    // @methode: .hide-text
+    // @usage: #visibility > .hide-text();
+    
+    .hide-text() {
+        font: 0/0 a;
+        color: transparent;
+        text-shadow: none;
+        background-color: transparent;
+        border: 0;
+    }
+    
+    // @methode: .invisible
+    // @usage: #visibility > .invisible();
+    
+    .invisible() {
+        visibility: hidden;
+    }
+    
+    // @methode: .visible
+    // @usage: #visibility > .visible();
+    
+    .visible() {
+        visibility: visible;
+    }
+    
+    // @namespace: #responsive
+    
+    #responsive {
+        
+        // @methode: .responsive-visibility
+        // @usage: #visibility > #responsive > .responsive-visibility();
+        
+        .responsive-visibility() {
+            #display > .block-important();
+            
+            tr& {
+                #box > .display(table-row, important);
+            }
+            th&,
+            td& {
+                #box > .display(table-cell, important);
+            }
+        }
+        
+        // @methode: .responsive-invisibility
+        // @usage: #visibility > #responsive > .responsive-invisibility();
+        
+        .responsive-invisibility() {
+              &,
+            tr&,
+            th&,
+            td& {
+                #box > .display(none, important);
+            }
+        }
+        
+        // @methode: .inseption
+        // @usage: #visibility > #responsive > .inseption();
+        
+        .inseption() {
+            // IE10 metro responsive
+            @-ms-viewport {
+                width: device-width;
+            }
+            .visible-xs {
+                .responsive-invisibility();
+                @media (max-width: @screen-xs-max) {
+                    #visibility > #responsive > .responsive-visibility();
+                }
+                &.visible-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+            }
+            .visible-sm {
+                .responsive-invisibility();
+                &.visible-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                    #visibility > #responsive > .responsive-visibility();
+                }
+                &.visible-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+            }
+            .visible-md {
+                .responsive-invisibility();
+                &.visible-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                    #visibility > #responsive > .responsive-visibility();
+                }
+                &.visible-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+            }
+            .visible-lg {
+                .responsive-invisibility();
+                &.visible-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                &.visible-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-visibility();
+                    }
+                }
+                @media (min-width: @screen-lg-min) {
+                    #visibility > #responsive > .responsive-visibility();
+                }
+            }
+            .hidden-xs {
+                .responsive-visibility();
+                @media (max-width: @screen-xs-max) {
+                    #visibility > #responsive > .responsive-invisibility();
+                }
+                &.hidden-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+            }
+            .hidden-sm {
+                .responsive-visibility();
+                &.hidden-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                    #visibility > #responsive > .responsive-invisibility();
+                }
+                &.hidden-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+            }
+            .hidden-md {
+                .responsive-visibility();
+                &.hidden-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                    #visibility > #responsive > .responsive-invisibility();
+                }
+                &.hidden-lg {
+                    @media (min-width: @screen-lg-min) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+            }
+            .hidden-lg {
+                .responsive-visibility();
+                &.hidden-xs {
+                    @media (max-width: @screen-xs-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-sm {
+                    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                &.hidden-md {
+                    @media (min-width: @screen-md-min) and (max-width: @screen-md-max) {
+                        #visibility > #responsive > .responsive-invisibility();
+                    }
+                }
+                @media (min-width: @screen-lg-min) {
+                    #visibility > #responsive > .responsive-invisibility();
+                }
+            }
+        }
+        
+        // @methode: .print-inseption
+        // @usage: #visibility > #responsive > .print-inseption();
+        
+        .print-inseption() {
+            // Print utilities
+            .visible-print {
+                #visibility > #responsive > .responsive-invisibility();
+            }
+            
+            @media print {
+                .visible-print {
+                    #visibility > #responsive > .responsive-visibility();
+                }
+                .hidden-print {
+                    #visibility > #responsive > .responsive-invisibility();
+                }
+            }
+        }
+    }
+    
+    // @methode: .responsive
+    // @usage: 
+    
+    .responsive() {
+        #visibility > #responsive > .inseption();
+    }
+    
+    // @methode: .responsive
+    // @usage: 
+    
+    .print() {
+        #visibility > #responsive > .print-inseption();
+    }
+}

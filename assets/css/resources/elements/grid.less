@@ -1,0 +1,95 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ grid
+// #grid > .generate();
+// #grid > .gs-1200();
+// #grid > .gs-960();
+// #grid > .gs-768();
+// #grid > .gs-480();
+
+// @namespace: #grid
+
+#grid {
+    
+    // @methode: .generate
+    // @usage: #grid > .generate();
+    
+    .generate(@var-number-of-columns: @base-number-of-columns, @var-column-width: @base-column-width, @var-gutter-width: @base-gutter-width, @var-max-width: 0, @var-wrapper-name: grid, @var-row-name: row, @var-columns-name: col-, @var-offsets-name: offset-) {
+        .inseption(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7) when not (ispixel(@var-1)) {
+            .@{var-4} {
+                .inseption(@var) when not (@var = 0) {
+                    max-width: @var;
+                }
+                .inseption(@var-3);
+                #base > .center();
+                
+                .@{var-5} {
+                    #grid > .row(0);
+                    #grid > .write-columns(@var-6, @var, @var-1, @var-2);
+                    #grid > .write-offsets(@var-7, @var, @var-1, @var-2);
+                    
+                    [class*="@{var-columns-name}"] {
+                        &:first-child {
+                            margin-left: 0;
+                        }
+                    }
+                }
+            }
+        }
+        .inseption(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7) when (ispixel(@var-1)) {
+            #grid > .wrapper(@var, @var-1, @var-2);
+            
+            .@{var-4} {
+                #grid > .wrapper(@var, @var-1, @var-2);
+                
+                .@{var-5} {
+                    #grid > .row(@var-gutter-width);
+                    #grid > .write-columns(@var-6, @var, @var-1, @var-2);
+                    #grid > .write-offsets(@var-7, @var, @var-1, @var-2);
+                }
+            }
+        }
+        .inseption(@var-number-of-columns, @var-column-width, @var-gutter-width, @var-max-width, @var-wrapper-name, @var-row-name, @var-columns-name, @var-offsets-name);
+    }
+    
+    // @methode: .gs-1200
+    // @usage: #grid > .gs-1200();
+    
+    .gs-1200() {
+        #grid > .generate(@gs-12-70-30-number-of-columns, @gs-12-70-30-column-width, @gs-12-70-30-gutter-width, 0, gs-12-60-20);
+        #grid > .generate(@gs-12-70-30-float-number-of-columns, @gs-12-70-30-float-column-width, @gs-12-70-30-float-gutter-width, @gs-12-70-30-float-width, gs-12-60-20-float);
+        #grid > .generate(@gs-16-45-30-number-of-columns, @gs-16-45-30-column-width, @gs-16-45-30-gutter-width, 0, gs-16-40-20);
+    }
+    
+    // @methode: .gs-960
+    // @usage: #grid > .gs-960();
+    
+    .gs-960() {
+        #grid > .generate(@gs-12-60-20-number-of-columns, @gs-12-60-20-column-width, @gs-12-60-20-gutter-width, 0, gs-12-60-20);
+        #grid > .generate(@gs-12-60-20-float-number-of-columns, @gs-12-60-20-float-column-width, @gs-12-60-20-float-gutter-width, @gs-12-60-20-float-width, gs-12-60-20-float);
+        #grid > .generate(@gs-16-40-20-number-of-columns, @gs-16-40-20-column-width, @gs-16-40-20-gutter-width, 0, gs-16-40-20);
+    }
+    
+    // @methode: .gs-768
+    // @usage: #grid > .gs-768();
+    
+    .gs-768() {
+        #grid > .generate(@gs-12-42-20-number-of-columns, @gs-12-42-20-column-width, @gs-12-42-20-gutter-width, 0, gs-12-60-20);
+        #grid > .generate(@gs-12-42-20-float-number-of-columns, @gs-12-42-20-float-column-width, @gs-12-42-20-float-gutter-width, @gs-12-42-20-float-width, gs-12-60-20-float);
+        #grid > .generate(@gs-16-34-12-number-of-columns, @gs-16-34-12-column-width, @gs-16-34-12-gutter-width, 0, gs-16-40-20);
+    }
+    
+    // @methode: .gs-480
+    // @usage: #grid > .gs-480();
+    
+    .gs-480() {
+        article,
+        [class*="gs-12-60-20"],
+        [class*="gs-16-40-20"]
+        {
+            #unset > . .grid();
+        }
+    }
+}

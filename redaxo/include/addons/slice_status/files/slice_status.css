@@ -1,0 +1,39 @@
+
+/* ------------- offline slices ------------- */
+
+div.slice-title.offline {
+	background: #dddddd;
+}
+
+div.slice-content.offline,
+div.slice-content-wrap.offline {
+	background: #e7e5e5;
+}
+
+div.slice-content.offline {
+	opacity: 0.6;
+}
+
+/* ---------------- slice menu -------------- */
+
+a.slice-status {
+	background: transparent url("status_icon.png") no-repeat;
+	margin-left: -4px;
+	width: 16px;
+	height: 16px;
+	display: block;
+}
+
+a.slice-status.left {
+	padding-right: 2px;
+}
+
+a.slice-status.online {
+	background-position: left top;	
+}
+
+a.slice-status.offline {
+	background-position: left -20px;	
+}
+
+/* ------------------------------------------ */

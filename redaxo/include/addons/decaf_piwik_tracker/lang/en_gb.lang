@@ -1,0 +1,68 @@
+piwik_menu                              = Visitor Statistics
+
+piwik_headline                          = Visitor Statistics
+piwik_configuration                     = Configuration
+piwik_configuration_ministats           = Piwik API Settings
+piwik_ministats                         = Statistic
+piwik_widgets                           = Widgets
+
+piwik_link_caption                      = View complete statistic
+piwik_clear_cache                       = Refresh
+
+piwik_tracker_url                       = Tracker URL
+piwik_tracker_url_notice                = The URL to your Piwik-Server, no trailing slash please. Example: http://stats.your-server.tpl
+piwik_site_id                           = Site ID
+piwik_site_id_notice                    = Refer to Piwik at [Settings » Websites].
+piwik_login_legend                      = Piwik login data (optional)
+piwik_login                             = Username
+piwik_md5_pass                          = Password
+piwik_token_auth                        = Auth Token
+piwik_token_auth_notice                 = Refer to Piwik at [Settings » Users]. Required, if you want to show stats in the REDAXO backend.
+piwik_tracking_method                   = Tracking Method
+piwik_tracking_method_notice            = Javascript has the ability to track more information (e.g. screen sizes), while PHP is more dependable.
+piwik_widget                            = Widget
+piwik_widget_title                      = Headline
+piwik_api_period                        = Period
+piwik_api_date                          = Date
+piwik_width                             = Width (px)
+
+piwik_save                              = Save
+piwik_reset                             = Cancel
+
+piwik_config_saved_error                = Error saving configuration!
+piwik_config_saved_successful           = Configuration saved!
+piwik_config_missing                    = No configuration file found. Please re-install the addon.
+piwik_config_incomplete                 = Some parameter are missing in the configuration.
+piwik_config_dir_locked                 = The folder decaf_piwik_tracker/config is not writable. Please fix the permissions for this folder.
+piwik_allow_url_fopen_off               = To update the statistic with the php include 'allow_url_fopen' must be set turned on in your php.ini
+piwik_cleared_cache                     = Visitor statistics reloaded.
+
+piwik_tracker_url_placeholder           = http://your.stat-server
+piwik_site_id_placeholder               = Site ID for this Website
+piwik_login_placeholder                 = Piwik Username
+piwik_md5_pass_placeholder              = MD5 encrypted password
+piwik_token_auth_placeholder            = Auth Token (für API Zugriff)
+piwik_widget_title_placeholder          = Title for the widget
+piwik_api_period_placeholder            = day, week, month or year
+piwik_api_date_placeholder              = YYYY-MM-DD, today, yesterday, lastX or previousX
+piwik_width_placeholder                 = Widget width in pixel
+
+piwik_error_get_stats                   = Error retrieving statistic from %s
+
+nb_uniq_visitors                        = Unique visitors
+nb_visits                               = Visits
+nb_actions                              = Pageviews
+last_day                                = today
+last_days                               = of the last %d days
+last_week                               = this week
+last_weeks                              = of the last %d weeks
+last_month                              = this month
+last_months                             = of the last %d months
+last_year                               = this year
+last_years                              = of the %d years
+and                                     = and
+
+date_format_day                         = m/d
+date_format_week                        = \W\e\ek W
+date_format_month                       = M Y
+date_format_updated                     = m/d/y, g:i a

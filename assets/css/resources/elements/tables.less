@@ -1,0 +1,126 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ tables
+// #tables > .defaults();
+// #tables > .table(default);
+// #tables > .default-table();
+// #tables > .striped-table();
+// #tables > .bordered-table();
+
+// @namespace: #tables
+
+#tables {
+    
+    // @methode: .default
+    // @usage: #tables > .default();
+    
+    .default() {
+        #tables > .default-table();
+    }
+    
+    // @methode: .table
+    // @usage: #tables > .table();
+    
+    .table(@var-table-type: default, @var-font-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-table-cell-padding-factor: @base-table-cell-inner-factor, @var-distance-factor-top: @base-table-distance-factor-top, @var-distance-factor-bottom: @base-table-distance-factor-bottom, @var-table-thead-border: @base-table-thead-border, @var-table-tbody-border: @base-table-tbody-border, @var-table-tfoot-border: @base-table-tfoot-border, @var-table-bg: @base-table-bg, @var-table-bg-accent: @base-table-bg-accent) {
+        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = default) {
+            table {
+                width: 100%;
+                max-width: 100%;
+                background-color: @var-10;
+                border-collapse: collapse;
+                border-spacing: 0;
+                #font > .shorthand(@var-1, normal, @var-2);
+                margin-top: ceil(@var-3 * @var-5);
+                margin-bottom: ceil(@var-3 * @var-6);
+                
+                tr {
+                    th,
+                    td {
+                        padding: ceil(@var-3 * @var-4);
+                        vertical-align: top;
+                        text-align: left;
+                    }
+                    th {
+                        font-weight: bold;
+                    }
+                }
+                thead {
+                    th,
+                    td {
+                        border-bottom: @var-7;
+                    }
+                }
+                tbody {
+                    th,
+                    td {
+                        border-top: @var-8;
+                    }
+                }
+                tfoot {
+                    th,
+                    td {
+                        border-top: @var-9;
+                    }
+                }
+            }
+        }
+        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = striped) {
+            #tables > .table(default, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11);
+            
+            table {
+                tbody {
+                    tr {
+                        &:nth-child(odd) {
+                            > th,
+                            > td {
+                                background-color: @var-11;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = bordered) {
+            #tables > .table(default, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11);
+            
+            table {
+                border: @var-8;
+                
+                thead,
+                tbody,
+                tfoot {
+                    tr {
+                        > th,
+                        > td {
+                            border: @var-8;
+                        }
+                    }
+                }
+            }
+        }
+        .inception(@var-table-type, @var-font-size, @var-line-height, @var-distance, @var-table-cell-padding-factor, @var-distance-factor-top, @var-distance-factor-bottom, @var-table-thead-border, @var-table-tbody-border, @var-table-tfoot-border, @var-table-bg, @var-table-bg-accent);
+    }
+    
+    // @methode: .default-table
+    // @usage: #tables > .default-table();
+    
+    .default-table() {
+        #tables > .table(default);
+    }
+    
+    // @methode: .striped-table
+    // @usage: #tables > .striped-table();
+    
+    .striped-table() {
+        #tables > .table(striped);
+    }
+    
+    // @methode: .bordered-table
+    // @usage: #tables > .bordered-table();
+    
+    .bordered-table() {
+        #tables > .table(bordered);
+    }
+}

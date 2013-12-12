@@ -1,0 +1,98 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ grid
+// #grid > .wrapper(12, 70px, 30px);
+// #grid > .row(30px);
+// #grid > .column(1, 70px, 30px);
+// #grid > .offset(1, 70px, 30px, right);
+// #grid > .offset-left(1, 70px, 30px);
+// #grid > .offset-right(1, 70px, 30px);
+// #grid > .write-columns(col-, 12, 70px, 30px);
+// #grid > .write-offsets(offset-, 12, 70px, 30px, right);
+
+// @namespace: #grid
+
+#grid {
+    
+    // @methode: .wrapper
+    // @usage: #grid > .wrapper(12, 70px, 30px);
+    
+    .wrapper(@number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
+        #base > .center();
+        width: (((@column-width * @number-of-columns) + (@gutter-width * @number-of-columns)) - @gutter-width);
+    }
+    
+    // @methode: .row
+    // @usage: #grid > .row(30px);
+    
+    .row(@gutter-width: @base-gutter-width) {
+        #clear > .clearfix();
+        margin-left: -(@gutter-width);
+    }
+    
+    // @methode: .column
+    // @usage: #grid > .column(1, 70px, 30px);
+    
+    .column(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
+        #float > .left();
+        width: ((@column-width * @index) + (@gutter-width * (@index - 1 )));
+        margin-left: @gutter-width;
+    }
+    
+    // @methode: .offset
+    // @usage: #grid > .offset(1, 70px, 30px, right);
+    
+    .offset(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width, @var-direction: left) {
+        .inseption(@var, @var-1, @var-2, @var-3) when (@var-3 = left) {
+            margin-left: ((@var-1 * @var) + (@var-2 * (@var + 1)));
+        }
+        .inseption(@var, @var-1, @var-2, @var-3) when (@var-3 = right) {
+            margin-right: ((@var-1 * @var) + (@var-2 * (@var + 1)));
+        }
+        .inseption(@index, @column-width, @gutter-width, @var-direction);
+    }
+    
+    // @methode: .offset-left
+    // @usage: #grid > .offset-left(1, 70px, 30px);
+    
+    .offset-left(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
+        #grid > .offset(@index, @column-width, @gutter-width, left);
+    }
+    
+    // @methode: .offset-right
+    // @usage: #grid > .offset-right(1, 70px, 30px);
+    
+    .offset-right(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
+        #grid > .offset(@index, @column-width, @gutter-width, right);
+    }
+    
+    // @methode: .write-columns
+    // @usage: #grid > .write-columns(1, 70px, 30px);
+    
+    .write-columns(@column-class: col-, @number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
+        .columns (@index) when (@index > 0) {
+            .@{column-class}@{index} {
+                #grid > .column(@index, @column-width, @gutter-width);
+            }
+            .columns (@index - 1);
+        }
+        .columns (0) {}
+        .columns (@number-of-columns);
+    }
+    
+    // @methode: .write-offsets
+    // @usage: #grid > .write-offsets(1, 70px, 30px, right);
+    
+    .write-offsets(@offset-class: offset-, @number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width, @var-direction: left) {
+        .offsets(@index) when (@index > 0) {
+            .@{offset-class}@{index} {
+                #grid > .offset(@index, @column-width, @gutter-width, @var-direction);
+            }
+            .offsets(@index - 1);
+        }
+        .offsets(0) {}
+        .offsets(@number-of-columns);
+    }
+}

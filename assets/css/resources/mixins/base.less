@@ -1,0 +1,100 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ base
+// #base > .html(#fff);
+// #base > .body(#fff, #444, @base-font-family);
+// #base > .link(#000, #666, none, underline);
+// #base > .sticky-footer(200px, 500px, 40px, main, footer);
+// #base > .appearance(button);
+// #base > .backface-visibility(hidden);
+
+// @helper methode: ../elements/helper.less
+// @usage: .appearance(button); // normal|icon|window|button|menu|field
+// @usage: .backface-visibility(hidden); // visible|hidden
+
+// @namespace: #base
+
+#base {
+    
+    // @methode: .html
+    // @usage: #base > .html(#fff);
+    
+    .html(@var-body-backgorund: #fff) {
+        #unset > .distances();
+        #size > .square(100%);
+        position: relative;
+        background: @var-body-backgorund;
+    }
+    
+    // @methode: .body
+    // @usage: #base > .body(#fff, #444, @base-font-family);
+    
+    .body(@var-body-background: #fff, @var-color: #333, @var-font-family: sans-serif, @var-smoothing: false, @backface-visibility: hidden) {
+        .inseption(@var) when (@var = true) {
+            #font > .smoothing();
+        }
+        .inseption(@var) when (@var = hidden) {
+            #base > .backface-visibility(hidden); // http://bit.ly/NEdoDq
+        }
+        #unset > .distances();
+        #size > .square(100%);
+        #background > .background(@var-body-background);
+        color: @var-color;
+        font-family: @var-font-family;
+        .inseption(@var-smoothing);
+    }
+    
+    // @methode: .link
+    // @usage: #base > .link(#000, #ccc, underline, none);
+    
+    .link(@var-color: #000, @var-hover-color: #ccc, @var-decoration: underline, @var-hover-decoration: none) {
+        color: @var-color;
+        text-decoration: @var-decoration;
+        
+        &:hover {
+            color: @var-hover-color;
+            text-decoration: @var-hover-decoration
+        }
+    }
+    
+    // @methode: .sticky-footer
+    // @usage: #base > .sticky-footer(200, 500, 40, main, footer);
+    
+    .sticky-footer(@var-footer-height: 100, @var-main-min-height: 300, @var-add-main-bottom-padding: 0, @var-main: main, @var-footer: footer) {
+        min-height: 100%;
+        position: relative;
+        
+        #@{var-main} {
+            position: relative;
+            min-height: @var-main-min-height * 1px;
+            padding-bottom: ceil(@var-footer-height + @var-add-main-bottom-padding)* 1px;
+        }
+        @{var-footer} {
+            position: absolute;
+            height: @var-footer-height * 1px;
+            width: 100%;
+            bottom: 0;
+        }
+    }
+    
+    // @methode: .appearance
+    // @usage: #base > .appearance(button); // normal|icon|window|button|menu|field
+    
+    .appearance(@var: normal) {
+        -webkit-appearance: @var;
+           -moz-appearance: @var;
+                appearance: @var;
+    }
+    
+    // @methode: .backface-visibility
+    // @usage: #base > .backface-visibility(hidden); // visible|hidden
+    
+    .backface-visibility(@var: visible) {
+        -webkit-backface-visibility: @var;
+           -moz-backface-visibility: @var;
+            -ms-backface-visibility: @var;
+                backface-visibility: @var;
+    }
+}

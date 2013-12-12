@@ -1,0 +1,170 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ box
+// #box > .display(inline-block, important);
+// #box > .display(box);
+// #box > .align(center);
+// #box > .direction(reverse);
+// #box > .flex(1);
+// #box > .lines(single);
+// #box > .order(3);
+// #box > .ordinal(3);
+// #box > .orient(horizontal);
+// #box > .pack(center);
+// #box > .shadow(0, 0, 15px, #000, 0.9);
+// #box > .shadow(0, 0, 15px, #000, 0.9, inset);
+// #box > .shadow(~"0 1px 10px #000, inset 0 -2px 5px red");
+// #box > .sizing(border-box);
+// #box > .reflect();
+// #box > .reflect(20%, 0.2);
+
+// @namespace: #box
+
+#box {
+    
+    // @methode: .display
+    // @usage: #box > .display(inline-block, important); // box|none|block|inline|inline-block|table-row|table-cell
+    // @usage: #box > .display();
+
+    .display(@var-type: box, @var-important: false) {
+        .inception(@var, @var-1) when (@var = box) {
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: box;
+        }
+        .inception(@var, @var-1) when not (@var = box) and not (@var-1 = important) {
+            display: @var;
+        }
+        .inception(@var, @var-1) when not (@var = box) and (@var-1 = important) {
+            display: @var !important;
+        }
+        .inception-inline(@var) when (@var = inline-block) {
+            zoom: 1;
+            *display: inline;
+        }
+        .inception(@var-type, @var-important);
+        .inception-inline(@var-type);
+    }
+    
+    // @methode: .align
+    // @usage: #box > .align(center); // start|end|center|baseline|stretch
+    
+    .align(@var: center) {
+        -webkit-box-align: @var;
+           -moz-box-align: @var;
+           -ms-flex-align: @var;
+                box-align: @var;
+    }
+    
+    // @methode: .direction
+    // @usage: #box > .direction(reverse); // normal|reverse|inherit
+    
+    .direction(@var: reverse) {
+        .inception(@var) when not (@var = reverse) {
+           -ms-flex-direction: @var;
+        }
+        .inception(@var) when (@var = reverse) {
+           -ms-flex-direction: row-reverse;
+        }
+        .inception(@var);
+        -webkit-box-direction: @var;
+           -moz-box-direction: @var;
+                box-direction: @var;
+    }
+    
+    // @methode: .flex
+    // @usage: #box > .flex(1);
+    
+    .flex(@var: 1) {
+        -webkit-box-flex: @var;
+           -moz-box-flex: @var;
+                -ms-flex: @var;
+                box-flex: @var;
+    }
+    
+    // @methode: .lines
+    // @usage: #box > .lines(single); single|multiple
+    
+    .lines(@var: single) {
+        -webkit-box-lines: @var;
+           -moz-box-lines: @var;
+            -ms-box-lines: @var;
+             -o-box-lines: @var;
+                box-lines: @var;
+    }
+    
+    // @methode: .order
+    // @usage: #box > .order(3);
+    // @usage: #box > .ordinal(3);
+    
+    .order(@var: 1) {
+        -webkit-box-ordinal-group: @var;
+           -moz-box-ordinal-group: @var;
+                   -ms-flex-order: @var;
+                box-ordinal-group: @var;
+    }
+    .ordinal(@var) {
+        #box > .order(@var);
+    }
+    
+    // @methode: .orient
+    // @usage: #box > .orient(horizontal); horizontal|vertical|inline-axis|block-axis|inherit
+    
+    .orient(@var: horizontal) {
+        -webkit-box-orient: @var;
+           -moz-box-orient: @var;
+                box-orient: @var;
+    }
+    
+    // @methode: .pack
+    // @usage: #box > .pack(center); // start|end|center|justify
+    
+    .pack(@var: center) {
+        -webkit-box-pack: @var;
+           -moz-box-pack: @var;
+           -ms-flex-pack: @var;
+                box-pack: @var;
+    }
+    
+    // @methode: .shadow
+    // @usage: #box > .shadow(0, 0, 15px, #000, 0.9);
+    // @usage: #box > .shadow(0, 0, 15px, #000, 0.9, inset);
+    // @usage: #box > .shadow(~"0 1px 10px #000, inset 0 -2px 5px red");
+    
+    .shadow(@var-multi-shadow-or-x: 0, @var-y: false, @var-blur: false, @var-color: false, @var-alpha: false, @var-type: ~"") {
+        .shadow-inception(@var) {
+            -webkit-box-shadow: @var;
+               -moz-box-shadow: @var;
+                    box-shadow: @var;
+        }
+        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) and (@var-4 = false) {
+            .shadow-inception(@var);
+        }
+        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) and not (@var-4 = false) {
+            @var-rgba: hsla(hue(@var-color), saturation(@var-3), lightness(@var-3), @var-4);
+            .shadow-inception(@var-5 @var @var-1 @var-2 @var-rgba);
+        }
+        .inception(@var-multi-shadow-or-x, @var-y, @var-blur, @var-color, @var-alpha, @var-type);
+    }
+    
+    // @methode: .sizing
+    // @usage: #box > .sizing(border-box); // content-box|border-box|inherit
+    
+    .sizing(@var: content-box) {
+        -webkit-box-sizing: @var;
+           -moz-box-sizing: @var;
+            -ms-box-sizing: @var;
+                box-sizing: @var;
+    }
+    
+    // @methode: .reflect
+    // @usage: #box > .reflect();
+    // @usage: #box > .reflect(20%, 0.2);
+    
+    .reflect(@var-length: 50%, @var-alpha: 0.2) {
+        -webkit-box-reflect: below 0px -webkit-gradient(linear, left top, left bottom, from(transparent), color-stop(@var-length, transparent), to(rgba(255, 255, 255, @var-alpha)));
+    }
+}

@@ -1,0 +1,76 @@
+h2. rex_markitup – Redaxo Addon
+
+Kompletter rewrite des bisherigen Markitup Addons mit modernerer/flexiblerer Codebase
+
+h2. Features
+
+* Aktuelle MarkItUp Lib v.1.1.14
+* ImageManager Unterstützung
+* "smartinsert" Mode minimiert linebreak/whitespace Problematik für Einsteiger deutlich
+* Fullscreen Mode(Button)
+* Backend UI zum definieren eigener Buttons
+* EP zum programmatischen injizieren eigener Buttons aus anderen Addons/Plugins oder Modulen heraus
+* Definition einer Markitup textareas lediglich über eine CSS Klasse – kein PHP Code notwendig.
+* Auswahl von Buttons/Buttonsets per @data@ Attribut der textarea
+* Mehrsprachigkeit – gekoppelt an Redaxo backend Sprache - lang strings per i18n und *.lang Datei
+* Fluid Editor Layout..
+* ..und ein klein wenig aufgehübscht das ganze
+
+h2. Anwendung im Modul
+
+h4. Aufruf per CSS Klasse
+
+@<textarea class="rex-markitup"></textarea>@
+
+h4. @Data@ Attribute
+
+@<textarea class="rex-markitup" data-buttonset="full"></textarea>@
+@<textarea class="rex-markitup" data-buttons="h1,h2,h3,|,…"></textarea>@
+
+h2. Settings
+
+*Button CSS* Beispiel:
+
+bc. .markItUpButton.markitup-example a {
+    background-image: url('path/to/my/example.png');
+}
+
+*rex_markitup.buttondefinitions* Beispiel: (siehe auch "MarkItUp Doku":http://markitup.jaysalvat.com/documentation/#markupset)
+
+bc. examplebutton:
+{
+  name:         'Example Button',
+  openWith:     '[foobar]',
+  closeWith:    '[/foobar]',
+  beforeInsert: function(h) {
+    text = "You've just click the "+h.name+" button ";
+    text+= "which will wrap '"+h.selection+"' ";
+    text+= "with "+h.openWith+" and "+h.closeWith+".";
+    alert(text);
+  },
+  afterInsert:  function(h) {
+    text = "The result is now:\n";
+    text+= $(h.textarea).val();
+    alert(text);
+  },
+  placeHolder: 'Placeholder Text..'
+}
+
+*rex_markitup.buttonsets* Beispiel:
+
+bc. exampleset:
+'h1,h2,h3,|,bold,italic,examplebutton'
+
+h2. Screenshots
+
+h5. Editor @ agk_skin => fixed with parent elem
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_agk_skin.png!
+
+h5. Editor @ fullscreen mode
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_fullscreen.png!
+
+h5. Editor @ rexdev_skin => fluid with parent elem
+
+!http://rexdev.de/index.php?rex_img_type=github_readme&rex_img_file=lnk_rex_markitup_editor_rexdev_skin.png!

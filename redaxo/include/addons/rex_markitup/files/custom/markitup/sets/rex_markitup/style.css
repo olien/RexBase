@@ -1,0 +1,206 @@
+/**
+ * RexMarkitup for Redaxo
+ *
+ * @version 0.9.8
+ * @link http://markitup.jaysalvat.com
+ * @author Redaxo Addon: rexdev.de
+ * @package redaxo 4.4.x/4.5.x
+ */
+
+/* HOVER */
+.markItUpButton a {
+    background-image: url('images/sprites.png');
+    opacity:0.7;
+    -webkit-transition: opacity 0.3s ease-in-out;
+       -moz-transition: opacity 0.3s ease-in-out;
+        -ms-transition: opacity 0.3s ease-in-out;
+         -o-transition: opacity 0.3s ease-in-out;
+            transition: opacity 0.3s ease-in-out;
+    border-radius:2px;
+}
+.markItUpButton:hover a {
+    opacity:1;
+    -webkit-transition: opacity 0.05s ease-in-out;
+       -moz-transition: opacity 0.05s ease-in-out;
+        -ms-transition: opacity 0.05s ease-in-out;
+         -o-transition: opacity 0.05s ease-in-out;
+            transition: opacity 0.05s ease-in-out;
+    /*background-color:rgba(0,0,0,0.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2) inset;*/
+}
+.markItUpButton a:active {
+    background-color:rgba(0,0,0,0.05);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.2) inset;
+}
+
+/* DEFAULT ICON */
+.markItUpButton a {
+    background-position: -3px -900px;
+}
+
+/* HEADLINES */
+.markItUpButton.markitup-h1 a {
+    background-position: 0 0px;
+}
+.markItUpButton.markitup-h2 a {
+    background-position: 0 -30px;
+}
+.markItUpButton.markitup-h3 a {
+    background-position: 0 -60px;
+}
+.markItUpButton.markitup-h4 a {
+    background-position: 0 -90px;
+}
+.markItUpButton.markitup-h5 a {
+    background-position: 0 -120px;
+}
+.markItUpButton.markitup-h6 a {
+    background-position: 0 -150px;
+}
+
+/* INLINE STYLES */
+.markItUpButton.markitup-bold a {
+    background-position: 0 -180px;
+}
+.markItUpButton.markitup-italic a {
+    background-position: 0 -210px;
+}
+.markItUpButton.markitup-stroke a {
+    background-position: 0 -240px;
+}
+.markItUpButton.markitup-ins a {
+    background-position: 0 -270px;
+}
+.markItUpButton.markitup-cite a {
+    background-position: 0 -300px;
+}
+.markItUpButton.markitup-code a {
+    background-position: 0 -330px;
+}
+
+/* ALIGN*/
+.markItUpButton.markitup-alignleft a {
+    background-position: 0 -360px;
+}
+.markItUpButton.markitup-alignright a {
+    background-position: 0 -390px;
+}
+.markItUpButton.markitup-aligncenter a {
+    background-position: 0 -420px;
+}
+.markItUpButton.markitup-alignjustify a {
+    background-position: 0 -450px;
+}
+
+/* LISTS */
+.markItUpButton.markitup-listbullet a {
+    background-position: 0 -480px;
+}
+.markItUpButton.markitup-listnumeric a {
+    background-position: 0 -510px;
+}
+
+/* FILES */
+.markItUpButton.markitup-image a {
+    background-position: 0 -540px;
+}
+.markItUpButton.markitup-linkmedia a {
+    background-position: 0 -570px;
+}
+
+/* LINKS */
+.markItUpButton.markitup-linkintern a {
+    background-position: 0 -600px;
+}
+.markItUpButton.markitup-linkextern a {
+    background-position: 0 -630px;
+}
+.markItUpButton.markitup-linkmailto a {
+    background-position: 0 -660px;
+}
+
+/* OTHERS */
+.markItUpButton.markitup-preview a {
+    background-position: 0 -690px;
+}
+.markItUpButton.markitup-blockmenu {
+    background: none !important;
+}
+.markItUpButton.markitup-blockmenu a {
+    background-position: 0 -720px;
+}
+.markItUpButton.markitup-linkmenu {
+    background: none !important;
+}
+.markItUpButton.markitup-linkmenu a {
+    background-position: -3px -930px;
+}
+.markItUpButton.markitup-blockquote a {
+    background-position: -96px 4px;
+}
+.markItUpButton.markitup-rex_a79_help a {
+    background-position: 0px -990px;
+}
+
+
+.markItUpButton.markitup-immimagemenu {
+    background: none !important;
+}
+.markItUpButton.markitup-immimagemenu a {
+    background-position: -3px -960px;
+}
+
+/* FULLSCREEN */
+li.markItUpButton.markitup-fullscreen {
+    float: right;
+    margin-left:20px;
+    margin-right: 5px;
+}
+.markItUpButton.markitup-fullscreen a {
+    background-position: 0 -778px;
+}
+.fullscreen .markItUpButton.markitup-fullscreen a {
+    background-position: 0 -810px;
+}
+
+/* REX SAVE/UPDATE BUTTONS */
+li.markItUpButton.markitup-slice_save,
+li.markItUpButton.markitup-slice_update {
+    float: right;
+    display: none;
+    width:auto;
+}
+body.rex_markitup_fullscreen .rex-content-editmode-slice-input li.markItUpButton.markitup-slice_save,
+body.rex_markitup_fullscreen .rex-content-editmode-slice-input li.markItUpButton.markitup-slice_update {
+    display: block;
+}
+li.markItUpButton.markitup-slice_save a,
+li.markItUpButton.markitup-slice_update a {
+    background: linear-gradient(to bottom, #F1EFEF 0%, #CCCBCB 100%) repeat scroll 0 0 transparent;
+    border-color: #A7A7A7 #CCCCCC #AAAAAA #A7A7A7;
+    border-radius: 4px 4px 4px 4px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 1px 1px 0 rgba(255, 255, 255, 0.51);
+    color: #000000;
+    cursor: pointer;
+    /*display: inline-block;*/
+    font-family: Helvetica,Arial,Verdana,Tahoma,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 16px;
+    margin-left: 8px;
+    outline: 0 none;
+    padding: 4px 8px 2px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    text-indent: 0;
+    text-shadow: 0 1px 0 #FFFFFF;
+    width: auto;
+}
+li.markItUpButton.markitup-slice_save a:hover,
+li.markItUpButton.markitup-slice_update a:hover {
+    background: linear-gradient(to bottom, #E1E1E1 0%, #BBBABA 100%) repeat scroll 0 0 transparent;
+    text-decoration: none !important;
+}

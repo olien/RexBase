@@ -1,0 +1,58 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ border
+// #border > .image(~"url(border.png) 30 30 round");
+// #border > .radius(5px);
+// #border > .radius(10px 20px 20px 10px);
+// #border > .border(1px solid #ccc);
+// #border > .border(1px solid #ccc, 1px solid #ccc, 1px solid #ccc, 1px solid #ccc);
+
+// @helper methode: ../elements/helper.less
+// @usage: .border(1px solid #ccc);
+
+// @namespace: #border
+
+#border {
+    
+    // @methode: .image
+    // @usage: #border > .image(~"url(border.png) 30 30 round");
+    
+    .image(@var) {
+        -webkit-border-image: @var;
+           -moz-border-image: @var;
+             -o-border-image: @var;
+                border-image: @var;
+    }
+    
+    // @methode: .radius
+    // @usage: #border > .radius(10px);
+    // @usage: #border > .radius(10px 20px 20px 10px);
+    
+    .radius(@var) {
+        -webkit-border-radius: @var;
+           -moz-border-radius: @var;
+                border-radius: @var;
+    }
+    
+    // @methode: .border
+    // @usage: #border > .border(1px solid #ccc);
+    // @usage: #border > .border(1px solid #ccc, 1px solid #ccc, 1px solid #ccc, 1px solid #ccc);
+    
+    .border(@var-or-top, @var-right: false, @var-bottom: false, @var-left: false) {
+        .inception(@var, @var-1, @var-2, @var-3) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) {
+            border: @var;
+        }
+        .inception(@var, @var-1, @var-2, @var-3) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) {
+            border-top: @var;
+            border-right: @var-1;
+            border-bottom: @var-2;
+            border-left: @var-3;
+        }
+        .inception(@var-or-top, @var-right, @var-bottom, @var-left);
+    }
+    .line(@var-or-top, @var-right: false, @var-bottom: false, @var-left: false) {
+        #border > .border(@var-or-top, @var-right, @var-bottom, @var-left)
+    }
+}

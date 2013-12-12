@@ -1,0 +1,52 @@
+// basecondition ~ less-framework ~ v3.1
+// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ icon
+// #icon > .inseption("\2606");
+// #icon > .element(star-empty, "\2606");
+// #icon > .base(entypo);
+
+// @namespace: #icon
+
+#icon {
+    
+    // @methode: .icon
+    // @usage: #icon > .icon(star-empty, "\2606");
+    
+    .icon(@var-name, @var-content) {
+        .@{var-name} {
+            #icon > .inseption(@var-content);
+        }
+    }
+    
+    // @methode: .inseption
+    // @usage: #icon > .inseption("\2606");
+    
+    .inseption(@var-content) {
+        &:before {
+            content: "@{var-content}";
+        }
+    }
+    
+    // @methode: .element
+    // @usage: #icon > .element(star-empty, "\2606");
+    
+    .element(@var-name, @var-content) {
+        #icon > .icon(@var-name, @var-content);
+    }
+    
+    // @methode: .base
+    // @usage: #icon > .base(entypo);
+    
+    .base(@var-font-name) {
+        font-family: "@{var-font-name}";
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+    }
+}
