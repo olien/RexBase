@@ -1,12 +1,6 @@
 <IfModule mod_rewrite.c>
 RewriteEngine On
 
-### BSC
-RewriteRule ^(.*.bsc.css)$ bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
-RewriteRule ^(.*.cc.css)$  bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
-RewriteRule ^(.*.less)$    bsc-unit/?f=$1&%{QUERY_STRING}
-
-
 ### In case ModRewrite doesnt work - remove following comment and try again
 # RewriteBase /
 
@@ -28,3 +22,9 @@ RewriteRule ^([0-9]*)- index.php?article_id=$1&%{QUERY_STRING}
 # RewriteRule ^files/(.*) /index.php?rex_media=$1&%{QUERY_STRING} [NC]
 
 </IfModule>
+
+
+### BSC
+RewriteRule ^(.*.bsc.css)$ bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
+RewriteRule ^(.*.cc.css)$  bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
+RewriteRule ^(.*.less)$    bsc-unit/?f=$1&%{QUERY_STRING}

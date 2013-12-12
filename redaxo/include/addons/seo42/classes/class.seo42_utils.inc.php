@@ -793,21 +793,4 @@ class seo42_utils {
 		//$sql->debugsql = true;
 		$sql->setQuery('UPDATE ' . $REX['TABLE_PREFIX'] . 'article SET seo_title = "", seo_description = "", seo_keywords = "", seo_custom_url = "", seo_canonical_url = "", seo_noindex = "", seo_ignore_prefix = "" WHERE clang = ' . $newClangId);
 	}
-
-	public static function parseInternalUrl($url) {
-		global $REX;
-
-		$sanitizedUrl = ltrim($url, './');
-		$sanitizedUrlParts = explode('/', $sanitizedUrl);
-
-		for ($i = 0; $i < count($sanitizedUrlParts); $i++) {
-			$sanitizedUrlParts[$i] = rexseo_parse_article_name($sanitizedUrlParts[$i], $REX['ARTICLE_ID'], $REX['CUR_CLANG']);
-		}
-
-		$sanitizedUrl = implode('/', $sanitizedUrlParts);
-		$sanitizedUrl = strtolower($sanitizedUrl);
-		$sanitizedUrl = str_replace('-htm', '.htm', $sanitizedUrl);
-
-		return $sanitizedUrl;
-	}
 }

@@ -41,20 +41,20 @@ $REX['MYSQL_VERSION'] = "";
 $REX['START_ARTICLE_ID'] = 1;
 
 // if there is no article -> change to this article
-$REX['NOTFOUND_ARTICLE_ID'] = 1;
+$REX['NOTFOUND_ARTICLE_ID'] = 2;
 
 // default clang id
 $REX['START_CLANG_ID'] = 0;
 
 // default template id, if > 0 used as default, else template_id determined by inheritance
-$REX['DEFAULT_TEMPLATE_ID'] = 0;
+$REX['DEFAULT_TEMPLATE_ID'] = 1;
 
 // default language
 $REX['LANG'] = 'de_de';
 
 // activate frontend mod_rewrite support for url-rewriting
 // Boolean: true/false
-$REX['MOD_REWRITE'] = false;
+$REX['MOD_REWRITE'] = true;
 
 // activate gzip output support
 // reduces amount of data need to be send to the client, but increases cpu load of the server

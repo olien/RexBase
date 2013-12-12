@@ -1,0 +1,17 @@
+#rex-redaxo-link,
+#rex-footer,
+#rex-navi-logout,
+#rex-title,
+#rex-navi-main,
+#rex-extra {
+display:none;
+}
+
+body#rex-page-xform {
+  background: #f9f9f9;
+}
+
+body #rex-website {
+width:775px;
+background: none repeat scroll 0 0 transparent;
+}
