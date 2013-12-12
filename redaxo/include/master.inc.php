@@ -22,16 +22,16 @@ if (!$REX['GG'])
 // ----------------- SERVER VARS
 
 // Setupservicestatus - if everything ok -> false; if problem set to true;
-$REX['SETUP'] = true;
-$REX['SERVER'] = "www.redaxo.org";
-$REX['SERVERNAME'] = "REDAXO";
+$REX['SETUP'] = false;
+$REX['SERVER'] = 'http://rexbase/';
+$REX['SERVERNAME'] = 'RexBase';
 $REX['VERSION'] = "4";
 $REX['SUBVERSION'] = "5";
 $REX['MINORVERSION'] = "1";
-$REX['ERROR_EMAIL'] = "";
+$REX['ERROR_EMAIL'] = 'oliver';
 $REX['FILEPERM'] = octdec(664); // oktaler wert
 $REX['DIRPERM'] = octdec(775); // oktaler wert
-$REX['INSTNAME'] = "rex20131121000000";
+$REX['INSTNAME'] = 'rex20131212125815';
 $REX['SESSION_DURATION'] = 7200;
 
 // Is set first time SQL Object ist initialised
@@ -50,7 +50,7 @@ $REX['START_CLANG_ID'] = 0;
 $REX['DEFAULT_TEMPLATE_ID'] = 0;
 
 // default language
-$REX['LANG'] = "de_de";
+$REX['LANG'] = 'de_de';
 
 // activate frontend mod_rewrite support for url-rewriting
 // Boolean: true/false
@@ -89,7 +89,7 @@ $REX['TEMP_PREFIX']   = 'tmp_';
 $REX['FRONTEND_FILE']	= 'index.php';
 
 // Passwortverschlüsselung, z.B: md5 / mcrypt ...
-$REX['PSWFUNC'] = "sha1";
+$REX['PSWFUNC'] = 'sha1';
 
 // bei fehllogin 5 sekunden kein relogin moeglich
 $REX['RELOGINDELAY'] = 5;
@@ -121,10 +121,10 @@ $REX['MEDIAPOOL']['IMAGE_TYPES']        = array('image/gif','image/jpg','image/j
 $REX['MEDIAPOOL']['ALLOWED_DOCTYPES']   = array('bmp','css','doc','docx','eps','gif','gz','jpg','mov','mp3','ogg','pdf','png','ppt','pptx','pps','ppsx','rar','rtf','swf','tar','tif','txt','wma','xls','xlsx','zip');
 
 // ----------------- DB1
-$REX['DB']['1']['HOST'] = "localhost";
-$REX['DB']['1']['LOGIN'] = "root";
-$REX['DB']['1']['PSW'] = "";
-$REX['DB']['1']['NAME'] = "redaxo_4_5_1";
+$REX['DB']['1']['HOST'] = 'localhost';
+$REX['DB']['1']['LOGIN'] = 'root';
+$REX['DB']['1']['PSW'] = 'root1';
+$REX['DB']['1']['NAME'] = 'rexbase';
 $REX['DB']['1']['PERSISTENT'] = false;
 
 // ----------------- DB2 - if necessary
