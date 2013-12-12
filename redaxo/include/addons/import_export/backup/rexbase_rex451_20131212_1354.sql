@@ -423,7 +423,7 @@ CREATE TABLE `rex_rexpixel` (
 LOCK TABLES `rex_rexpixel` WRITE;
 /*!40000 ALTER TABLE `rex_rexpixel` DISABLE KEYS */;
 INSERT INTO `rex_rexpixel` VALUES 
-  (1,'an','eingeloggte','rex_pixel_default.jpg','rex_pixel_default.jpg','768',50,10,10,'open','drueber','center');
+  (1,'an','eingeloggte','rex_pixel_default.jpg','rex_pixel_default.jpg','768',72,543,85,'close','drunter','center');
 /*!40000 ALTER TABLE `rex_rexpixel` ENABLE KEYS */;
 UNLOCK TABLES;
 
