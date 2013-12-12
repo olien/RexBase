@@ -24,6 +24,12 @@ $REX['ADDON']['plugins']['be_style']['status']['agk_skin'] = '1';
 $REX['ADDON']['plugins']['be_style']['install']['customizer'] = '1';
 $REX['ADDON']['plugins']['be_style']['status']['customizer'] = '1';
 
+$REX['ADDON']['plugins']['be_style']['install']['jquery_ui'] = '1';
+$REX['ADDON']['plugins']['be_style']['status']['jquery_ui'] = '1';
+
+$REX['ADDON']['plugins']['be_style']['install']['structure_separators'] = '1';
+$REX['ADDON']['plugins']['be_style']['status']['structure_separators'] = '1';
+
 $REX['ADDON']['plugins']['cronjob']['install']['article_status'] = '0';
 $REX['ADDON']['plugins']['cronjob']['status']['article_status'] = '0';
 

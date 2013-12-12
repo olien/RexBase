@@ -76,7 +76,7 @@ $REX['ADDON']['install']['sherlock'] = '1';
 $REX['ADDON']['status']['sherlock'] = '1';
 
 $REX['ADDON']['install']['slice_status'] = '1';
-$REX['ADDON']['status']['slice_status'] = '0';
+$REX['ADDON']['status']['slice_status'] = '1';
 
 $REX['ADDON']['install']['textile'] = '1';
 $REX['ADDON']['status']['textile'] = '1';

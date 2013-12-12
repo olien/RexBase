@@ -1,0 +1,17 @@
+jquery_ui_help_headline = jQuery UI "be_style" Plugin für Redaxo | 2013.03.10 | Ver. 1.3
+jquery_ui_system_prerequisites_headline = Systemvoraussetzungen
+jquery_ui_system_info_text = jQuery UI ist ein Plugin für das &quot;be_style&quot; Addon und kann eingesetzt werden ab Redaxo 4.2
+jquery_ui_install_headline = Installation
+jquery_ui_install_text = Die Installation von jQuery UI ist recht einfach:
+jquery_ui_install_1 = Entpacken Sie das Packet und legen Sie dessen Inhalt im Pluginverzeichnis &quot;redaxo/include/addons/be_style/plugins/&quot; des &quot;be_style&quot; Addons ab.
+jquery_ui_install_2 = Installieren und aktivieren Sie das Plugin in Redaxo unter &quot;Addons&quot;. Das Plugin ist in der Addon-Liste als Plugin des &quot;be_style&quot; Addons zu finden.
+jquery_ui_errors_headline = Mögliche Fehler und deren Lösung
+jquery_ui_default_errors_headline = Die bis jetzt bekannten Fehler:
+jquery_ui_default_errors_text = Die Installation ist nicht möglich wegen fehlende Schreib- oder Ausführrechte der Ordner
+jquery_ui_default_errors_1 = &quot;redaxo/include/addons/be_style/plugins/jquery_ui&quot;
+jquery_ui_default_errors_2 = &quot;files/addons/be_style/plugins&quot;
+jquery_ui_default_errors_solution_text = Die Lösung ist jeweils die selbe, prüfen Sie die Berechtigungen der Ordner und erteilen Sie je nach Servereinstellung Rechte von 755 bis 777.
+jquery_ui_plugin_function_headline = Was macht das jQuery UI Plugin?
+jquery_ui_plugin_function_text = Plugin stellt die jQuery UI (User Interface) für Redaxo bereit. Es legt all nötigen Dateien dafür in dem Ordner &quot;files/addons/be_style/plugins/jquery_ui&quot; ab.
+jquery_ui_install_need_rex = Dieses Addon benötigt Redaxo Version ###version### oder höher.
+jquery_ui_install_need_php = Dieses Addon benötigt mind. PHP ###version###!
