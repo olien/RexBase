@@ -1,6 +1,16 @@
 REXpixel - Changelog
 ============================
 
+### Version 0.3 - 13. Dezember 2013 
+
+* Bild Titel werden - sofern vorhanden angezeigt
+* CSS Anpassungen
+
+### Version 0.2 - 12. Dezember 2013 
+
+* Layer ist nun im Frontend deaktivierbar
+* Minimale Layout Änderungen
+
 ### Version 0.2 - 09. Dezember 2013 
 
 * Fehler behoben

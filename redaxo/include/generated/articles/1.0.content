@@ -1,1 +1,878 @@
-?>
+?><?php if ($this->ctype == '1' || ($this->ctype == '-1')) { ?><?php
+if(!function_exists('getdyntable')) {
+    function getdyntable($string) {
+        $tmp = explode('[ROW|ROW]', $string);
+        $table = array();
+        for($i=0;$i<count($tmp);$i++) {
+            $tmp2 = explode('[COL|COL]', $tmp[$i]);
+            foreach($tmp2 as $col) {
+                $table[$i][] = trim($col);
+            }           
+        }
+        return $table;
+    }
+}
+$table_data = "sdad[COL|COL]asd[COL|COL]adasdasdasdasdasd[COL|COL]asd[COL|COL]asd[COL|COL]mtr[COL|COL]ewgegrwe[COL|COL]gerg[COL|COL]erge[COL|COL]ergerg[ROW|ROW]asd[COL|COL]asd[COL|COL]asd[COL|COL]asdad[COL|COL]asdas[COL|COL]etz[COL|COL][COL|COL]erg[COL|COL]rthb[COL|COL]ergerg[ROW|ROW]*sfdac* _sdfsdf_[COL|COL]asd[COL|COL]* dsf sdkrg erg wergweth<br />
+*  jtu kezum<br />
+* twzh rwthg wrthwr<br />
+* hrhwdb[COL|COL]sdasd[COL|COL]&quot;ljbljgbjl&quot;:http://test.de[COL|COL]rth[COL|COL]ferg[COL|COL] ngh[COL|COL]geg[COL|COL]erg[ROW|ROW]asda[COL|COL]asda[COL|COL]dasd[COL|COL]ad[COL|COL]asd[COL|COL]dfdg[COL|COL]egetg[COL|COL]tb[COL|COL]erge[COL|COL]ergeg";
+$table_data = getdyntable($table_data);
+
+$out = '<table>';
+$rowcount=0;
+foreach ($table_data as $row) {
+    $out .= '<tr>';
+
+    foreach ($row as $col) {
+        ($rowcount==0) ? $out .= '<th>' : $out .= '<td>';
+        $out .= $col;
+        ($rowcount==0) ? $out .= '</th>' : $out .= '</td>';
+    }
+    $out .= '<tr>';
+    $rowcount++;
+}
+$out .= '</table>';
+print $out;
+?><?php if (false) { ?><?php
+
+	$link 				= "";
+	$linkbild 			= "";
+	$linkueberschrift 	= "";
+	$linkanfang 		= "";
+	$linkende 			= "";		
+	$bild 				= '';
+	$bildunterschrift 	= '';
+	$weiterlesenlink 	= '';
+	$bildcode 			= '';
+
+
+
+# Variablen für Online-Prüfung
+	$online = '1';
+	$time = time();
+	$start = strtotime('01.12.2013');
+	$end = strtotime('30.12.2013');
+
+$msgonline = '
+<div class="rex-message"><div class="rex-info" style="font-size: 15px; font-weight: normal;"><p><span>Für diesen Inhalt ist ein in Veröffentlichungszeitraum angegeben (01.12.2013 - 30.12.2013)<br/><b>Dieser Inhalt wird auf der Webseite angezeigt.</b><span></p></div></div>';
+
+$msgoffline = '
+<div class="rex-message"><div class="rex-warning" style="font-size: 15px; font-weight: normal;"><p><span>Für diesen Inhalt ist ein in Veröffentlichungszeitraum angegeben (01.12.2013 - 30.12.2013)<br/><b>Dieser Inhalt wird momentan NICHT auf der Webseite angezeigt.</b><span></p></div></div>';
+
+
+if (!isset($REX['base']['textmodulcount'])){
+	$REX['base']['textmodulcount'] = 0;
+}
+$REX['base']['textmodulcount'] = $REX['base']['textmodulcount'] + 1;
+
+
+if(!$REX['REDAXO']) {
+
+//
+//	Frontend
+//
+  if(OOAddon::isAvailable('textile'))
+	{
+
+	if(true) { // Text
+		$text = '';
+ 		$text = htmlspecialchars_decode('rr',ENT_QUOTES);
+		$text = str_replace('<br />','',$text);
+		$text = rex_a79_textile($text);
+	} 
+
+// echo "";
+
+    if ("" != "") { // Bild
+
+	  	$bild 				= OOMedia::getMediaByName('');
+	   	$bildTitle 			= $bild->getTitle();
+	   	$bildBeschreibung 	= $bild->getValue('med_description');
+	    $bildCopyright 		= $bild->getValue('med_copyright');
+	   	$bildDateiName 		= $bild->getFileName();
+	   	$bildBreite 		= $bild->getWidth();
+	   	$bildHoehe 			= $bild->getHeight();
+
+		$image = rex_image_manager::getImageCache('', "contentimage_noresize");
+
+			//  printf('%s[%s] = %d x %d Pixel',
+	  		// $bildDateiName,
+	  		// "contentimage_noresize",
+	  		// $image->getWidth(),
+			// $image->getHeight()
+			// );
+
+	   	if ($bildCopyright != '') {
+	   		$bildCopyright = " | (c) ".$bildCopyright;
+	   	}
+
+	$bildunterschrift = '';
+	if(false)   {
+ 			$bildunterschrift = htmlspecialchars_decode('',ENT_QUOTES);
+			$bildunterschrift = str_replace('<br />','',$bildunterschrift);
+			$bildunterschrift = rex_a79_textile($bildunterschrift);
+			$bildunterschrift = '<div class="bildunterschrift">'.$bildunterschrift.'</div>'.PHP_EOL;
+	} 
+
+		if(true)   { 
+			$rahmen = 'class="rahmen"';
+		} else {
+			$rahmen = '';
+		}
+
+
+
+	$bildcode = '<img '.$rahmen.' src="index.php?rex_img_type=contentimage_noresize&amp;rex_img_file='.$bildDateiName.'" title="'.$bildCopyright.'" alt="'.$bildCopyright.'" width="'.$image->getWidth().'" height="'.$image->getHeight().'"/>'.PHP_EOL;
+	}
+
+ 
+
+	 if(false OR "" != 0) {
+
+		$link = "1";
+	   	$externerlink = "";
+	 	  	if($externerlink != str_replace("http://", "",$externerlink)) {
+				$linkanfang = '<a href="">'.PHP_EOL;
+			} else {
+				$linkanfang = '<a href="http://">'.PHP_EOL;
+			}
+	 
+ 		if ("" != 0) {
+	  		$linkanfang  = '<a href="'.rex_geturl("", $REX['CUR_CLANG']).'">'.PHP_EOL;
+		  } 
+	
+		$linkende ='</a>'.PHP_EOL;
+
+
+		if ("nurbildlink" == "nurbildlink") { $linkbild = "1"; }
+		if ("nurbildlink" == "ueberschriftlink") { $linkueberschrift = "1"; }
+		if ("nurbildlink" == "ueberschriftundbildlink") { $linkbild = "1"; $linkueberschrift = "1";}	
+
+		$weiterlesenlink = '';		
+		if (false) {
+			$weiterlesenlink = '<div class="weiterlesen">'.$linkanfang.''.$linkende.'</div>'.PHP_EOL;
+		} else {
+			$weiterlesenlink = '';
+		}
+
+		}
+	
+
+	// Überschrift
+	if ($linkueberschrift) {
+		$contentueberschrift = '<h1>'.$linkanfang.'rrr'.$linkende.'</h1>'.PHP_EOL;
+	} else {
+		$contentueberschrift =  '<h1>rrr</h1>'.PHP_EOL;
+	}
+
+	// Bild
+	if ($linkbild) {
+		$contentbild = $linkanfang.$bildcode.$linkende.$bildunterschrift;
+	} else {
+		$contentbild = $bildcode.$bildunterschrift;
+	}
+
+	// Text
+	$contenttext = $text;
+	$contentweiterlesen = $weiterlesenlink;
+
+	//HTML
+	$content = '<div class="textbildlink">'.PHP_EOL;
+
+	// Ausrichtung 
+
+	$floatimg = '';
+	$block = '';
+
+	// Ausrichtungen "im Fliesstext links"
+	if ("l" == 'l' OR "l" == 'tl' OR "l" == 'tlu') {
+		$floatimg = "flLeft";
+	}
+
+	// Ausrichtungen "im Fliesstext rechts"
+	if ("l" == 'r' OR "l" == 'tr' OR "l" == 'tru') {
+		$floatimg = "flRight";
+	}
+
+	if ("l" == 'tl' OR "l" == 'tr' OR "l" == 'tlu' OR "l" == 'tru' ) {
+		$block = 'block';
+	} else {
+		$block = '';
+	}
+
+	if ("l" == 'tlu' OR "l" == 'tru') {
+		$content .= '<div class="bildcontainer '.$floatimg.' noresize">'.PHP_EOL;
+		$content .= $contentbild.'</div>'.PHP_EOL;
+		$content .= '<div class="text '.$block.'">'.PHP_EOL;
+		$content .= $contentueberschrift.$contenttext.$contentweiterlesen.'</div>'.PHP_EOL;
+	} else {
+		$content .= $contentueberschrift;
+		$content .= '<div class="bildcontainer '.$floatimg.' noresize">'.PHP_EOL;
+		$content .= $contentbild.'</div>'.PHP_EOL;
+		$content .= '<div class="text '.$block.'">'.PHP_EOL;
+		$content .= $contenttext.$contentweiterlesen.'</div>'.PHP_EOL;
+	}
+
+	$content .=  '</div>'.PHP_EOL;
+
+
+// Zeiteinstellung
+
+if ($online == "1") {
+	
+	if( $time > $start && $time < $end )
+	{
+		if ($REX['REDAXO']) {
+			echo $msgonline;
+		}
+
+	echo PHP_EOL.'<!-- SLICE ID 1 ANFANG -->'.PHP_EOL;
+	echo $content;
+  	echo '<!-- // -->'.PHP_EOL;
+			
+	}
+	else {
+		if ($REX['REDAXO']) {
+		echo $msgoffline;
+		}
+	}
+	}
+# Prüfung aus
+  if ($online == "") {
+	echo PHP_EOL.'<!-- SLICE ID 1 ANFANG -->'.PHP_EOL;
+	echo $content;
+  	echo '<!-- // -->'.PHP_EOL;	   
+  }
+
+
+	} else {
+	  echo rex_warning('Dieses Modul benötigt das "textile" Addon!');
+	}
+} else {
+
+//
+//	Backend
+//
+
+// Eingaben prüfen
+$warnings = [];
+
+if ("" != "" AND "" == "" ) {
+    $warnings[] = 'Bitte geben Sie einen Alternativtext für das Bild an.';
+}
+
+if ("" == "" AND "" != "" OR "" == "" AND "" != "" ) {
+    $warnings[] = 'Sie haben Angaben zu einem Bild gemacht ohne ein Bild auszuwählen. Bitte wählen Sie ein Bild aus.';
+}
+
+if ("" != "" AND ("" == "" AND "" == "" )) {
+    $warnings[] = 'Bitte geben Sie einen Link an.';
+}
+
+if ("" != "" AND "" != "") {
+    $warnings[] = 'Bitte geben Sie entweder einen externen oder einen internen Link an.';
+} 
+
+if (("" != "" OR "" != "") AND (("rrr" == "" AND "nurbildlink" == "ueberschriftlink") OR ("rrr" == "" AND "nurbildlink" == "ueberschriftundbildlink"))) {
+    $warnings[] = 'Die Überschrift kann nicht verlinkt werden. Bitte geben Sie eine Überschrift ein.';
+}
+
+if (("" != "" OR "" != "") AND (("" == "" AND "nurbildlink" == "nurbildlink") OR ("" == "" AND "nurbildlink" == "ueberschriftundbildlink"))) {
+    $warnings[] = 'Das Bild kann nicht verlinkt werden. Bitte wählen Sie ein Bild aus.';
+}
+
+if ($REX['REDAXO'] && count($warnings) > 0) {
+    foreach ($warnings as $warning) {
+        echo rex_warning($warning);
+    }
+}
+
+	echo '<table style="width: 100%;">'.PHP_EOL;
+
+	if (true) // Überschrift
+	{
+
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Überschrift</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">rrr</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+		echo '<tr>'.PHP_EOL;		
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Grösse</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">h1</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+	}
+	
+	
+	if(true)
+	{
+		$text = '';
+ 		$text = htmlspecialchars_decode('rr',ENT_QUOTES);
+		$text = str_replace('<br />','',$text);
+		$text = rex_a79_textile($text);
+		
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Text</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$text.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+	} 
+
+
+    //  Wenn Bild eingefuegt wurde, Code schreiben 
+    if ("" != "") {
+
+	echo '<tr>'.PHP_EOL;		
+	echo '<th colspan="2"><br/><hr/><br/></th>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$ausrichtung = "";
+    if ("l" == "l") 		$ausrichtung = "im Text links";
+    if ("l" == "r") 		$ausrichtung = "im Text rechts";
+    if ("l" == "tl") 	$ausrichtung = "links vom Text";
+    if ("l" == "tr") 	$ausrichtung = "rechts vom Text";
+	if ("l" == "tlu") 	$ausrichtung = "links von Text und Überschrift";
+    if ("l" == "tru") 	$ausrichtung = "rechts von Text und Überschrift";
+
+  	$bild 				= OOMedia::getMediaByName('');
+   	$bildTitle 			= $bild->getTitle();
+   	$bildBeschreibung 	= $bild->getValue('med_description');
+    $bildCopyright 		= $bild->getValue('med_copyright');
+   	$bildDateiName 		= $bild->getFileName();
+   	$bildBreite 		= $bild->getWidth();
+   	$bildHoehe 			= $bild->getHeight();
+
+   	if ($bildCopyright != '') {
+   		$bildCopyright = " | (c) ".$bildCopyright;
+   	}
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Bild</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;"><br/><br/>
+			<img src="index.php?rex_img_type=rex_medialistbutton_preview&rex_img_file='.$bildDateiName.'" title="'.$bildCopyright.'" alt="'.$bildCopyright.'" />
+		  </td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Alternativtext</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$bildCopyright.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$bildunterschrift = '';
+	  if(false)
+		  {
+ 			$bildunterschrift = htmlspecialchars_decode('',ENT_QUOTES);
+			$bildunterschrift = str_replace('<br />','',$bildunterschrift);
+			$bildunterschrift = rex_a79_textile($bildunterschrift);
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Bildunterschrift</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;">'.$bildunterschrift.'</td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		   } 
+
+	$bildgroesse = "";
+    if ("noresize" == "noresize") 	$bildgroesse = "keine Anpassung";
+    if ("noresize" == "full") 		$bildgroesse = "ganze Breite";
+    if ("noresize" == "half") 		$bildgroesse = "halbe Breite";
+    if ("noresize" == "quarter")	$bildgroesse = "viertel Breite";
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Grösse</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$bildgroesse.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Ausrichtung</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$ausrichtung.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$bildrahmen = "";
+     if(true) {
+     	$bildrahmen = "ja";
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Rahmen</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$bildrahmen.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+     }
+
+
+	}
+
+    // Link
+    if (false OR false OR "" != 0 ) {
+
+		echo '<tr>'.PHP_EOL;		
+		echo '<th colspan="2"><br/><hr/><br/></th>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+
+	    if(false) {
+
+	    	$externerlink = "";
+	    	if($externerlink != str_replace("http://", "",$externerlink)) {
+				$externerlink = "";
+			} else {
+				$externerlink = "http://";
+			}
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">externe URL</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;">'.$externerlink.'</td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+	    if ("" != 0) {
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">interner Link</td>'.PHP_EOL;
+
+			$article=OOArticle::getArticleById();
+			$name=$article->getName(); 
+
+			echo '<td style="padding: 5px;"><a href="index.php?page=content&article_id=&mode=edit">'.$name.'</a></td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+		$verlinkungsart = "";
+    	if ("nurbildlink" == "nurbildlink") 				$verlinkungsart = "nur das Bild ist verlinkt";
+    	if ("nurbildlink" == "ueberschriftlink") 			$verlinkungsart = "nur die Überschrift ist verlinkt";
+    	if ("nurbildlink" == "ueberschriftundbildlink") 	$verlinkungsart = "Überschrift und Bild sind verlinkt";
+
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Verlinkungsart</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$verlinkungsart.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+
+	    if(false) {
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Linkbezeichnung</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;"></td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+    }
+
+	echo '</table>'.PHP_EOL;
+
+}
+
+?><?php } ?><?php
+
+	$link 				= "";
+	$linkbild 			= "";
+	$linkueberschrift 	= "";
+	$linkanfang 		= "";
+	$linkende 			= "";		
+	$bild 				= '';
+	$bildunterschrift 	= '';
+	$weiterlesenlink 	= '';
+	$bildcode 			= '';
+
+
+
+# Variablen für Online-Prüfung
+	$online = '1';
+	$time = time();
+	$start = strtotime('02.12.2013');
+	$end = strtotime('26.12.2013');
+
+$msgonline = '
+<div class="rex-message"><div class="rex-info" style="font-size: 15px; font-weight: normal;"><p><span>Für diesen Inhalt ist ein in Veröffentlichungszeitraum angegeben (02.12.2013 - 26.12.2013)<br/><b>Dieser Inhalt wird auf der Webseite angezeigt.</b><span></p></div></div>';
+
+$msgoffline = '
+<div class="rex-message"><div class="rex-warning" style="font-size: 15px; font-weight: normal;"><p><span>Für diesen Inhalt ist ein in Veröffentlichungszeitraum angegeben (02.12.2013 - 26.12.2013)<br/><b>Dieser Inhalt wird momentan NICHT auf der Webseite angezeigt.</b><span></p></div></div>';
+
+
+if (!isset($REX['base']['textmodulcount'])){
+	$REX['base']['textmodulcount'] = 0;
+}
+$REX['base']['textmodulcount'] = $REX['base']['textmodulcount'] + 1;
+
+
+if(!$REX['REDAXO']) {
+
+//
+//	Frontend
+//
+  if(OOAddon::isAvailable('textile'))
+	{
+
+	if(true) { // Text
+		$text = '';
+ 		$text = htmlspecialchars_decode('tt',ENT_QUOTES);
+		$text = str_replace('<br />','',$text);
+		$text = rex_a79_textile($text);
+	} 
+
+// echo "";
+
+    if ("" != "") { // Bild
+
+	  	$bild 				= OOMedia::getMediaByName('');
+	   	$bildTitle 			= $bild->getTitle();
+	   	$bildBeschreibung 	= $bild->getValue('med_description');
+	    $bildCopyright 		= $bild->getValue('med_copyright');
+	   	$bildDateiName 		= $bild->getFileName();
+	   	$bildBreite 		= $bild->getWidth();
+	   	$bildHoehe 			= $bild->getHeight();
+
+		$image = rex_image_manager::getImageCache('', "contentimage_noresize");
+
+			//  printf('%s[%s] = %d x %d Pixel',
+	  		// $bildDateiName,
+	  		// "contentimage_noresize",
+	  		// $image->getWidth(),
+			// $image->getHeight()
+			// );
+
+	   	if ($bildCopyright != '') {
+	   		$bildCopyright = " | (c) ".$bildCopyright;
+	   	}
+
+	$bildunterschrift = '';
+	if(false)   {
+ 			$bildunterschrift = htmlspecialchars_decode('',ENT_QUOTES);
+			$bildunterschrift = str_replace('<br />','',$bildunterschrift);
+			$bildunterschrift = rex_a79_textile($bildunterschrift);
+			$bildunterschrift = '<div class="bildunterschrift">'.$bildunterschrift.'</div>'.PHP_EOL;
+	} 
+
+		if(false)   { 
+			$rahmen = 'class="rahmen"';
+		} else {
+			$rahmen = '';
+		}
+
+
+
+	$bildcode = '<img '.$rahmen.' src="index.php?rex_img_type=contentimage_noresize&amp;rex_img_file='.$bildDateiName.'" title="'.$bildCopyright.'" alt="'.$bildCopyright.'" width="'.$image->getWidth().'" height="'.$image->getHeight().'"/>'.PHP_EOL;
+	}
+
+ 
+
+	 if(false OR "" != 0) {
+
+		$link = "1";
+	   	$externerlink = "";
+	 	  	if($externerlink != str_replace("http://", "",$externerlink)) {
+				$linkanfang = '<a href="">'.PHP_EOL;
+			} else {
+				$linkanfang = '<a href="http://">'.PHP_EOL;
+			}
+	 
+ 		if ("" != 0) {
+	  		$linkanfang  = '<a href="'.rex_geturl("", $REX['CUR_CLANG']).'">'.PHP_EOL;
+		  } 
+	
+		$linkende ='</a>'.PHP_EOL;
+
+
+		if ("nurbildlink" == "nurbildlink") { $linkbild = "1"; }
+		if ("nurbildlink" == "ueberschriftlink") { $linkueberschrift = "1"; }
+		if ("nurbildlink" == "ueberschriftundbildlink") { $linkbild = "1"; $linkueberschrift = "1";}	
+
+		$weiterlesenlink = '';		
+		if (false) {
+			$weiterlesenlink = '<div class="weiterlesen">'.$linkanfang.''.$linkende.'</div>'.PHP_EOL;
+		} else {
+			$weiterlesenlink = '';
+		}
+
+		}
+	
+
+	// Überschrift
+	if ($linkueberschrift) {
+		$contentueberschrift = '<h2>'.$linkanfang.'ttt'.$linkende.'</h2>'.PHP_EOL;
+	} else {
+		$contentueberschrift =  '<h2>ttt</h2>'.PHP_EOL;
+	}
+
+	// Bild
+	if ($linkbild) {
+		$contentbild = $linkanfang.$bildcode.$linkende.$bildunterschrift;
+	} else {
+		$contentbild = $bildcode.$bildunterschrift;
+	}
+
+	// Text
+	$contenttext = $text;
+	$contentweiterlesen = $weiterlesenlink;
+
+	//HTML
+	$content = '<div class="textbildlink">'.PHP_EOL;
+
+	// Ausrichtung 
+
+	$floatimg = '';
+	$block = '';
+
+	// Ausrichtungen "im Fliesstext links"
+	if ("l" == 'l' OR "l" == 'tl' OR "l" == 'tlu') {
+		$floatimg = "flLeft";
+	}
+
+	// Ausrichtungen "im Fliesstext rechts"
+	if ("l" == 'r' OR "l" == 'tr' OR "l" == 'tru') {
+		$floatimg = "flRight";
+	}
+
+	if ("l" == 'tl' OR "l" == 'tr' OR "l" == 'tlu' OR "l" == 'tru' ) {
+		$block = 'block';
+	} else {
+		$block = '';
+	}
+
+	if ("l" == 'tlu' OR "l" == 'tru') {
+		$content .= '<div class="bildcontainer '.$floatimg.' noresize">'.PHP_EOL;
+		$content .= $contentbild.'</div>'.PHP_EOL;
+		$content .= '<div class="text '.$block.'">'.PHP_EOL;
+		$content .= $contentueberschrift.$contenttext.$contentweiterlesen.'</div>'.PHP_EOL;
+	} else {
+		$content .= $contentueberschrift;
+		$content .= '<div class="bildcontainer '.$floatimg.' noresize">'.PHP_EOL;
+		$content .= $contentbild.'</div>'.PHP_EOL;
+		$content .= '<div class="text '.$block.'">'.PHP_EOL;
+		$content .= $contenttext.$contentweiterlesen.'</div>'.PHP_EOL;
+	}
+
+	$content .=  '</div>'.PHP_EOL;
+
+
+// Zeiteinstellung
+
+if ($online == "1") {
+	
+	if( $time > $start && $time < $end )
+	{
+		if ($REX['REDAXO']) {
+			echo $msgonline;
+		}
+
+	echo PHP_EOL.'<!-- SLICE ID 2 ANFANG -->'.PHP_EOL;
+	echo $content;
+  	echo '<!-- // -->'.PHP_EOL;
+			
+	}
+	else {
+		if ($REX['REDAXO']) {
+		echo $msgoffline;
+		}
+	}
+	}
+# Prüfung aus
+  if ($online == "") {
+	echo PHP_EOL.'<!-- SLICE ID 2 ANFANG -->'.PHP_EOL;
+	echo $content;
+  	echo '<!-- // -->'.PHP_EOL;	   
+  }
+
+
+	} else {
+	  echo rex_warning('Dieses Modul benötigt das "textile" Addon!');
+	}
+} else {
+
+//
+//	Backend
+//
+
+// Eingaben prüfen
+$warnings = [];
+
+if ("" != "" AND "" == "" ) {
+    $warnings[] = 'Bitte geben Sie einen Alternativtext für das Bild an.';
+}
+
+if ("" == "" AND "" != "" OR "" == "" AND "" != "" ) {
+    $warnings[] = 'Sie haben Angaben zu einem Bild gemacht ohne ein Bild auszuwählen. Bitte wählen Sie ein Bild aus.';
+}
+
+if ("" != "" AND ("" == "" AND "" == "" )) {
+    $warnings[] = 'Bitte geben Sie einen Link an.';
+}
+
+if ("" != "" AND "" != "") {
+    $warnings[] = 'Bitte geben Sie entweder einen externen oder einen internen Link an.';
+} 
+
+if (("" != "" OR "" != "") AND (("ttt" == "" AND "nurbildlink" == "ueberschriftlink") OR ("ttt" == "" AND "nurbildlink" == "ueberschriftundbildlink"))) {
+    $warnings[] = 'Die Überschrift kann nicht verlinkt werden. Bitte geben Sie eine Überschrift ein.';
+}
+
+if (("" != "" OR "" != "") AND (("" == "" AND "nurbildlink" == "nurbildlink") OR ("" == "" AND "nurbildlink" == "ueberschriftundbildlink"))) {
+    $warnings[] = 'Das Bild kann nicht verlinkt werden. Bitte wählen Sie ein Bild aus.';
+}
+
+if ($REX['REDAXO'] && count($warnings) > 0) {
+    foreach ($warnings as $warning) {
+        echo rex_warning($warning);
+    }
+}
+
+	echo '<table style="width: 100%;">'.PHP_EOL;
+
+	if (true) // Überschrift
+	{
+
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Überschrift</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">ttt</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+		echo '<tr>'.PHP_EOL;		
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Grösse</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">h2</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+	}
+	
+	
+	if(true)
+	{
+		$text = '';
+ 		$text = htmlspecialchars_decode('tt',ENT_QUOTES);
+		$text = str_replace('<br />','',$text);
+		$text = rex_a79_textile($text);
+		
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Text</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$text.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+	} 
+
+
+    //  Wenn Bild eingefuegt wurde, Code schreiben 
+    if ("" != "") {
+
+	echo '<tr>'.PHP_EOL;		
+	echo '<th colspan="2"><br/><hr/><br/></th>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$ausrichtung = "";
+    if ("l" == "l") 		$ausrichtung = "im Text links";
+    if ("l" == "r") 		$ausrichtung = "im Text rechts";
+    if ("l" == "tl") 	$ausrichtung = "links vom Text";
+    if ("l" == "tr") 	$ausrichtung = "rechts vom Text";
+	if ("l" == "tlu") 	$ausrichtung = "links von Text und Überschrift";
+    if ("l" == "tru") 	$ausrichtung = "rechts von Text und Überschrift";
+
+  	$bild 				= OOMedia::getMediaByName('');
+   	$bildTitle 			= $bild->getTitle();
+   	$bildBeschreibung 	= $bild->getValue('med_description');
+    $bildCopyright 		= $bild->getValue('med_copyright');
+   	$bildDateiName 		= $bild->getFileName();
+   	$bildBreite 		= $bild->getWidth();
+   	$bildHoehe 			= $bild->getHeight();
+
+   	if ($bildCopyright != '') {
+   		$bildCopyright = " | (c) ".$bildCopyright;
+   	}
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Bild</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;"><br/><br/>
+			<img src="index.php?rex_img_type=rex_medialistbutton_preview&rex_img_file='.$bildDateiName.'" title="'.$bildCopyright.'" alt="'.$bildCopyright.'" />
+		  </td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Alternativtext</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$bildCopyright.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$bildunterschrift = '';
+	  if(false)
+		  {
+ 			$bildunterschrift = htmlspecialchars_decode('',ENT_QUOTES);
+			$bildunterschrift = str_replace('<br />','',$bildunterschrift);
+			$bildunterschrift = rex_a79_textile($bildunterschrift);
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Bildunterschrift</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;">'.$bildunterschrift.'</td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		   } 
+
+	$bildgroesse = "";
+    if ("noresize" == "noresize") 	$bildgroesse = "keine Anpassung";
+    if ("noresize" == "full") 		$bildgroesse = "ganze Breite";
+    if ("noresize" == "half") 		$bildgroesse = "halbe Breite";
+    if ("noresize" == "quarter")	$bildgroesse = "viertel Breite";
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Grösse</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$bildgroesse.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	echo '<tr>'.PHP_EOL;
+	echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Ausrichtung</td>'.PHP_EOL;
+	echo '<td style="padding: 5px;">'.$ausrichtung.'</td>'.PHP_EOL;
+	echo '</tr>'.PHP_EOL;
+
+	$bildrahmen = "";
+     if(false) {
+     	$bildrahmen = "ja";
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Rahmen</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$bildrahmen.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+     }
+
+
+	}
+
+    // Link
+    if (false OR false OR "" != 0 ) {
+
+		echo '<tr>'.PHP_EOL;		
+		echo '<th colspan="2"><br/><hr/><br/></th>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+
+	    if(false) {
+
+	    	$externerlink = "";
+	    	if($externerlink != str_replace("http://", "",$externerlink)) {
+				$externerlink = "";
+			} else {
+				$externerlink = "http://";
+			}
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">externe URL</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;">'.$externerlink.'</td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+	    if ("" != 0) {
+
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">interner Link</td>'.PHP_EOL;
+
+			$article=OOArticle::getArticleById();
+			$name=$article->getName(); 
+
+			echo '<td style="padding: 5px;"><a href="index.php?page=content&article_id=&mode=edit">'.$name.'</a></td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+		$verlinkungsart = "";
+    	if ("nurbildlink" == "nurbildlink") 				$verlinkungsart = "nur das Bild ist verlinkt";
+    	if ("nurbildlink" == "ueberschriftlink") 			$verlinkungsart = "nur die Überschrift ist verlinkt";
+    	if ("nurbildlink" == "ueberschriftundbildlink") 	$verlinkungsart = "Überschrift und Bild sind verlinkt";
+
+		echo '<tr>'.PHP_EOL;
+		echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Verlinkungsart</td>'.PHP_EOL;
+		echo '<td style="padding: 5px;">'.$verlinkungsart.'</td>'.PHP_EOL;
+		echo '</tr>'.PHP_EOL;
+
+	    if(false) {
+			echo '<tr>'.PHP_EOL;
+			echo '<td style="padding: 5px; width: 100px; font-weight: bold;">Linkbezeichnung</td>'.PHP_EOL;
+			echo '<td style="padding: 5px;"></td>'.PHP_EOL;
+			echo '</tr>'.PHP_EOL;
+		}	
+
+    }
+
+	echo '</table>'.PHP_EOL;
+
+}
+
+?><?php } ?>

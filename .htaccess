@@ -1,30 +1,50 @@
-<IfModule mod_rewrite.c>
-RewriteEngine On
-
-### In case ModRewrite doesnt work - remove following comment and try again
-# RewriteBase /
-
-### If file exists, use it.
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-
-### Standard Rewrite - without AddOn, Add Comments when you use an Rewrite AddOn
-RewriteRule ^([0-9]*)-([0-9]*)- index.php?article_id=$1&clang=$2&%{QUERY_STRING}
-RewriteRule ^([0-9]*)- index.php?article_id=$1&%{QUERY_STRING}
-
-### Remove Comments when you use Fullname "url_rewrite" AddOn
-#RewriteCond %{REQUEST_URI} !^redaxo/.*
-#RewriteCond %{REQUEST_URI} !^files/.*
-#RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
-
-### In case you want to secure all files via your own addon remove comment
-# RewriteRule ^files/(.*) /index.php?rex_media=$1&%{QUERY_STRING} [NC]
-
+# PREVENT DIRECTORY LISTING
+<IfModule mod_autoindex.c>
+	Options -Indexes
 </IfModule>
 
 
-### BSC
+Options +FollowSymLinks +ExecCGI
+
+RewriteEngine On
 RewriteRule ^(.*.bsc.css)$ bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
 RewriteRule ^(.*.cc.css)$  bsc-unit/?f=$1&%{QUERY_STRING} [T=text/css]
 RewriteRule ^(.*.less)$    bsc-unit/?f=$1&%{QUERY_STRING}
+
+
+# REWRITING
+<IfModule mod_rewrite.c>
+	# ENABLE REWRITING
+	RewriteEngine On
+	RewriteBase /
+
+	# REDIRECT NON-WWW TO WWW (SUBDOMAINS WON'T BE AFFECTED)
+	RewriteCond %{HTTP_HOST} ^[^.]+\.[^.]+$
+	RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [L,R=301]
+
+	# REDIRECT WWW TO NON-WWW
+	#RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+	#RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+
+	# REDIRECT SITEMAP.XML TO REXSEO SITEMAP FUNCTION
+	RewriteRule ^sitemap\.xml$ index.php?rexseo_func=sitemap [NC,L]
+
+	# REDIRECT ROBOTS.TXT TO REXSEO ROBOTS FUNCTION
+	RewriteRule ^robots\.txt$ index.php?rexseo_func=robots [NC,L]
+
+	# REWRITE RULE FOR SEO FRIENDLY IMAGE MANAGER URLS
+	RewriteRule ^files[0-9]*/imagetypes/([^/]*)/([^/]*) index.php?rex_img_type=$1&rex_img_file=$2
+
+	# DON'T REWRITE IF REAL FILE, FOLDER OR SYMLINK EXISTS
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME} !-l
+
+	# EXCLUDE SPECIFIC FOLDERS FROM REWRITE ENGINE
+	RewriteCond %{REQUEST_URI} !/files[0-9]*/
+	RewriteCond %{REQUEST_URI} !/redaxo/
+
+	# REWRITE ALL OTHER REQUESTS TO INDEX.PHP
+	RewriteRule ^(.*)$ index.php?%{QUERY_STRING} [L]
+</IfModule>
+

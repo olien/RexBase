@@ -65,7 +65,7 @@
     // @methode: .labels
     // @usage: #form > .labels();
     
-    .labels(@var-weight: @base-font-label-weight, @var-distance: @base-distance, @var-factor: @base-form-label-distance-factor) {
+    .labels(@var-weight: @base-font-label-weight, @var-distance: @base-distance, @var-factor: 0.25) {
         label {
             #box > .display(block);
             margin-bottom: ceil(@var-distance * @var-factor);

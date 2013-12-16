@@ -33,7 +33,7 @@
     // @methode: .headlines
     // @usage: #typo > .headlines(36px, 30px, 24px, 18px, 14px, 12px, 1.1, 20px, 1.1, 0.6, 65%);
     
-    .headlines(@var-size-h1: @base-font-size-h1, @var-size-h2: @base-font-size-h2, @var-size-h3: @base-font-size-h3, @var-size-h4: @base-font-size-h4, @var-size-h5: @base-font-size-h5, @var-size-h6: @base-font-size-h6, @var-line-height: @base-headline-line-height, @var-distance: @base-distance, @var-distance-factor-top: @base-headline-distance-factor-top, @var-distance-factor-bottom: @base-headline-distance-factor-bottom, @var-size-small: @base-headline-size-small) {
+    .headlines(@var-size-h1: @base-font-size-h1, @var-size-h2: @base-font-size-h2, @var-size-h3: @base-font-size-h3, @var-size-h4: @base-font-size-h4, @var-size-h5: @base-font-size-h5, @var-size-h6: @base-font-size-h6, @var-line-height: @base-headline-line-height, @var-distance: @base-distance, @var-distance-factor-top: 1, @var-distance-factor-bottom: 0,5, @var-size-small: @base-headline-size-small) {
         h1,
         h2,
         h3,
@@ -182,7 +182,7 @@
             padding: @var-code-padding;
         }
         pre {
-            border: 1px solid darken(@var-background-color, 15%);
+            border: 1px solid darken(@var-background-color, 10%);
             white-space: pre;
             vertical-align: baseline;
         }

@@ -30,8 +30,8 @@ $REX['ADDON']['plugins']['be_style']['status']['jquery_ui'] = '1';
 $REX['ADDON']['plugins']['be_style']['install']['structure_separators'] = '1';
 $REX['ADDON']['plugins']['be_style']['status']['structure_separators'] = '1';
 
-$REX['ADDON']['plugins']['cronjob']['install']['article_status'] = '0';
-$REX['ADDON']['plugins']['cronjob']['status']['article_status'] = '0';
+$REX['ADDON']['plugins']['cronjob']['install']['article_status'] = '1';
+$REX['ADDON']['plugins']['cronjob']['status']['article_status'] = '1';
 
 $REX['ADDON']['plugins']['cronjob']['install']['optimize_tables'] = '0';
 $REX['ADDON']['plugins']['cronjob']['status']['optimize_tables'] = '0';

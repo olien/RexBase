@@ -1,0 +1,32 @@
+<?php
+$REX['ART'][8]['article_id'][0] = '8';
+$REX['ART'][8]['last_update_stamp'][0] = '1387187955';
+$REX['ART'][8]['pid'][0] = '10';
+$REX['ART'][8]['re_id'][0] = '5';
+$REX['ART'][8]['name'][0] = 'Sub 2';
+$REX['ART'][8]['catname'][0] = 'Sub 2';
+$REX['ART'][8]['catprior'][0] = '2';
+$REX['ART'][8]['attributes'][0] = '';
+$REX['ART'][8]['startpage'][0] = '1';
+$REX['ART'][8]['prior'][0] = '1';
+$REX['ART'][8]['path'][0] = '|5|';
+$REX['ART'][8]['status'][0] = '1';
+$REX['ART'][8]['createdate'][0] = '1387187853';
+$REX['ART'][8]['updatedate'][0] = '1387187851';
+$REX['ART'][8]['template_id'][0] = '1';
+$REX['ART'][8]['clang'][0] = '0';
+$REX['ART'][8]['createuser'][0] = 'olien';
+$REX['ART'][8]['updateuser'][0] = 'olien';
+$REX['ART'][8]['revision'][0] = '0';
+$REX['ART'][8]['art_online_from'][0] = '';
+$REX['ART'][8]['art_online_to'][0] = '';
+$REX['ART'][8]['art_file'][0] = '';
+$REX['ART'][8]['art_type_id'][0] = '';
+$REX['ART'][8]['seo_title'][0] = '';
+$REX['ART'][8]['seo_description'][0] = '';
+$REX['ART'][8]['seo_keywords'][0] = '';
+$REX['ART'][8]['seo_custom_url'][0] = '';
+$REX['ART'][8]['seo_canonical_url'][0] = '';
+$REX['ART'][8]['seo_noindex'][0] = '';
+$REX['ART'][8]['seo_ignore_prefix'][0] = '';
+?>

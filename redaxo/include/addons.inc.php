@@ -27,8 +27,8 @@ $REX['ADDON']['status']['be_style'] = '1';
 $REX['ADDON']['install']['clearcache'] = '1';
 $REX['ADDON']['status']['clearcache'] = '1';
 
-$REX['ADDON']['install']['cronjob'] = '0';
-$REX['ADDON']['status']['cronjob'] = '0';
+$REX['ADDON']['install']['cronjob'] = '1';
+$REX['ADDON']['status']['cronjob'] = '1';
 
 $REX['ADDON']['install']['decaf_piwik_tracker'] = '0';
 $REX['ADDON']['status']['decaf_piwik_tracker'] = '0';
