@@ -1,6 +1,6 @@
 <?php
 $REX['ART'][2]['article_id'][0] = '2';
-$REX['ART'][2]['last_update_stamp'][0] = '1387179550';
+$REX['ART'][2]['last_update_stamp'][0] = '1387189811';
 $REX['ART'][2]['pid'][0] = '3';
 $REX['ART'][2]['re_id'][0] = '0';
 $REX['ART'][2]['name'][0] = '404 Seite';
@@ -12,7 +12,7 @@ $REX['ART'][2]['prior'][0] = '1';
 $REX['ART'][2]['path'][0] = '|';
 $REX['ART'][2]['status'][0] = '1';
 $REX['ART'][2]['createdate'][0] = '1386851132';
-$REX['ART'][2]['updatedate'][0] = '1386851173';
+$REX['ART'][2]['updatedate'][0] = '1387189784';
 $REX['ART'][2]['template_id'][0] = '1';
 $REX['ART'][2]['clang'][0] = '0';
 $REX['ART'][2]['createuser'][0] = 'olien';

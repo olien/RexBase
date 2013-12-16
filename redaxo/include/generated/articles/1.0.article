@@ -1,6 +1,6 @@
 <?php
 $REX['ART'][1]['article_id'][0] = '1';
-$REX['ART'][1]['last_update_stamp'][0] = '1387179550';
+$REX['ART'][1]['last_update_stamp'][0] = '1387189831';
 $REX['ART'][1]['pid'][0] = '1';
 $REX['ART'][1]['re_id'][0] = '0';
 $REX['ART'][1]['name'][0] = 'Starseite';
@@ -12,7 +12,7 @@ $REX['ART'][1]['prior'][0] = '1';
 $REX['ART'][1]['path'][0] = '|';
 $REX['ART'][1]['status'][0] = '1';
 $REX['ART'][1]['createdate'][0] = '1386851172';
-$REX['ART'][1]['updatedate'][0] = '1386944328';
+$REX['ART'][1]['updatedate'][0] = '1387189831';
 $REX['ART'][1]['template_id'][0] = '1';
 $REX['ART'][1]['clang'][0] = '0';
 $REX['ART'][1]['createuser'][0] = 'olien';

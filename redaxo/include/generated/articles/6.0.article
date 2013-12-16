@@ -1,10 +1,10 @@
 <?php
 $REX['ART'][6]['article_id'][0] = '6';
-$REX['ART'][6]['last_update_stamp'][0] = '1387187847';
+$REX['ART'][6]['last_update_stamp'][0] = '1387189764';
 $REX['ART'][6]['pid'][0] = '8';
 $REX['ART'][6]['re_id'][0] = '0';
-$REX['ART'][6]['name'][0] = 'Nioch einer mehr';
-$REX['ART'][6]['catname'][0] = 'Nioch einer mehr';
+$REX['ART'][6]['name'][0] = 'Noch einer mehr';
+$REX['ART'][6]['catname'][0] = 'Noch einer mehr';
 $REX['ART'][6]['catprior'][0] = '3';
 $REX['ART'][6]['attributes'][0] = '';
 $REX['ART'][6]['startpage'][0] = '1';
@@ -12,7 +12,7 @@ $REX['ART'][6]['prior'][0] = '1';
 $REX['ART'][6]['path'][0] = '|';
 $REX['ART'][6]['status'][0] = '1';
 $REX['ART'][6]['createdate'][0] = '1387187841';
-$REX['ART'][6]['updatedate'][0] = '1387187834';
+$REX['ART'][6]['updatedate'][0] = '1387189764';
 $REX['ART'][6]['template_id'][0] = '1';
 $REX['ART'][6]['clang'][0] = '0';
 $REX['ART'][6]['createuser'][0] = 'olien';

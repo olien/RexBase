@@ -1,39 +1,4 @@
 ?><?php if ($this->ctype == '1' || ($this->ctype == '-1')) { ?><?php
-if(!function_exists('getdyntable')) {
-    function getdyntable($string) {
-        $tmp = explode('[ROW|ROW]', $string);
-        $table = array();
-        for($i=0;$i<count($tmp);$i++) {
-            $tmp2 = explode('[COL|COL]', $tmp[$i]);
-            foreach($tmp2 as $col) {
-                $table[$i][] = trim($col);
-            }           
-        }
-        return $table;
-    }
-}
-$table_data = "sdad[COL|COL]asd[COL|COL]adasdasdasdasdasd[COL|COL]asd[COL|COL]asd[COL|COL]mtr[COL|COL]ewgegrwe[COL|COL]gerg[COL|COL]erge[COL|COL]ergerg[ROW|ROW]asd[COL|COL]asd[COL|COL]asd[COL|COL]asdad[COL|COL]asdas[COL|COL]etz[COL|COL][COL|COL]erg[COL|COL]rthb[COL|COL]ergerg[ROW|ROW]*sfdac* _sdfsdf_[COL|COL]asd[COL|COL]* dsf sdkrg erg wergweth<br />
-*  jtu kezum<br />
-* twzh rwthg wrthwr<br />
-* hrhwdb[COL|COL]sdasd[COL|COL]&quot;ljbljgbjl&quot;:http://test.de[COL|COL]rth[COL|COL]ferg[COL|COL] ngh[COL|COL]geg[COL|COL]erg[ROW|ROW]asda[COL|COL]asda[COL|COL]dasd[COL|COL]ad[COL|COL]asd[COL|COL]dfdg[COL|COL]egetg[COL|COL]tb[COL|COL]erge[COL|COL]ergeg";
-$table_data = getdyntable($table_data);
-
-$out = '<table>';
-$rowcount=0;
-foreach ($table_data as $row) {
-    $out .= '<tr>';
-
-    foreach ($row as $col) {
-        ($rowcount==0) ? $out .= '<th>' : $out .= '<td>';
-        $out .= $col;
-        ($rowcount==0) ? $out .= '</th>' : $out .= '</td>';
-    }
-    $out .= '<tr>';
-    $rowcount++;
-}
-$out .= '</table>';
-print $out;
-?><?php if (false) { ?><?php
 
 	$link 				= "";
 	$linkbild 			= "";
@@ -44,6 +9,7 @@ print $out;
 	$bildunterschrift 	= '';
 	$weiterlesenlink 	= '';
 	$bildcode 			= '';
+	$text 	 			= '';
 
 
 
@@ -454,7 +420,7 @@ if ($REX['REDAXO'] && count($warnings) > 0) {
 
 }
 
-?><?php } ?><?php
+?><?php
 
 	$link 				= "";
 	$linkbild 			= "";
@@ -465,6 +431,7 @@ if ($REX['REDAXO'] && count($warnings) > 0) {
 	$bildunterschrift 	= '';
 	$weiterlesenlink 	= '';
 	$bildcode 			= '';
+	$text 	 			= '';
 
 
 

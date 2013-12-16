@@ -28,15 +28,10 @@ if(!isset($_SESSION)) { session_start(); }
 <!DOCTYPE html>
 <html lang="de">
 <head>
-  <base href="<?php echo seo42::getBaseUrl(); ?>" />
-  <title><?php echo seo42::getTitle(); ?></title>
-  <meta name="description" content="<?php echo seo42::getDescription(); ?>" />
-  <meta name="keywords" content="<?php echo seo42::getKeywords(); ?>" />
-  <meta name="robots" content="<?php echo seo42::getRobotRules();?>" />
-  <link rel="canonical" href="<?php echo seo42::getCanonicalUrl(); ?>" />
-
-  <?php echo seo42::getLangTags(); ?> 
-
+  <?php
+  echo seo42::getHtml();
+  echo seo42::getLangTags();
+  ?> 
 
   <link rel="shortcut icon" href="assets/img/icons/favicon.ico">
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/img/icons/apple-touch-icon-144x144-precomposed.png">
