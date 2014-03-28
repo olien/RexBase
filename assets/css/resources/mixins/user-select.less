@@ -1,0 +1,43 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ user-select
+// #user-select > .user-select(none); // none|text|all|element
+
+// @namespace: #user-select
+
+#user-select {
+    
+    // @methode: .select
+    // @usage: #user-select > .user-select(none); // none|text|all|element
+    
+    .user-select(@var-select) {
+        .recursion(@var-select) {
+            -webkit-user-select: @var-select;
+               -moz-user-select: @var-select;
+                -ms-user-select: @var-select;
+                    user-select: @var-select;
+        }
+        .recursion-request(@var-select) when (@var-select = none) {
+            .recursion(@var-select);
+        }
+        .recursion-request(@var-select) when (@var-select = text) {
+            .recursion(@var-select);
+        }
+        .recursion-request(@var-select) when (@var-select = all) {
+            .recursion(@var-select);
+        }
+        .recursion-request(@var-select) when (@var-select = element) {
+            .recursion(@var-select);
+        }
+        .recursion-request(@var-select);
+    }
+}
+
+// @helper methode: .user-select
+// @usage: .user-select(none); // none|text|all|element
+
+.user-select(@var-select) {
+    #user-select > .user-select(@var-select);
+}

@@ -1,22 +1,21 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ box
-// #box > .display(inline-block, important);
-// #box > .display(box);
-// #box > .align(center);
-// #box > .direction(reverse);
+// #box > .display(inline-block, important); // box|none|block|inline|inline-block|table-row|table-cell
+// #box > .align(center); // start|end|center|baseline|stretch
+// #box > .direction(reverse); // normal|reverse|inherit
 // #box > .flex(1);
-// #box > .lines(single);
+// #box > .lines(single); // single|multiple
 // #box > .order(3);
 // #box > .ordinal(3);
-// #box > .orient(horizontal);
-// #box > .pack(center);
+// #box > .orient(horizontal); // horizontal|vertical|inline-axis|block-axis|inherit
+// #box > .pack(center); // start|end|center|justify
 // #box > .shadow(0, 0, 15px, #000, 0.9);
 // #box > .shadow(0, 0, 15px, #000, 0.9, inset);
 // #box > .shadow(~"0 1px 10px #000, inset 0 -2px 5px red");
-// #box > .sizing(border-box);
+// #box > .sizing(border-box); // content-box|border-box|inherit
 // #box > .reflect();
 // #box > .reflect(20%, 0.2);
 
@@ -27,106 +26,216 @@
     // @methode: .display
     // @usage: #box > .display(inline-block, important); // box|none|block|inline|inline-block|table-row|table-cell
     // @usage: #box > .display();
-
+    
     .display(@var-type: box, @var-important: false) {
-        .inception(@var, @var-1) when (@var = box) {
+        .recursion(@var, @var-1) when (@var = box) {
             display: -webkit-box;
             display: -moz-box;
             display: -ms-flexbox;
             display: box;
         }
-        .inception(@var, @var-1) when not (@var = box) and not (@var-1 = important) {
+        .recursion(@var, @var-important) when not (@var = box) and not (@var-important = important) {
             display: @var;
         }
-        .inception(@var, @var-1) when not (@var = box) and (@var-1 = important) {
+        .recursion(@var, @var-important) when not (@var = box) and (@var-important = important) {
             display: @var !important;
         }
-        .inception-inline(@var) when (@var = inline-block) {
+        .recursion-request(@var-type) when (@var-type = box) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = none) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = block) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = inline) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = inline-block) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = table-row) {
+            .recursion(@var-type, @var-important);
+        }
+        .recursion-request(@var-type) when (@var-type = table-cell) {
+            .recursion(@var-type, @var-important);
+        }
+        .inline-recursion(@var) when (@var = inline-block) {
             zoom: 1;
             *display: inline;
         }
-        .inception(@var-type, @var-important);
-        .inception-inline(@var-type);
+        .recursion-request(@var-type);
+        .inline-recursion(@var-type);
     }
     
     // @methode: .align
     // @usage: #box > .align(center); // start|end|center|baseline|stretch
     
     .align(@var: center) {
-        -webkit-box-align: @var;
-           -moz-box-align: @var;
-           -ms-flex-align: @var;
-                box-align: @var;
+        .recursion(@var) {
+            -webkit-box-align: @var;
+               -moz-box-align: @var;
+               -ms-flex-align: @var;
+                    box-align: @var;
+        }
+        .recursion-request(@var) when (@var = start){
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = end){
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = center){
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = baseline){
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = stretch){
+            .recursion(@var);
+        }
+        .recursion-request(@var)
     }
     
     // @methode: .direction
     // @usage: #box > .direction(reverse); // normal|reverse|inherit
     
-    .direction(@var: reverse) {
-        .inception(@var) when not (@var = reverse) {
-           -ms-flex-direction: @var;
+    .direction(@var: normal) {
+        .recursion(@var) {
+            .reverse-recursion(@var) when not (@var = reverse) {
+               -ms-flex-direction: @var;
+            }
+            .reverse-recursion(@var) when (@var = reverse) {
+               -ms-flex-direction: row-reverse;
+            }
+            .reverse-recursion(@var);
+            -webkit-box-direction: @var;
+               -moz-box-direction: @var;
+                    box-direction: @var;
         }
-        .inception(@var) when (@var = reverse) {
-           -ms-flex-direction: row-reverse;
+        .recursion-request(@var) when (@var = normal) {
+            .recursion(@var);
         }
-        .inception(@var);
-        -webkit-box-direction: @var;
-           -moz-box-direction: @var;
-                box-direction: @var;
+        .recursion-request(@var) when (@var = reverse) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = inherit) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .flex
-    // @usage: #box > .flex(1);
+    // @usage: #box > .flex(~"2 100px"); // none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+    // @usage: #box > .flex(2);
     
-    .flex(@var: 1) {
-        -webkit-box-flex: @var;
-           -moz-box-flex: @var;
-                -ms-flex: @var;
-                box-flex: @var;
+    .flex(@var) {
+        .recursion(@var) {
+            -webkit-box-flex: @var;
+               -moz-box-flex: @var;
+                -webkit-flex: @var;
+                    -ms-flex: @var;
+                        flex: @var;
+        }
+        .recursion-request(@var) when (@var = none) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (isstring(@var)) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (isnumber(@var)) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .lines
-    // @usage: #box > .lines(single); single|multiple
+    // @usage: #box > .lines(single); // single|multiple
     
     .lines(@var: single) {
-        -webkit-box-lines: @var;
-           -moz-box-lines: @var;
-            -ms-box-lines: @var;
-             -o-box-lines: @var;
-                box-lines: @var;
+        .recursion(@var) {
+            -webkit-box-lines: @var;
+               -moz-box-lines: @var;
+                -ms-box-lines: @var;
+                 -o-box-lines: @var;
+                    box-lines: @var;
+        }
+        .recursion-request(@var) when (@var = single) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = multiple) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .order
-    // @usage: #box > .order(3);
-    // @usage: #box > .ordinal(3);
+    // @usage: #box > .order(3); // <'integer'>
+    // @usage: #box > .ordinal(3); // <'integer'>
     
     .order(@var: 1) {
-        -webkit-box-ordinal-group: @var;
-           -moz-box-ordinal-group: @var;
-                   -ms-flex-order: @var;
-                box-ordinal-group: @var;
+        .recursion(@var) when (isnumber(@var)) {
+            -webkit-box-ordinal-group: @var;
+               -moz-box-ordinal-group: @var;
+                       -ms-flex-order: @var;
+                    box-ordinal-group: @var;
+        }
+        .recursion(@var);
     }
     .ordinal(@var) {
         #box > .order(@var);
     }
     
     // @methode: .orient
-    // @usage: #box > .orient(horizontal); horizontal|vertical|inline-axis|block-axis|inherit
+    // @usage: #box > .orient(horizontal); // horizontal|vertical|inline-axis|block-axis|inherit
     
     .orient(@var: horizontal) {
-        -webkit-box-orient: @var;
-           -moz-box-orient: @var;
-                box-orient: @var;
+        .recursion(@var) {
+            -webkit-box-orient: @var;
+               -moz-box-orient: @var;
+                    box-orient: @var;
+        }
+        .recursion-request(@var) when (@var = horizontal) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = vertical) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = inline-axis) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = block-axis) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = inherit) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .pack
     // @usage: #box > .pack(center); // start|end|center|justify
     
     .pack(@var: center) {
-        -webkit-box-pack: @var;
-           -moz-box-pack: @var;
-           -ms-flex-pack: @var;
-                box-pack: @var;
+        .recursion(@var) {
+            -webkit-box-pack: @var;
+               -moz-box-pack: @var;
+               -ms-flex-pack: @var;
+                    box-pack: @var;
+        }
+        .recursion-request(@var) when (@var = start) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = end) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = center) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = justify) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .shadow
@@ -135,29 +244,41 @@
     // @usage: #box > .shadow(~"0 1px 10px #000, inset 0 -2px 5px red");
     
     .shadow(@var-multi-shadow-or-x: 0, @var-y: false, @var-blur: false, @var-color: false, @var-alpha: false, @var-type: ~"") {
-        .shadow-inception(@var) {
+        .recursion(@var) {
             -webkit-box-shadow: @var;
                -moz-box-shadow: @var;
                     box-shadow: @var;
         }
-        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) and (@var-4 = false) {
-            .shadow-inception(@var);
+        .recursion-request(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) and (@var-4 = false) {
+            .recursion(@var);
         }
-        .inception(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) and not (@var-4 = false) {
+        .recursion-request(@var, @var-1, @var-2, @var-3, @var-4, @var-5) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) and not (@var-4 = false) {
             @var-rgba: hsla(hue(@var-color), saturation(@var-3), lightness(@var-3), @var-4);
-            .shadow-inception(@var-5 @var @var-1 @var-2 @var-rgba);
+            .recursion(@var-5 @var @var-1 @var-2 @var-rgba);
         }
-        .inception(@var-multi-shadow-or-x, @var-y, @var-blur, @var-color, @var-alpha, @var-type);
+        .recursion-request(@var-multi-shadow-or-x, @var-y, @var-blur, @var-color, @var-alpha, @var-type);
     }
     
     // @methode: .sizing
     // @usage: #box > .sizing(border-box); // content-box|border-box|inherit
     
     .sizing(@var: content-box) {
-        -webkit-box-sizing: @var;
-           -moz-box-sizing: @var;
-            -ms-box-sizing: @var;
-                box-sizing: @var;
+        .recursion(@var) {
+            -webkit-box-sizing: @var;
+               -moz-box-sizing: @var;
+                -ms-box-sizing: @var;
+                    box-sizing: @var;
+        }
+        .recursion-request(@var) when (@var = content-box) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = border-box) {
+            .recursion(@var);
+        }
+        .recursion-request(@var) when (@var = inherit) {
+            .recursion(@var);
+        }
+        .recursion-request(@var);
     }
     
     // @methode: .reflect

@@ -1,11 +1,13 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ shadow
 // #text > .shadow(0, 1px, 0, #000, 0.5);
 // #text > .shadow(~"0 0 0.2em rgba(0,0,0,0.9), 0 0 0.2em rgba(0,0,0,0.9), 0 0 0.2em rgba(0,0,0,0.9)");
 // #text > .fill();
+
+// @dependency: background.less
 
 // @namespace: #text
 
@@ -15,29 +17,33 @@
     // @usage: #text > .shadow(0, 1px, 0, #000, 0.5);
     // @usage: #text > .shodow(~"0 0 0.2em rgba(0,0,0,0.9), 0 0 0.2em rgba(0,0,0,0.9), 0 0 0.2em rgba(0,0,0,0.9)");
     
-    .shadow(@var-x, @var-y: false, @var-blur: false, @var-color: false, @var-alpha: false) {
-        .shadow-inseption(@var) {
-            text-shadow: @var;
+    .shadow(@var-x-or-stirng, @var-y: false, @var-blur: false, @var-color: false, @var-alpha: false) {
+        .recursion(@var-shadow) {
+            text-shadow: @var-shadow;
         }
-        .inseption(@var, @var-1, @var-2, @var-3, @var-4) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) and (@var-4 = false) {
-            .shadow-inseption(@var);
+        .recursion-request(@var-stirng, @var-y, @var-blur, @var-color, @var-alpha) when (@var-y = false) and (@var-blur = false) and (@var-color = false) and (@var-alpha = false) {
+            .recursion(@var-stirng);
             // filter: progid:DXImageTransform.Microsoft.Shadow(direction=135,strength=2,color=@var-color);
             // http://caniuse.com/css-textshadow
         }
-        .inseption(@var, @var-1, @var-2, @var-3, @var-4) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) and not (@var-4 = false) {
-            @var-5: hsla(hue(@var-3), saturation(@var-3), lightness(@var-3), @var-4);
-            @var-6: @var @var-1 @var-2 @var-5;
-            .shadow-inseption(@var @var-1 @var-2 @var-5);
+        .recursion-request(@var-x, @var-y, @var-blur, @var-color, @var-alpha) when (isnumber(@var-x)) and (isnumber(@var-y)) and (isnumber(@var-blur)) and (iscolor(@var-color)) and (isnumber(@var-alpha)) {
+            @var-rgba: hsla(hue(@var-color), saturation(@var-color), lightness(@var-color), @var-alpha);
+            .recursion(@var-x @var-y @var-blur @var-rgba);
         }
-        .inseption(@var-x, @var-y, @var-blur, @var-color, @var-alpha);
+        .recursion-request(@var-x-or-stirng, @var-y, @var-blur, @var-color, @var-alpha);
     }
     
     // @methode: .fill
     // @usage: #text > .fill();
     
-    .fill() {
+    .fill(@var-background: false, @var-color: false) {
+        .recursion(@var-background, @var-color) when not (@var-background = false) and (iscolor(@var-color)) {
+            color: @var-color;
+            #background > .background(@var-background);
+        }
         #background > .clip(text);
         -moz-text-fill-color: transparent;
         -webkit-text-fill-color: transparent;
+        .recursion(@var-background, @var-color);
     }
 }

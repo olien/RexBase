@@ -1,52 +1,57 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ icon
-// #icon > .inseption("\2606");
-// #icon > .element(star-empty, "\2606");
+// #icon > .icon("\2606", after);
+// #icon > .element("\2606", before);
 // #icon > .base(entypo);
+
+// @dependency: font.less
 
 // @namespace: #icon
 
 #icon {
     
     // @methode: .icon
-    // @usage: #icon > .icon(star-empty, "\2606");
+    // @usage: #icon > .icon(star-empty, "\2606", before);
     
-    .icon(@var-name, @var-content) {
-        .@{var-name} {
-            #icon > .inseption(@var-content);
+    .icon(@var-content: false, @var-direction: before) {
+        .recursion(@var-content, @var-direction) when not (@var-content = false) {
+            &:@{var-direction} {
+                content: "@{var-content}";
+            }
         }
-    }
-    
-    // @methode: .inseption
-    // @usage: #icon > .inseption("\2606");
-    
-    .inseption(@var-content) {
-        &:before {
-            content: "@{var-content}";
+        .recursion-request(@var-content, @var-direction) when (@var-direction = before) {
+            .recursion(@var-content, @var-direction);
         }
+        .recursion-request(@var-content, @var-direction) when (@var-direction = after) {
+            .recursion(@var-content, @var-direction);
+        }
+        .recursion-request(@var-content, @var-direction);
     }
     
     // @methode: .element
-    // @usage: #icon > .element(star-empty, "\2606");
+    // @usage: #icon > .element("\2606", after);
     
-    .element(@var-name, @var-content) {
-        #icon > .icon(@var-name, @var-content);
+    .element(@var-content, @var-direction: before) {
+        #icon > .icon(@var-content, @var-direction);
     }
     
     // @methode: .base
-    // @usage: #icon > .base(entypo);
+    // @usage: #icon > .base(entypo); // <'font-name'>
     
-    .base(@var-font-name) {
-        font-family: "@{var-font-name}";
-        speak: none;
-        font-style: normal;
-        font-weight: normal;
-        font-variant: normal;
-        text-transform: none;
-        line-height: 1;
-        -webkit-font-smoothing: antialiased;
+    .base(@var: false) {
+        .recursion(@var) when not (@var = false) {
+            font-family: "@{var-font-name}";
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            #font > .smoothing(antialiased);
+        }
+        .recursion(@var);
     }
 }

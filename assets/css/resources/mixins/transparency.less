@@ -1,14 +1,15 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ opacity
 // #transparency > .opacity(0.5);
 // #transparency > .background(@black, 0.5);
 // #transparency > .border(@black, 0.5);
+// .opacity(0.5);
 
-// @helper methode: ../../elements/helper.less
-// @usage: .opacity(0.5);
+// @dependency: translucent.less
+// @dependency: background.less
 
 // @namespace: #transparency
 
@@ -17,13 +18,16 @@
     // @methode: .opacity
     // @usage: #transparency > .opacity(0.5);
     
-    .opacity(@alpha) {
-        @msOpacity: @alpha * 100;
-        -webkit-opacity: @alpha;
-         -khtml-opacity: @alpha;
-           -moz-opacity: @alpha;
-                opacity: @alpha;
-             -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{msOpacity})";
+    .opacity(@var-alpha) {
+        .recursion(@var-alpha) when (isnumber(@var-alpha)) {
+            @var-ms : @var-alpha * 100;
+            -webkit-opacity: @var-alpha;
+             -khtml-opacity: @var-alpha;
+               -moz-opacity: @var-alpha;
+                    opacity: @var-alpha;
+                 -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=@{var-ms})";
+        }
+        .recursion(@var-alpha);
     }
     
     // @methode: .background
@@ -36,7 +40,14 @@
     // @methode: .border
     // @usage: #transparency > .border(@black, 0.5);
     
-    .border(@color, @alpha) {
-        #translucent > .border(@color, @alpha);
+    .border(@var-color, @var-alpha) {
+        #translucent > .border(@var-color, @var-alpha);
     }
+}
+
+// @direct-methode: .opacity
+// @usage: .opacity(0.5);
+
+.opacity(@var-alpha) {
+    #transparency > .opacity(@var-alpha);
 }

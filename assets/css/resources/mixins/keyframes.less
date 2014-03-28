@@ -1,12 +1,10 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ keyframes
 // #keyframes > .keyframes(test, ~"0% {top:0px; background:red; width:100px;} 100% {top:200px; background:yellow; width:300px;}");
-
-// @helper methode: ../elements/helper.less
-// @usage: .keyframes(test, ~"0% {top:0px; background:red; width:100px;} 100% {top:200px; background:yellow; width:300px;}");
+// .keyframes(test, ~"0% {top:0px; background:red; width:100px;} 100% {top:200px; background:yellow; width:300px;}");
 
 // @namespace: #keyframes
 
@@ -15,22 +13,23 @@
     // @methode: .keyframes
     // @usage: #keyframes > .keyframes(test, @keyframe);
     
-    .keyframes(@var-selector, @var) {
-        .inseption(@pre, @post, @vendor) {
-            @keyframe: ~"@{pre}@@{vendor}keyframes @{var-selector} {@{var}} .none-@{selector}:before ";
-            @{keyframe} {text-align: !important;}
-            
-            .local(){}
-            .local() when (@post=1) {
-                @local: ~"} .none-2-@{var-selector}:before";
-                @{local} {text-align: !important;}
-            }    
-            .local;
-        } 
-        .inseption(""   , 0,    "-moz-");
-        .inseption(~"} ", 0, "-webkit-");
-        .inseption(~"} ", 0,      "-o-");
-        .inseption(~"} ", 0,     "-ms-");
-        .inseption(~"} ", 1,         "");
+    .keyframes(@var-selector, @var-keyframes) {
+        @newline : ' ';
+        .recursion(@vendor) {
+            @keyframe: ~"@@{vendor}keyframes @{var-selector} {@{newline}@{var-keyframes}@{newline}} .x:not(x) ";
+            @{keyframe} { content: ''; }
+        }
+        .recursion("-moz-");
+        .recursion("-webkit-");
+        .recursion("-o-");
+        .recursion("-ms-");
+        .recursion("");
     }
+}
+
+// @direct-methode: .keyframes
+// @usage: .keyframes(name, @keyframe);
+
+.keyframes(@var-selector, @var-keyframes) {
+    #keyframes > .keyframes(@var-selector, @var-keyframes);
 }

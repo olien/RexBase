@@ -10,7 +10,7 @@
  */
 class rex_developer_synchronizer_default extends rex_developer_synchronizer
 {
-    const METADADATA_FILE = 'metadata.yml';
+    const METADATA_FILE = 'metadata.yml';
 
     protected $table;
     protected $columns;
@@ -35,7 +35,7 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
         $this->table = $table;
         $this->columns = array_flip($files);
         $this->metadata = array_merge(array('name' => 'string'), $metadata);
-        $files[] = self::METADADATA_FILE;
+        $files[] = self::METADATA_FILE;
         parent::__construct($dirname, $files);
     }
 
@@ -105,7 +105,7 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
     }
 
     /**
-     * {@inheritedDoc}
+     * {@inheritDoc}
      */
     protected function getItems()
     {
@@ -122,14 +122,16 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
             foreach ($this->metadata as $column => $type) {
                 $metadata[$column] = self::cast($sql->getValue($column), $type);
             }
-            $item->setFile(self::METADADATA_FILE, rex_developer_manager::yamlEncode($metadata));
+            $item->setFile(self::METADATA_FILE, function() use ($metadata) {
+                return rex_developer_manager::yamlEncode($metadata);
+            });
             $items[] = $item;
         }
         return $items;
     }
 
     /**
-     * {@inheritedDoc}
+     * {@inheritDoc}
      */
     protected function addItem(rex_developer_synchronizer_item $item)
     {
@@ -154,14 +156,14 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
             $sql->setValue($this->updatedColumn, $item->getUpdated());
         }
         $files = $item->getFiles();
-        if (isset($files[self::METADADATA_FILE])) {
-            $metadata = rex_developer_manager::yamlDecode($files[self::METADADATA_FILE]);
+        if (isset($files[self::METADATA_FILE])) {
+            $metadata = rex_developer_manager::yamlDecode($files[self::METADATA_FILE]);
             foreach ($this->metadata as $column => $type) {
                 if (isset($metadata[$column])) {
                     $sql->setValue($column, $sql->escape(self::toString($metadata[$column], $type)));
                 }
             }
-            unset($files[self::METADADATA_FILE]);
+            unset($files[self::METADATA_FILE]);
         }
         foreach ($files as $file => $content) {
             $sql->setValue($this->columns[$file], $sql->escape($content));
@@ -178,7 +180,7 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
     }
 
     /**
-     * {@inheritedDoc}
+     * {@inheritDoc}
      */
     protected function editItem(rex_developer_synchronizer_item $item)
     {
@@ -193,14 +195,14 @@ class rex_developer_synchronizer_default extends rex_developer_synchronizer
             $sql->setValue($this->updatedColumn, $item->getUpdated());
         }
         $files = $item->getFiles();
-        if (isset($files[self::METADADATA_FILE])) {
-            $metadata = rex_developer_manager::yamlDecode($files[self::METADADATA_FILE]);
+        if (isset($files[self::METADATA_FILE])) {
+            $metadata = rex_developer_manager::yamlDecode($files[self::METADATA_FILE]);
             foreach ($this->metadata as $column => $type) {
                 if (isset($metadata[$column])) {
                     $sql->setValue($column, $sql->escape(self::toString($metadata[$column], $type)));
                 }
             }
-            unset($files[self::METADADATA_FILE]);
+            unset($files[self::METADATA_FILE]);
         }
         foreach ($files as $file => $content) {
             $sql->setValue($this->columns[$file], $sql->escape($content));

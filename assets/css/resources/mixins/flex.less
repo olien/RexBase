@@ -1,0 +1,331 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ flex
+// #flex > .align-content(flex-start); // flex-start|flex-end|center|space-between|space-around|stretch
+// #flex > .align-items(flex-start); // flex-start|flex-end|center|baseline|stretch
+// #flex > .align-self(auto); // auto|flex-start|flex-end|center|baseline|stretch
+// #flex > .display(flex); // flex|inline-flex
+// #flex > .flex(~"2 100px"); // none|[ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+// #flex > .flex(2);
+// #flex > .basis(200px); // <length>|auto 
+// #flex > .direction(row); // row|row-reverse|column|column-reverse
+// #flex > .wrap(nowrap); // nowrap|wrap|wrap-reverse
+// #flex > .flow(nowrap); // <'flex-direction'>|<'flex-wrap'>
+// #flex > .order(1); // <'integer'>
+// #flex > .ordinal(1); // <'integer'>
+// #flex > .grow(1); // <'number'>
+// #flex > .shrink(1); // <'number'>
+// #flex > .content(flex-start); // flex-start|flex-end|center|space-between|space-around|stretch
+
+// @dependency: box.less
+
+// @namespace: #flex
+
+#flex {
+    
+    // @methode: .align-content
+    // @usage: #flex > .align-content(flex-start); // flex-start|flex-end|center|space-between|space-around|stretch
+    
+    .align-content(@var-align: stretch) {
+        .recursion(@var-align, @var-signal) when (@var-signal = true)  {
+            -webkit-align-content: @var-align;
+               -moz-align-content: @var-align;
+               -ms-flex-line-pack: @var-align;
+                    align-content: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-start)  {
+            -webkit-align-content: @var-align;
+               -moz-align-content: @var-align;
+               -ms-flex-line-pack: start;
+                    align-content: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-end)  {
+            -webkit-align-content: @var-align;
+               -moz-align-content: @var-align;
+               -ms-flex-line-pack: end;
+                    align-content: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var = space-between)  {
+            -webkit-align-content: @var-align;
+               -moz-align-content: @var-align;
+               -ms-flex-line-pack: justify;
+                    align-content: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var = space-around)  {
+            -webkit-align-content: @var-align;
+               -moz-align-content: @var-align;
+               -ms-flex-line-pack: distribute;
+                    align-content: @var-align;
+        }
+        .recursion-request(@var-align) when (@var-align = center) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = stretch) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align);
+        .recursion(@var-align, false);
+    }
+    
+    // @methode: .align-items
+    // @usage: #flex > .align-items(flex-start); // flex-start|flex-end|center|baseline|stretch
+    
+    .align-items(@var-align: stretch) {
+        .recursion(@var-align, @var-signal) when (@var-signal = true)  {
+             -webkit-box-align: @var-align;
+                -moz-box-align: @var-align;
+           -webkit-align-items: @var-align;
+                -ms-flex-align: @var-align;
+                   align-items: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-start)  {
+             -webkit-box-align: @var-align;
+                -moz-box-align: start;
+           -webkit-align-items: start;
+                -ms-flex-align: @var-align;
+                   align-items: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-end)  {
+             -webkit-box-align: @var-align;
+                -moz-box-align: end;
+           -webkit-align-items: end;
+                -ms-flex-align: @var-align;
+                   align-items: @var-align;
+        }
+        .recursion-request(@var-align) when (@var-align = center) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = baseline) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = stretch) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align);
+        .recursion(@var-align, false);
+    }
+    
+    // @methode: .align-self
+    // @usage: #flex > .align-self(auto); // auto|flex-start|flex-end|center|baseline|stretch
+    
+    .align-self(@var-align: auto) {
+        .recursion(@var-align, @var-signal) when (@var-signal = true) {
+            -webkit-align-self: @var-align;
+                -ms-align-self: @var-align;
+                    align-self: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-start)  {
+            -webkit-align-self: @var-align;
+                -ms-align-self: start;
+                    align-self: @var-align;
+        }
+        .recursion(@var-align, @var-signal) when (@var-align = flex-end)  {
+            -webkit-align-self: @var-align;
+                -ms-align-self: end;
+                    align-self: @var-align;
+        }
+        .recursion-request(@var-align) when (@var-align = auto) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = center) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = baseline) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align) when (@var-align = stretch) {
+            .recursion(@var-align, true);
+        }
+        .recursion-request(@var-align);
+        .recursion(@var-align, false);
+    }
+    
+    // @methode: .display
+    // @usage: #flex > .display(flex); // flex|inline-flex
+    
+    .display(@var-display: flex) {
+        .recursion(@var-display, @var-signal) when (@var-signal = true)  {
+            display: ~"-webkit-@{var-display}";
+            display: ~"-moz-@{var-display}";
+            display: ~"-ms-@{var-display}box";
+            display: ~"-ms-@{var-display}";
+            display: @var-display;
+        }
+        .recursion-request(@var-display) when (@var-display = flex) {
+            .recursion(@var-display, true);
+        }
+        .recursion-request(@var-display) when (@var-display = inline-flex) {
+            .recursion(@var-display, true);
+        }
+        .recursion-request(@var-display);
+    }
+    
+    // @methode: .flex
+    // @usage: #flex > .flex(~"2 100px"); // none|[ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]
+    // @usage: #flex > .flex(2);
+    
+    .flex(@var-flex) {
+        #box > .flex(@var-flex);
+    }
+    
+    // @methode: .basis
+    // @usage: #flex > .basis(200px); // <length>|auto 
+    
+    .basis(@var-basis: auto) {
+        .recursion(@var-basis) {
+            -webkit-flex-basis: @var-basis;
+               -moz-flex-basis: @var-basis;
+                -ms-flex-basis: @var-basis;
+                    flex-basis: @var-basis;
+        }
+        .recursion-request(@var-basis) when (@var-basis = auto) {
+            .recursion(@var-basis);
+        }
+        .recursion-request(@var-basis) when (isem(@var-basis)) {
+            .recursion(@var-basis);
+        }
+        .recursion-request(@var-basis) when (ispixel(@var-basis)) {
+            .recursion(@var-basis);
+        }
+        .recursion-request(@var-basis) when (ispercentage(@var-basis)) {
+            .recursion(@var-basis);
+        }
+        .recursion-request(@var-basis);
+    }
+    
+    // @methode: .direction
+    // @usage: #flex > .direction(row); // row|row-reverse|column|column-reverse
+    
+    .direction(@var-direction: row) {
+        .recursion(@var-direction) {
+            -webkit-flex-direction: @var-direction;
+               -moz-flex-direction: @var-direction;
+                -ms-flex-direction: @var-direction;
+                    flex-direction: @var-direction;
+        }
+        .recursion-request(@var-direction) when (@var-direction = row) {
+            .recursion(@var-direction);
+        }
+        .recursion-request(@var-direction) when (@var-direction = row-reverse) {
+            .recursion(@var-direction);
+        }
+        .recursion-request(@var-direction) when (@var-direction = column) {
+            .recursion(@var-direction);
+        }
+        .recursion-request(@var-direction) when (@var-direction = column-reverse) {
+            .recursion(@var-direction);
+        }
+        .recursion-request(@var-direction);
+    }
+    
+    // @methode: .wrap
+    // @usage: #flex > .wrap(nowrap); // nowrap|wrap|wrap-reverse
+    
+    .wrap(@var-wrap: nowrap) {
+        .recursion(@var-wrap) {
+            -webkit-flex-wrap: @var-wrap;
+               -moz-flex-wrap: @var-wrap;
+                -ms-flex-wrap: @var-wrap;
+                    flex-wrap: @var-wrap;
+        }
+        .recursion-request(@var-wrap) when (@var-wrap = nowrap) {
+            .recursion(@var-wrap);
+        }
+        .recursion-request(@var-wrap) when (@var-wrap = wrap) {
+            .recursion(@var-wrap);
+        }
+        .recursion-request(@var-wrap) when (@var-wrap = wrap-reverse) {
+            .recursion(@var-wrap);
+        }
+        .recursion-request(@var-wrap);
+    }
+    
+    // @methode: .flow
+    // @usage: #flex > .flow(); // <'flex-direction'>|<'flex-wrap'>
+    
+    .flow(@var-flow) {
+        -webkit-flex-flow: @var-flow;
+           -moz-flex-flow: @var-flow;
+            -ms-flex-flow: @var-flow;
+                flex-flow: @var-flow;
+    }
+    
+    // @methode: .order
+    // @usage: #flex > .order(1); // <'integer'>
+    
+    .order(@var-order: 0) {
+        .recursion(@var-order) when (isnumber(@var-order)) {
+            -webkit-order: @var-order;
+               -moz-order: @var-order;
+                -ms-order: @var-order;
+                    order: @var-order;
+        }
+        .recursion(@var-order);
+    }
+    
+    // @methode: .ordinal
+    // @usage: #flex > .ordinal(1); // <'integer'>
+    
+    .ordinal(@var-ordinal) {
+        #box > .ordinal(@var-ordinal);
+    }
+    
+    // @methode: .grow
+    // @usage: #flex > .grow(1); // <'number'>
+    
+    .grow(@var-grow: 0) {
+        .recursion(@var-grow) when (isnumber(@var-grow)) {
+            -webkit-flex-grow: @var-grow;
+               -moz-flex-grow: @var-grow;
+                -ms-flex-grow: @var-grow;
+                    flex-grow: @var-grow;
+        }
+        .recursion(@var-grow);
+    }
+    
+    // @methode: .shrink
+    // @usage: #flex > .shrink(1); // <'number'>
+    
+    .shrink(@var: 1) {
+        .recursion(@var-shrink) when (isnumber(@var-shrink)) {
+            -webkit-flex-shrink: @var-shrink;
+               -moz-flex-shrink: @var-shrink;
+                -ms-flex-shrink: @var-shrink;
+                    flex-shrink: @var-shrink;
+        }
+        .recursion(@var-shrink);
+    }
+    
+    // @methode: .content
+    // @usage: #flex > .content(flex-start); // flex-start|flex-end|center|space-between|space-around|stretch
+    
+    .content(@var-content: flex-start) {
+        .recursion(@var-content) {
+            -webkit-justify-content: @var-content;
+               -moz-justify-content: @var-content;
+                -ms-justify-content: @var-content;
+                    justify-content: @var-content;
+        }
+        .recursion-request(@var-content) when (@var-content = flex-start) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content) when (@var-content = flex-end) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content) when (@var-content = center) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content) when (@var-content = space-between) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content) when (@var-content = space-around) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content) when (@var-content = stretch) {
+            .recursion(@var-content);
+        }
+        .recursion-request(@var-content);
+    }
+}

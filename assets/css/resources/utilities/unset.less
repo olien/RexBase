@@ -1,12 +1,14 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ unsets
 // #unset > .distances();
 // #unset > .list();
 // #unset > .outline();
-// #unset > .grid();
+// #unset > #grid > .column();
+// #unset > #grid > .row();
+// #unset > #grid > .wrapper();
 
 // @namespace: #unset
 
@@ -49,24 +51,40 @@
         }
     }
     
-    // @methode: .grid
-    // @usage: #unset > .grid();
+    // @namespace: #grid
     
-    .grid() {
-        width: auto;
+    #grid {
         
-        .row {
-            margin: 0;
-            
-            [class*="col-"] {
-                margin: 0;
-                width: auto;
-                float: inherit;
-                #box > .display(block);
-            }
-            [class*="offset-"] {
-                margin: 0;
-            }
+        // @methode: .column
+        // @usage: #unset > #grid > .column();
+
+        .column() {
+            margin-left: 0;
+            width: auto;
+            float: inherit;
+            #box > .display(block);
+        }
+        
+        // @methode: .column
+        // @usage: #unset > #grid > .column();
+        
+        .offset() {
+            margin-left: 0;
+            margin-right: 0;
+        }
+        
+        // @methode: .row
+        // @usage: #unset > #grid > .row();
+        
+        .row() {
+            margin-left: 0;
+        }
+        
+        // @methode: .wrapper
+        // @usage: #unset > #grid > .wrapper();
+        
+        .wrapper() {
+            width: auto;
         }
     }
 }

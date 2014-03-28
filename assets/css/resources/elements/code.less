@@ -1,16 +1,16 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ prettyprint
-// #code > .prettyprint();
+// #code > .prettyprint(13px, 20px, 1.4, @mono-font-family);
 
 // @namespace: #code
 
 #code {
     
     // @methode: .prettyprint
-    // @usage: #code > .prettyprint(13, 20px, 1.4, @mono-font-family);
+    // @usage: #code > .prettyprint(13px, 20px, 1.4, @mono-font-family);
     
     .prettyprint(@var-size: 11px, @var-distance: @base-distance, @var-line-height: @base-line-height, @var-font: @mono-font-family) {
         .com {
@@ -53,8 +53,7 @@
         }
         .prettyprint {
             #border > .radius(3px);
-            
-            font-size: @var-size;
+            #font > .size(@var-size);
             padding: ceil((@var-distance / 2) * 0.8);
             margin: @var-distance 0;
             background-color: #f7f7f9;
@@ -71,7 +70,7 @@
                 
                 li {
                     #box > .shadow (0, 1px, 0, #fff, 0.5);
-                    
+                    #font > .size(@var-size);
                     padding-left: ceil(@var-distance * 0.25);
                     color: #bebec5;
                     line-height: @var-line-height;

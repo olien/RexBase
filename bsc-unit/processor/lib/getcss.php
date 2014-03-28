@@ -1,6 +1,6 @@
 <?php
 /**
- * basecondition ~ less-framework ~ v3.0
+ * basecondition ~ less-framework ~ v3.1
  * 
  * @link       git.io/OJYZgw
  * @copyright  copyright 2013 ~ www.basecondition.com

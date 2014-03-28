@@ -89,19 +89,6 @@ class RexseoRewrite
         return;
       }
 
-
-      // GET ID FROM EXTENSION POINT
-      $ep = rex_register_extension_point('REXSEO_ARTICLE_ID_NOT_FOUND', '');
-      if(isset($ep['article_id']) && $ep['article_id'] > 0)
-      {
-        if(isset($ep['clang']) && $ep['clang'] > -1)
-        {
-          $clang = $ep['clang'];
-        }
-        return self::setArticleId($ep['article_id'],$clang);
-      }
-
-
 		// smart redirects option
 		if ($REX['ADDON']['seo42']['settings']['smart_redirects']) {
 			$requestUriWithCorrectUrlEnding = trim($_SERVER['REQUEST_URI'], '/') . $REX['ADDON']['seo42']['settings']['url_ending'];
@@ -134,22 +121,34 @@ class RexseoRewrite
 		}
 
 
-      // check for possible lang slug to load up correct language for 404 article
-      $firstSlashPos = strpos($path, '/');
+		// check for possible lang slug to load up correct language for 404 article
+		$firstSlashPos = strpos($path, '/');
 
-      if ($firstSlashPos !== false) {
-        $possibleLangSlug = substr($path, 0, $firstSlashPos);
-		$langSlugs = array();
+		if ($firstSlashPos !== false) {
+			$possibleLangSlug = substr($path, 0, $firstSlashPos);
+			$langSlugs = array();
 
-		foreach ($REX['CLANG'] as $clangId => $clangName) {
-			$langSlugs[] = seo42::getLangSlug($clangId);
+			foreach ($REX['CLANG'] as $clangId => $clangName) {
+				$langSlugs[] = seo42::getLangSlug($clangId);
+			}
+
+			$clangId = array_search($possibleLangSlug, $langSlugs);
+
+			if ($clangId !== false) {
+				$clang = $clangId;
+				$REX['CUR_CLANG'] = $clang;
+			}
 		}
 
-        $clangId = array_search($possibleLangSlug, $langSlugs);
-
-        if ($clangId !== false) {
-          $clang = $clangId;
+      // GET ID FROM EXTENSION POINT
+      $ep = rex_register_extension_point('REXSEO_ARTICLE_ID_NOT_FOUND', '');
+      if(isset($ep['article_id']) && $ep['article_id'] > 0)
+      {
+        if(isset($ep['clang']) && $ep['clang'] > -1)
+        {
+          $clang = $ep['clang'];
         }
+        return self::setArticleId($ep['article_id'],$clang);
       }
 
       // STILL NO MATCH -> 404
@@ -473,9 +472,9 @@ function rexseo_generate_pathlist($params)
     $db->setQuery('UPDATE '. $REX['TABLE_PREFIX'] .'article_slice SET revision = 0 WHERE revision IS NULL;');
 
 	if ($REX['ADDON']['seo42']['settings']['ignore_root_cats']) {
-		$sqlQuery = 'SELECT `id`, `clang`, `path`, `startpage`,`seo_custom_url` FROM '. $REX['TABLE_PREFIX'] .'article WHERE re_id != 0 OR (re_id = 0 AND catname LIKE "") AND revision=0 OR revision IS NULL';
+		$sqlQuery = 'SELECT `id`, `clang`, `path`, `startpage`,`seo_custom_url` FROM '. $REX['TABLE_PREFIX'] .'article WHERE re_id != 0 OR (re_id = 0 AND catname LIKE "") AND revision=0 OR revision IS NULL ORDER BY id';
 	} else {
-		$sqlQuery = 'SELECT `id`, `clang`, `path`, `startpage`,`seo_custom_url` FROM '. $REX['TABLE_PREFIX'] .'article WHERE revision=0 OR revision IS NULL';
+		$sqlQuery = 'SELECT `id`, `clang`, `path`, `startpage`,`seo_custom_url` FROM '. $REX['TABLE_PREFIX'] .'article WHERE revision=0 OR revision IS NULL ORDER BY id';
 	}
 
 	$db->setQuery($sqlQuery);
@@ -577,9 +576,6 @@ function rexseo_generate_pathlist($params)
         }
 
       }
-
-      // SANITIZE MULTIPLE "-" IN PATHNAME
-      $pathname = preg_replace('/[-]{1,}/', '-', $pathname);
 
       // UNSET OLD URL FROM $REXSEO_URLS
       if(isset($REXSEO_IDS[$id][$clang]['url']) && isset($REXSEO_URLS[$REXSEO_IDS[$id][$clang]['url']]))
@@ -809,7 +805,9 @@ function rexseo_appendToPath($path, $name, $article_id, $clang)
       $name = trim($name, " \t\r\n.");
       $name = preg_replace('/ {2,}/', ' ', $name); // convert multiple spaces to one
       $name = str_replace(' ', $REX['ADDON']['seo42']['settings']['urlencode_whitespace_replace'], $name); // spaces
-      $name = str_replace('/', '-', $name); // dashes
+      $name = str_replace('/', $REX['ADDON']['seo42']['settings']['urlencode_whitespace_replace'], $name); // slashes
+      $name = str_replace('-', $REX['ADDON']['seo42']['settings']['urlencode_whitespace_replace'], $name); // dashes
+      $name = preg_replace('/'. $REX['ADDON']['seo42']['settings']['urlencode_whitespace_replace']. '{2,}/', $REX['ADDON']['seo42']['settings']['urlencode_whitespace_replace'], $name); // convert multiple whitespaces replacments to one
 
       // lowercase conversion
       if ($REX['ADDON']['seo42']['settings']['urlencode_lowercase']) {
@@ -842,14 +840,14 @@ function rexseo_appendToPath($path, $name, $article_id, $clang)
 * @param $article_id (string) article id
 * @param $clang      (string) clang
 */
-function rexseo_parse_article_name($name, $article_id, $clang, $isUrl = false)
+function rexseo_parse_article_name($name, $article_id, $clang)
 {
+  global $REX, $I18N;
+
   static $firstCall = true;
   static $translation = array();
 
 	if($firstCall) {
-		global $REX, $I18N;
-
 		$globalSpecialChars = explode('|', $REX['ADDON']['seo42']['settings']['global_special_chars']);
 		$globalSpecialCharsRewrite = explode('|', $REX['ADDON']['seo42']['settings']['global_special_chars_rewrite']);
 
@@ -875,15 +873,6 @@ function rexseo_parse_article_name($name, $article_id, $clang, $isUrl = false)
 
   // SANITIZE STUFF
   $name = trim($name, " \t\r\n-.");
-
-  if ($isUrl) {
-	// bad things are happening in here ;)
-	$htmlEndingPos = strpos($name, '.html'); // used for restoring url ending after going throught all the parsing stuff
-
-	$name = str_replace('/', 'seo42slash', $name);
-    $name = str_replace('-', 'seo42dash', $name);
-  }
-
   $name = str_replace('/', '-', $name);
   $name = str_replace('.', '-', $name);
 
@@ -905,15 +894,8 @@ function rexseo_parse_article_name($name, $article_id, $clang, $isUrl = false)
 
 	$parsedName = trim($parsedName, "-"); // "• articlename" was "-articlename"
 
-    if ($isUrl) {
-      // bad things are happening in here ;)
-	  $parsedName = str_replace('seo42slash', '/', $parsedName);
-      $parsedName = str_replace('seo42dash', '-', $parsedName);
-
-      if ($htmlEndingPos !== false) {
-        $parsedName = substr($parsedName, 0, strlen($parsedName) - 5) . '.html';
-	  }
-    }
+	// SANITIZE MULTIPLE "-" IN PATHNAME
+	$parsedName = preg_replace('/[-]{1,}/', $REX['ADDON']['seo42']['settings']['url_whitespace_replace'], $parsedName);
 
     return $parsedName;
 }

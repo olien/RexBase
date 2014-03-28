@@ -1,6 +1,19 @@
 Slice Status - Changelog
 ========================
 
+### Version 2.1.0 - 12. Januar 2013
+
+* `rex_slice_status::getSliceStatus()` und `rex_slice_status::setSliceStatus()` hinzugefügt. Ist auch im Frontend benutzbar.
+* API Dokumentation in die Readme aufgenommen
+
+### Version 2.0.2 - 26. September 2013
+
+* Performance erhöht beim Umschalten der Slices im Ajax-Mode.
+
+### Version 2.0.1 - 31. Juli 2013
+
+* Fixed #14: Problem mit dem Version Addon behoben
+
 ### Version 2.0.0 - 24. April 2013
 
 * CSS und JS Dateien werden nur noch in der Content-Ansicht inkludiert

@@ -1,100 +1,129 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ base
-// #base > .html(#fff);
-// #base > .body(#fff, #444, @base-font-family);
+// #base > .html(#fff, true, true);
+// #base > .body(#fff, #444, @base-font-family, true, true, false, false);
 // #base > .link(#000, #666, none, underline);
-// #base > .sticky-footer(200px, 500px, 40px, main, footer);
-// #base > .appearance(button);
-// #base > .backface-visibility(hidden);
-
-// @helper methode: ../elements/helper.less
-// @usage: .appearance(button); // normal|icon|window|button|menu|field
-// @usage: .backface-visibility(hidden); // visible|hidden
+// #base > .sticky-footer(200px, 500px, 40px, ~"#main", ~"footer");
+// #base > .sprite(@var-x, @var-y, @var-w, @var-h);
 
 // @namespace: #base
 
 #base {
     
     // @methode: .html
-    // @usage: #base > .html(#fff);
+    // @usage: #base > .html(#fff, true, false);
     
-    .html(@var-body-backgorund: #fff) {
-        #unset > .distances();
-        #size > .square(100%);
+    .html(@var-background: @base-background, @bool-unset-distances: true, @bool-square: true) {
+        .unset-recursion(@bool-unset-distances) when (@bool-unset-distances = true) {
+            #unset > .distances();
+        }
+        .square-recursion(@bool-square) when (@bool-square = true) {
+            #size > .square(100%);
+        }
+        .unset-recursion(@bool-unset-distances);
+        .square-recursion(@bool-square);
+        
+        #background > .background(@var-background);
+        
         position: relative;
-        background: @var-body-backgorund;
     }
     
     // @methode: .body
-    // @usage: #base > .body(#fff, #444, @base-font-family);
+    // @usage: #base > .body(#fff, #444, @base-font-family, true, true, false, false);
     
-    .body(@var-body-background: #fff, @var-color: #333, @var-font-family: sans-serif, @var-smoothing: false, @backface-visibility: hidden) {
-        .inseption(@var) when (@var = true) {
+    .body(@var-background: @base-background, @var-color: @base-color, @var-font-family: @base-font-family, @bool-unset-distances: true, @bool-square: true, @bool-smoothing: false, @var-backface-visibility: false) {
+        .smoothing-recursion(@bool-smoothing) when (@bool-smoothing = true) {
             #font > .smoothing();
         }
-        .inseption(@var) when (@var = hidden) {
-            #base > .backface-visibility(hidden); // http://bit.ly/NEdoDq
+        .unset-recursion(@bool-unset-distances) when (@bool-unset-distances = true) {
+            #unset > .distances();
         }
-        #unset > .distances();
-        #size > .square(100%);
-        #background > .background(@var-body-background);
-        color: @var-color;
+        .square-recursion(@bool-square) when (@bool-square = true) {
+            #size > .square(100%);
+        }
+        .smoothing-recursion(@bool-smoothing);
+        .unset-recursion(@bool-unset-distances);
+        .square-recursion(@bool-square);
+        
+        #base > .backface-visibility(@var-backface-visibility); // http://bit.ly/NEdoDq // visible|hidden|false
+        #background > .background(@var-background);
+        #base > .color(@var-color);
+        
         font-family: @var-font-family;
-        .inseption(@var-smoothing);
+    }
+    
+    // @methode: .color
+    // @usage: #base > .color(#000);
+    
+    .color (@var-color) {
+        .recursion(@var-color) when (iscolor(@var-color)) {
+            color:  @var-color;
+        }
+        .recursion(@var-color);
+    }
+    
+    // @methode: .text-decoration
+    // @usage: #base > .text-decoration(underline); // underline|none
+    
+    .text-decoration (@var-decoration) {
+        .recursion(@var-decoration) {
+            text-decoration: @var-decoration;
+        }
+        .recursion-request(@var-decoration) when (@var-decoration = none) {
+            text-decoration: @var-decoration;
+        }
+        .recursion-request(@var-decoration) when (@var-decoration = underline) {
+            .recursion(@var-decoration);
+        }
+        .recursion-request(@var-decoration);
     }
     
     // @methode: .link
     // @usage: #base > .link(#000, #ccc, underline, none);
     
-    .link(@var-color: #000, @var-hover-color: #ccc, @var-decoration: underline, @var-hover-decoration: none) {
-        color: @var-color;
-        text-decoration: @var-decoration;
+    .link(@var-color: @blue, @var-hover-color: @blue-dark, @var-decoration: underline, @var-hover-decoration: none) {
+        #base > .color(@var-color);
+        #base > .text-decoration(@var-decoration);
         
         &:hover {
-            color: @var-hover-color;
-            text-decoration: @var-hover-decoration
+            #base > .color(@var-hover-color);
+            #base > .text-decoration(@var-hover-decoration);
         }
     }
     
     // @methode: .sticky-footer
-    // @usage: #base > .sticky-footer(200, 500, 40, main, footer);
+    // @usage: #base > .sticky-footer(200px, 500px, 40px, ~"#main", ~"footer");
     
-    .sticky-footer(@var-footer-height: 100, @var-main-min-height: 300, @var-add-main-bottom-padding: 0, @var-main: main, @var-footer: footer) {
-        min-height: 100%;
-        position: relative;
-        
-        #@{var-main} {
+    .sticky-footer(@var-footer-height: 100px, @var-main-min-height: 300px, @var-add-main-bottom-padding: 0px, @var-main: ~"#main", @var-footer: ~"footer") {
+        .recursion(@var-footer-height, @var-main-min-height, @var-add-main-bottom-padding) when (ispixel(@var-footer-height)) and (ispixel(@var-main-min-height)) and (ispixel(@var-add-main-bottom-padding)) {
+            min-height: 100%;
             position: relative;
-            min-height: @var-main-min-height * 1px;
-            padding-bottom: ceil(@var-footer-height + @var-add-main-bottom-padding)* 1px;
+            
+            @{var-main} {
+                position: relative;
+                min-height: @var-main-min-height;
+                padding-bottom: ceil(@var-footer-height + @var-add-main-bottom-padding);
+            }
+            @{var-footer} {
+                position: absolute;
+                height: @var-footer-height;
+                width: 100%;
+                bottom: 0;
+            }
         }
-        @{var-footer} {
-            position: absolute;
-            height: @var-footer-height * 1px;
-            width: 100%;
-            bottom: 0;
-        }
+        .recursion(@var-footer-height, @var-main-min-height, @var-add-main-bottom-padding);
     }
     
-    // @methode: .appearance
-    // @usage: #base > .appearance(button); // normal|icon|window|button|menu|field
-    
-    .appearance(@var: normal) {
-        -webkit-appearance: @var;
-           -moz-appearance: @var;
-                appearance: @var;
-    }
-    
-    // @methode: .backface-visibility
-    // @usage: #base > .backface-visibility(hidden); // visible|hidden
-    
-    .backface-visibility(@var: visible) {
-        -webkit-backface-visibility: @var;
-           -moz-backface-visibility: @var;
-            -ms-backface-visibility: @var;
-                backface-visibility: @var;
+    // @methode: .sprite
+    // @usage: #base > .sprite(@var-x, @var-y, @var-w, @var-h);
+     
+    .sprite (@var-x, @var-y, @var-w, @var-h){
+        background-repeat: no-repeat;
+        background-position: @var-x @var-y;
+        width: @var-w;
+        height: @var-h;
     }
 }

@@ -1,0 +1,38 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ backface-visibility
+// #backface-visibility > .visibility(hidden);
+// .backface-visibility(hidden); // visible|hidden
+
+// @namespace: #backface
+
+#backface-visibility {
+    
+    // @methode: .visibility
+    // @usage: #backface > .visibility(hidden); // visible|hidden
+    
+    .visibility(@var-visibility: visible) {
+        .recursion(@var-visibility) {
+            -webkit-backface-visibility: @var-visibility;
+               -moz-backface-visibility: @var-visibility;
+                -ms-backface-visibility: @var-visibility;
+                    backface-visibility: @var-visibility;
+        }
+        .recursion-request(@var-visibility) when (@var-visibility = visible) {
+            .recursion(@var-visibility);
+        }
+        .recursion-request(@var-visibility) when (@var-visibility = hidden) {
+            .recursion(@var-visibility);
+        }
+        .recursion-request(@var-visibility);
+    }
+}
+
+// @direct methode: .backface-visibility
+// @usage: .backface-visibility(hidden); // visible|hidden
+
+.visibility(@var-visibility: visible) {
+    #backface-visibility > .visibility(@var-visibility);
+}

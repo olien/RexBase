@@ -1,5 +1,5 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ size
@@ -16,17 +16,17 @@
     // @usage: #size > .size(100px);
     
     .size(@var-width: false, @var-height: false) {
-        .size-inseption(@var-width, @var-height) {
+        .recursion(@var-width, @var-height) {
             width: @var-width;
             height: @var-height;
         }
-        .inseption(@var, @var-1) when not (@var-1 = false) {
-            .size-inseption(@var-width, @var-height);
+        .recursion-request(@var-width, @var-height) when (isnumber(@var-width)) and (isnumber(@var-height)) {
+            .recursion(@var-width, @var-height);
         }
-        .inseption(@var, @var-1) when (@var-1 = false) {
-            .size-inseption(@var-width, @var);
+        .recursion-request(@var-width, @var-height) when (isnumber(@var-width)) and (@var-height = false) {
+            .recursion(@var-width, @var-width);
         }
-        .inseption(@var-width, @var-height);
+        .recursion-request(@var-width, @var-height);
     }
     
     // @mehtode: .square

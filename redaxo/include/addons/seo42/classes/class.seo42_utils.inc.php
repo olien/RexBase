@@ -426,15 +426,6 @@ class seo42_utils {
 
 		if ($msg != '') {
 			echo '	<style type=text/css>
-						.rex-form-content-editmode, 
-						.rex-content-editmode-module-name { 
-							display: none; 
-						} 
-
-						div.rex-content-editmode-slice-output { 
-							border-bottom-width: 0; 
-						} 
-
 						.rex-info p,
 						.rex-warning p { 
 							padding: 4px 0 2px 0; 
@@ -519,10 +510,9 @@ class seo42_utils {
 		if (file_exists($file)) {
 			$md = file_get_contents($file);
 			$md = str_replace($search, $replace, $md);
-			$md = seo42_utils::makeHeadlinePretty($md);
+			$md = self::makeHeadlinePretty($md);
 
-			$parser = new Michelf\Markdown;
-			return $parser->transform($md);
+			return Parsedown::instance()->parse($md);
 		} else {
 			return '[translate:' . $file . ']';
 		}
@@ -629,7 +619,7 @@ class seo42_utils {
 
 				if (seo42::isSubDirInstall()) {
 					// remove subdir from request uri
-					$requestUri = '/' . ltrim($_SERVER['REQUEST_URI'], '/' . seo42::getServerSubDir());
+					$requestUri = trimSubDir($_SERVER['REQUEST_URI']);
 				} else {
 					$requestUri = $_SERVER['REQUEST_URI'];
 				}
@@ -655,6 +645,10 @@ class seo42_utils {
 				}
 			}
 		}
+	}
+
+	public static function trimSubDir($string) {
+		return '/' . substr($string, strlen('/' . seo42::getServerSubDir()));
 	}
 
 	public static function getCacheFile($cacheFile) {
@@ -792,5 +786,57 @@ class seo42_utils {
 		$sql = rex_sql::factory();
 		//$sql->debugsql = true;
 		$sql->setQuery('UPDATE ' . $REX['TABLE_PREFIX'] . 'article SET seo_title = "", seo_description = "", seo_keywords = "", seo_custom_url = "", seo_canonical_url = "", seo_noindex = "", seo_ignore_prefix = "" WHERE clang = ' . $newClangId);
+	}
+
+	public static function parseInternalUrl($url) {
+		global $REX;
+
+		$sanitizedUrl = ltrim($url, './');
+		$sanitizedUrlParts = explode('/', $sanitizedUrl);
+
+		for ($i = 0; $i < count($sanitizedUrlParts); $i++) {
+			$sanitizedUrlParts[$i] = rexseo_parse_article_name($sanitizedUrlParts[$i], $REX['ARTICLE_ID'], $REX['CUR_CLANG']);
+		}
+
+		$sanitizedUrl = implode('/', $sanitizedUrlParts);
+		$sanitizedUrl = strtolower($sanitizedUrl);
+		$sanitizedUrl = str_replace('-htm', '.htm', $sanitizedUrl);
+
+		return $sanitizedUrl;
+	}
+
+	public static function sendHeadersForArticleOnly() {
+		global $REX;
+
+		if ($REX['ADDON']['seo42']['settings']['send_header_x_ua_compatible'] == 1) {
+			header('X-UA-Compatible: IE=Edge');
+		}
+	}
+
+	public static function addRemoveRootCatUrlType($params) {
+		global $REX;
+
+		$execludeIds = $REX['ADDON']['seo42']['settings']['remove_root_cats_for_categories'];
+
+		if (isset($params['category_id'])) {
+			// category with startarticle created
+			$curCatId = $params['category_id'];
+		} else {
+			// normal article created
+			$curCatId = $params['re_id'];
+		}
+
+		if (in_array($curCatId, $execludeIds)) {
+			$sql = rex_sql::factory();
+			//$sql->debugsql = 1;
+			$sql->setTable($REX['TABLE_PREFIX'] . "article");
+			$sql->setWhere("id=" . $params['id']);
+
+			$sql->setValue('seo_custom_url', '{"url_type":6,"url_clone":false}');
+			$sql->setValue('updatedate',  time());
+
+			// do db update
+			$sql->update();
+		}
 	}
 }

@@ -1,6 +1,6 @@
 /*
-basecondition ~ domscript.js v2.2.0
-copyright 2013 ~ Joachim Doerr, hello@basecondition.com
+basecondition ~ domscript.js v3.2
+copyright 2014 ~ Joachim Doerr, hello@basecondition.com
 licensed under MIT or GPLv3
 */
 

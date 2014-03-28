@@ -39,6 +39,15 @@ $REX['ADDON']['plugins']['cronjob']['status']['optimize_tables'] = '0';
 $REX['ADDON']['plugins']['image_manager']['install']['pdf2img'] = '0';
 $REX['ADDON']['plugins']['image_manager']['status']['pdf2img'] = '0';
 
+$REX['ADDON']['plugins']['installer']['install']['addon_installer'] = '1';
+$REX['ADDON']['plugins']['installer']['status']['addon_installer'] = '1';
+
+$REX['ADDON']['plugins']['installer']['install']['modul_installer'] = '1';
+$REX['ADDON']['plugins']['installer']['status']['modul_installer'] = '1';
+
+$REX['ADDON']['plugins']['installer']['install']['zip_installer'] = '1';
+$REX['ADDON']['plugins']['installer']['status']['zip_installer'] = '1';
+
 $REX['ADDON']['plugins']['seo42']['install']['url_control'] = '0';
 $REX['ADDON']['plugins']['seo42']['status']['url_control'] = '0';
 
@@ -47,9 +56,6 @@ $REX['ADDON']['plugins']['watson']['status']['watson_calculator'] = '0';
 
 $REX['ADDON']['plugins']['watson']['install']['watson_core'] = '0';
 $REX['ADDON']['plugins']['watson']['status']['watson_core'] = '0';
-
-$REX['ADDON']['plugins']['website_manager']['install']['themes'] = '0';
-$REX['ADDON']['plugins']['website_manager']['status']['themes'] = '0';
 
 $REX['ADDON']['plugins']['xform']['install']['email'] = '1';
 $REX['ADDON']['plugins']['xform']['status']['email'] = '1';

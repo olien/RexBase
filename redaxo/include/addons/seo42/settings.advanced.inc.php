@@ -31,14 +31,14 @@ $REX['ADDON']['seo42']['settings']['pagerank_checker'] = true;
 // if true alls available url types will be shown in select box in url page. set to false to hide url types that need to be treated in navigation code
 $REX['ADDON']['seo42']['settings']['all_url_types'] = true;
 
-// if true setup step 2 will show "non-www -> www" checkbox. otherwise "www -> non-www".
-$REX['ADDON']['seo42']['settings']['non_www_to_www'] = true;
-
 // if true you get full urls like in wordpress :) seo42::getUrlStart() and co. needs to be used consequently for all extra urls (like urls to media files, etc.) | url_start option will be ignored by this
 $REX['ADDON']['seo42']['settings']['full_urls'] = false;
 
 // if true smart redirects like domain.de/foo/bar/ -> domain.de/foo/bar.html etc. will be enabled. default is false at it is still a experimental feature
-$REX['ADDON']['seo42']['settings']['smart_redirects'] = false;
+$REX['ADDON']['seo42']['settings']['smart_redirects'] = true;
+
+// array with category ids. all articles in this categoryies will get urltype "remove root cat". but only for articles added after setting was made.
+$REX['ADDON']['seo42']['settings']['remove_root_cats_for_categories'] = array();
 
 // default title delimiter (including whitespace chars) for seperating name of website and page title
 $REX['ADDON']['seo42']['settings']['title_delimiter'] = '-';
@@ -55,7 +55,7 @@ $REX['ADDON']['seo42']['settings']['url_start'] = '/';
 // for redaxo subdir installations: url start piece for all urls returned from rex_getUrl(), seo42::getUrlStart() and co.
 $REX['ADDON']['seo42']['settings']['url_start_subdir'] = './';
 
-// if true seo42::getImageManagerUrl() and seo42::getImageTag() will produce seo friendly urls
+// if true seo42::getImageManagerFile() and seo42::getImageTag() will produce seo friendly urls
 $REX['ADDON']['seo42']['settings']['seo_friendly_image_manager_urls'] = true;
 
 // if true seopage will be only visible at start article of website. also the frontend links will all point to start article and sitemap.xml will show only one url
@@ -67,9 +67,6 @@ $REX['ADDON']['seo42']['settings']['ignore_root_cats'] = false;
 // character to replace whitespaces with in urls
 $REX['ADDON']['seo42']['settings']['url_whitespace_replace']  = '-';
 
-// 0 = off, 1 = auto redirect from "index.php?article_id=1" schema, 2 = auto redirect from "1-0-ArticleName.html" schema
-$REX['ADDON']['seo42']['settings']['auto_redirects'] = 0;
-
 // default follow flag for robots meta tag, can be empty
 $REX['ADDON']['seo42']['settings']['robots_follow_flag'] = 'follow';
 
@@ -78,6 +75,12 @@ $REX['ADDON']['seo42']['settings']['robots_archive_flag'] = 'noarchive';
 
 // if true website startarticle will have 1.0, all other articles will have 0.8 priority. if false priority gets calculated by category level.
 $REX['ADDON']['seo42']['settings']['static_sitemap_priority'] = true;
+
+// you can force download of certain filetypes. put file in files dir, add filetype to array e.g. 'pdf' and link to file like this: /download/foo.pdf or use seo42::getDownloadFile($file)
+$REX['ADDON']['seo42']['settings']['force_download_for_filetypes'] = array();
+
+// cache control header for image manager files is normally set through .htaccess, but on some servers (1und1) it won't be set correctly so we do it manually
+$REX['ADDON']['seo42']['settings']['fix_image_manager_cache_control_header'] = false;
 
 // if false seo database fields won't be dropped if seo42 will be uninstalled. perhaps someday interesting when updateing seo42...
 $REX['ADDON']['seo42']['settings']['drop_dbfields_on_uninstall'] = true; 

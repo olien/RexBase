@@ -1,5 +1,5 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ border
@@ -8,9 +8,7 @@
 // #border > .radius(10px 20px 20px 10px);
 // #border > .border(1px solid #ccc);
 // #border > .border(1px solid #ccc, 1px solid #ccc, 1px solid #ccc, 1px solid #ccc);
-
-// @helper methode: ../elements/helper.less
-// @usage: .border(1px solid #ccc);
+// .border(1px solid #ccc);
 
 // @namespace: #border
 
@@ -20,20 +18,26 @@
     // @usage: #border > .image(~"url(border.png) 30 30 round");
     
     .image(@var) {
-        -webkit-border-image: @var;
-           -moz-border-image: @var;
-             -o-border-image: @var;
-                border-image: @var;
+        .recursion(@var) when (isstring(@var)) {
+            -webkit-border-image: @var;
+               -moz-border-image: @var;
+                 -o-border-image: @var;
+                    border-image: @var;
+        }
+        .recursion(@var);
     }
     
     // @methode: .radius
     // @usage: #border > .radius(10px);
     // @usage: #border > .radius(10px 20px 20px 10px);
     
-    .radius(@var) {
-        -webkit-border-radius: @var;
-           -moz-border-radius: @var;
-                border-radius: @var;
+    .radius(@var: false) {
+        .recursion(@var) when not (@var = false) {
+            -webkit-border-radius: @var;
+               -moz-border-radius: @var;
+                    border-radius: @var;
+        }
+        .recursion(@var);
     }
     
     // @methode: .border
@@ -41,18 +45,25 @@
     // @usage: #border > .border(1px solid #ccc, 1px solid #ccc, 1px solid #ccc, 1px solid #ccc);
     
     .border(@var-or-top, @var-right: false, @var-bottom: false, @var-left: false) {
-        .inception(@var, @var-1, @var-2, @var-3) when (@var-1 = false) and (@var-2 = false) and (@var-3 = false) {
-            border: @var;
+        .recursion(@var-or-top, @var-right, @var-bottom, @var-left) when (@var-right = false) and (@var-bottom = false) and (@var-left = false) {
+            border: @var-or-top;
         }
-        .inception(@var, @var-1, @var-2, @var-3) when not (@var-1 = false) and not (@var-2 = false) and not (@var-3 = false) {
-            border-top: @var;
-            border-right: @var-1;
-            border-bottom: @var-2;
-            border-left: @var-3;
+        .recursion(@var-top, @var-right, @var-bottom, @var-left) when not (@var-right = false) and not (@var-bottom = false) and not (@var-left = false) {
+            border-top: @var-top;
+            border-right: @var-right;
+            border-bottom: @var-bottom;
+            border-left: @var-left;
         }
-        .inception(@var-or-top, @var-right, @var-bottom, @var-left);
+        .recursion(@var-or-top, @var-right, @var-bottom, @var-left);
     }
     .line(@var-or-top, @var-right: false, @var-bottom: false, @var-left: false) {
         #border > .border(@var-or-top, @var-right, @var-bottom, @var-left)
     }
+}
+
+// @direct-methode: .border
+// @usage: .border(1px solid #ccc);
+
+.border(@var-or-top, @var-right: false, @var-bottom: false, @var-left: false) {
+    #border > .border(@var-or-top, @var-right, @var-bottom, @var-left)
 }

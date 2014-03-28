@@ -1,7 +1,60 @@
 SEO42 - Changelog
 =================
 
-**Updatehinweis:** Von SEO42 2.x auf SEO42 2.6 und höher bitte [Updateanleitung](https://github.com/RexDude/seo42#update-von-seo42-2x-auf-seo42-26-und-h%C3%B6her) beachten!
+### Version 3.2.0 - 16. März 2014
+
+* Neu: `seo42::getMediaUrl()` hinzugefügt. Wie `seo42::getMediaFile()` nur mit voller Url ausgabe, thx@SigmaAlphaPi
+* Neu: EP's `SEO42_COMPILE_LESS` und `SEO42_COMPILE_SCSS` hinzugefügt um alternative Compiler damit einbinden zu können, thx@DanielWeitenauer
+* Neu: Neues Plugin `lessdotphp` (alternativer LESS Compiler) von DanielWeitenauer in die Readme hinzugefügt, thx@DanielWeitenauer
+* Fixed: Import Dir beim LESS Compiler richtig gesetzt, so dass jetzt `@include` korrekt funktioniert, thx@DanielWeitenauer
+* Verbessert: Angabe von `//` Urls zusätzlich zu `http://` möglich bei `seo42::getCSS()` und Co., thx@DanielWeitenauer
+
+### Version 3.1.2 - 19. Februar 2014
+
+* Fixed #110: `seo42::getTitle()` und `&amp;` Problem gefixt, thx@akrys
+* Verbessert: `seo42::getLangNavigation()` gibt nun Ids aus statt Klassen (wenn gewünscht)
+* Verbessert: Codebeispiele in der Hilfe für `seo42::getLangNavigation()` ergänzt
+
+### Version 3.1.1 - 13. Februar 2014
+
+* Fixed #107: Betrifft nur Unterordner-Installs: Canonical Url jetzt ohne doppelten Unterordner
+* Neu: `seo42::getTitlePart()` hinzugefügt falls jemand nur den Titel ohne den Websitenamen brauchen sollte ;)
+* Neu: `seo42::getUrlString($string)` hinzugefügt. Wrappt `rexseo_parse_article_name` und ist nützlich um z.B. saubere Ankernamen für Urls zu erzeugen `foo.html#clean-anchor-name`
+* Verbessert: Anpassungen für das `url_control` Plugin vorgenommen
+
+### Version 3.1.0 - 08. Februar 2014 
+
+* Fixed #106: `$REX['CUR_CLANG']` wird jetzt vor dem Aufruf von `REXSEO_ARTICLE_ID_NOT_FOUND` gesetzt. Wichtig für das `url_control` Plugin.
+* Fixed: Problem mit dem `auth_media` Plugin in Zusammenhang mit suchmaschinenfreundlichen Image Manager Urls gefixt. Ulrs lauten jetzt so: `/imagetypes/img_type/pic.jpg` (`.htaccess` hat sich geändert!)
+* Neu: Force Download Funktionalität inkl. suchmaschinenfreundlicher Urls und Canonical Header hinzugefügt. Datei in `files` Ordner ablegen, Dateityp (z.B. 'pdf') zu Einstellung `force_download_for_filetypes` hinzufügen und `seo42::getDownloadFile($file)` nutzen oder so verlinken: `/download/foo.pdf` (`.htaccess` hat sich geändert!)
+* Neu: Bei manchen Webserver (z.B. 1und1) wird für Image Manager Bilder per `.htaccess` Datei kein Cache Control Header gesendet. Über die neue Einstellung `fix_image_manager_cache_control_header` wird dies per PHP erledigt. Default ist aber deaktiviert.
+* Verbessert: Englisches Langfile komplett übersetzt. Credits und ein herzliches Dankeschön gehen an SigmaAlphaPi :)
+* Verbessert: Man kann jetzt auch weitere Unterordner angeben bei der Nutzung von `seo42::getCSSFile()` und Co.. Beispiel: `seo42::getCSSFile("foo/extra.css")` -> `/resources/css/foo/extra.css`
+* Verbessert: Vorhandene Lang-Presets als Kommentar in die `settings.lang.inc.php` gepackt zur direkten Verwendung. Danke an alle die hier mit eingebracht haben und noch einbringen werden ;)
+* Verbessert: Beginners' Guide in Startguide umbenannt
+
+### Version 3.0.0 - 02. Februar 2014
+
+* Neu: Beginners' Guide als kleine Anleitung für Einsteiger und Neulinge hinzugefügt, zu finden in der SEO42 Hilfe.
+* Neu: SEO42 HTML5 Boilerplate hinzugefügt. Kann und soll als Basis für eigene Templates genutzt werden. Zu finden im Setup Schritt 3.
+* Neu: Das AddOn Resource Includer inkl. `.htaccess` Datei, SCSS/LESS Compiler, etc. wurde direkt in SEO42 integriert. Da nun die Cachingdauer von CSS/JS Dateien auf 4 Wochen eingestellt ist sollte unbedingt entweder die Methoden `seo42::getCSSFile()` / `seo42::getJSFile()` genutzt werden oder man reduziert in der `.htaccess` Datei die Cachingdauer (z.B. auf 1 Woche).
+* Neu: Option `remove_root_cats_for_categories` hinzugefügt mit der man Kategorien (IDs) einstellen kann deren Artikel automatisch den URL-Typ "Root-Kategorie entfernen" erhalten sollen (experimentell!)
+* Verbessert: `seo42` Klasse: Wrapper Methoden `seo42::getNavigationByLevel()`, `seo42::getNavigationByCategory()`, `seo42::getLangNavigation()` hinzugefügt, `seo42::setNavigationClass()` (default auf `nav42`) hinzugefügt
+* Verbessert: `seo42::getImageManagerUrl()` umbenannt in `seo42::getImageManagerFile()`. `seo42::getImageManagerUrl()` bleibt aus Kompatibilitätsgründen bestehen.
+* Verbessert: `nav42` Klasse: Abhängigkeit zu `rex_navigation` entfernt, ein Patchen des Community AddOns ist jetzt nicht mehr nötig (entsprechenden Readme-Eintrag entfernt)
+* Verbessert: `auto_redirects` Option in die Einstellungen-Seite gepackt
+* Verbessert: `smart_redirects` Option jetzt standardmäßig eingeschaltet
+* Verbessert: `seo42::getLangTags()` berücksichtigt jetzt extra Urls (z.B. per url_control Plugin)
+
+### Version 2.8.3 - 11. Januar 2014
+
+* Fixed #86: Bei RewriteMode = Urlencode und Standalone-Benutzung von `rexseo_parse_article_name` werden mehrfach vorkommende `-` auf eins reduziert
+* Fixed: Die automatische Canonical Url funktioniert jetzt auch korrekt mit manuell hinzugefügten Urls (TvsBlog, url_control)
+* Verbessert: Automatische Auswahl der richtigen WWW-Weiterleitung im Setup anhand der angegeben Url der Website im Setup Schritt 1, Option `non_www_to_www` entfernt
+* Verbessert: Debug Ausgabe zeigt Community Version wenn vorhanden
+* Verbessert: Neue Parameter `$useLangCodeAsLinkText` und `$upperCaseLinkText` zu `nav42::getLangNavigation()` hinzugefügt
+* Verbessert: Weitere Hinweise zur SEO42 Plugin Entwicklung in die Readme audgenommen
+* Finetuning
 
 ### Version 2.8.2 - 02. Dezember 2013
 

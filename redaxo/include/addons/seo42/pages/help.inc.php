@@ -1,7 +1,8 @@
 <?php
 
-if (!class_exists("Michelf\Markdown")) {
-	require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.markdown.inc.php');
+// include markdwon parser
+if (!class_exists('Parsedown')) {
+	require($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.parsedown.inc.php');
 }
 
 $mypage = rex_request('page','string');
@@ -11,10 +12,11 @@ $func = rex_request('func', 'string');
 
 $chapterpages = array (
 	'' => array($I18N->msg('seo42_help_chapter_readme'), 'pages/help/readme.inc.php'),
+	'changelog' => array($I18N->msg('seo42_help_chapter_changelog'), 'pages/help/changelog.inc.php'),
+	'license' => array($I18N->msg('seo42_help_chapter_license'), 'pages/help/license.inc.php'),
+	'startguide' => array($I18N->msg('seo42_help_chapter_startguide'), 'pages/help/startguide.inc.php'),
 	'codeexamples' => array($I18N->msg('seo42_help_chapter_codeexamples'), 'pages/help/code_examples.inc.php'),
 	'faq' => array($I18N->msg('seo42_help_chapter_faq'), 'pages/help/faq.inc.php'),
-	'changelog' => array($I18N->msg('seo42_help_chapter_changelog'), 'pages/help/changelog.inc.php'),
-	'license' => array('', 'pages/help/license.inc.php'),
 	'marvin' => array($I18N->msg('seo42_help_chapter_marvin'), 'pages/help/marvin.inc.php'),
 	'debug' => array($I18N->msg('seo42_help_chapter_debug'), 'pages/help/debug.inc.php')
 );
@@ -55,8 +57,10 @@ echo '
 ?>
 
 <style type="text/css">
-div.rex-addon-content p.rex-code {
-	margin-bottom: 22px;
+div.rex-addon-content .rex-code {
+	margin-bottom: 22px !important;
+	overflow: auto;
+	white-space: nowrap;
 }
 
 .addon-template h1 {

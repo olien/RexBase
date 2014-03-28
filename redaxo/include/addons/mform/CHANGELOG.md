@@ -1,24 +1,10 @@
 ## MForm Changelog
 
-### 2.2.1-rc.4
-
-* `fieldset` error fixed 
-* add `closeFieldset` methode
-
-### 2.2.1-rc.3
-
-* Custom Link Element hinzugefügt
-* add `lib/classes/`, `lib/functions/`
-* sql Options integriert
-* `$objForm` ersetzt durch `$mform`
-
 ### 2.2.1-rc.1
 
 * Ab dieser Version nur noch für Redaxo 4.5.x
 * duplizieren der Lang Files entfernt
 * `Undefined variable: strDefaultTemplateThemeName` Notice gefixt
-* remove print_r
-* Strict Standards: Only variables should be passed by reference gefixt
 
 ### 2.2.0-rc.6
 

@@ -1,5 +1,5 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ transform
@@ -19,8 +19,6 @@
 // #transform > .rotate(35deg);
 // #transform > .rotate3d(35deg, 15deg, 10deg);
 // #transform > .style(preserve-3d);
-
-// @helper methode: ../elements/helper.less
 // .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
 
 // @namespace: #transform
@@ -30,157 +28,203 @@
     // @methode: .transform
     // @usage: #transform > .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
     
-    .transform(@var-webkit, @var-ms: false) {
-        .inseption(@var, @var-1) when (@var-1 = false) {
-            -webkit-transform: @var;
-               -moz-transform: @var;
-                -ms-transform: @var;
-                 -o-transform: @var;
-                    transform: @var;
+    .transform(@var-transform, @var-ms: false) {
+        .recursion(@var-transform, @var-ms-transform) when (@var-ms-transform = false) and (isstring(@var-transform)) {
+            -webkit-transform: @var-transform;
+               -moz-transform: @var-transform;
+                -ms-transform: @var-transform;
+                 -o-transform: @var-transform;
+                    transform: @var-transform;
         }
-        .inseption(@var, @var-1) when not (@var-1 = false) {
-            -webkit-transform: @var;
-               -moz-transform: @var;
-                -ms-transform: @var-1;
-                 -o-transform: @var;
-                    transform: @var;
+        .recursion(@var-transform, @var-ms-transform) when not (@var-ms-transform = false) and (isstring(@var-transform)) {
+            -webkit-transform: @var-transform;
+               -moz-transform: @var-transform;
+                -ms-transform: @var-ms-transform;
+                 -o-transform: @var-transform;
+                    transform: @var-transform;
         }
-        .inseption(@var-webkit, @var-ms);
+        .recursion(@var-transform, @var-ms-transform);
     }
     
     // @methode: .origin
     // @usage: #transform > .origin(~"20% top");
     
-    .origin(@var) {
-        -webkit-transform-origin: @var;
-           -moz-transform-origin: @var;
-            -ms-transform-origin: @var;
-             -o-transform-origin: @var;
-                transform-origin: @var;
+    .origin(@var-origin) {
+        .recursion(@var-origin) when (isstring(@var-origin)) {
+            -webkit-transform-origin: @var-origin;
+               -moz-transform-origin: @var-origin;
+                -ms-transform-origin: @var-origin;
+                 -o-transform-origin: @var-origin;
+                    transform-origin: @var-origin;
+        }
+        .recursion(@var-origin);
     }
     
     // @methode: .translate
     // @usage: #transform > .translate(20px, 10px);
     
-    .translate(@var-x, @var-y) {
-        @var: translate(@var-x, @var-y);
-        #transform > .transform(@var, @var);
+    .translate(@var-x, @var-y: false) {
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (isnumber(@var-y)) {
+            @var-translate: translate(@var-x, @var-y);
+            #transform > .transform(@var-translate);
+        }
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (@var-y = false) {
+            @var-translate: translate(@var-x);
+            #transform > .transform(@var-translate);
+        }
+        .recursion(@var-x, @var-y);
     }
     
     // @methode: .translateX
     // @usage: #transform > .translateX(20px);
     
     .translateX(@var-x) {
-        @var: translateX(@var-x);
-        #transform > .transform(@var, @var);
+        .recursion(@var-x) when (isnumber(@var-x)) {
+            @var-translateX: translateX(@var-x);
+            #transform > .transform(@var-translateX);
+        }
+        .recursion(@var-x);
     }
     
     // @methode: .translateY
     // @usage: #transform > .translateY(20px);
     
     .translateY(@var-y) {
-        @var: translateX(@var-y);
-        #transform > .transform(@var, @var);
+        .recursion(@var-y) when (isnumber(@var-y)) {
+            @var-translateY: translateY(@var-y);
+            #transform > .transform(@var-translateY);
+        }
+        .recursion(@var-y);
     }
     
     // @methode: .translate3d
     // @usage: #transform > .translate3d(20px, 10px, 30px);
     
-    .translate3d(@var-x, @var-y, @var-z) {
-        @var: translate3d(@var-x, @var-y, @var-z);
-        #transform > .transform(@var, @var);
+    .translate3d(@var-x, @var-y: 0, @var-z: 0) {
+        .recursion(@var-x, @var-y, @var-z)) when (isnumber(@var-x)) and (isnumber(@var-y)) and (isnumber(@var-z)) {
+            @var-translate3d: translate3d(@var-x, @var-y, @var-z);
+            #transform > .transform(@var-translate3d);
+        }
+        .recursion(@var-x, @var-y, @var-z);
     }
     
     // @methode: .scale
     // @usage: #transform > .scale(0.5);
     
     .scale(@var-x, @var-y: false) {
-        .inseption(@var, @var-1) when (@var-1 = false) {
-            @var-2: scale(@var);
-            #transform > .transform(@var-2, @var-2);
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (isnumber(@var-y)) {
+            @var-scale: scale(@var-x, @var-y);
+            #transform > .transform(@var-scale);
         }
-        .inseption(@var, @var-1) when not (@var-1 = false) {
-            @var-2: scale(@var, @var-1);
-            #transform > .transform(@var-2, @var-2);
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (@var-y = false) {
+            @var-scale: scale(@var-x);
+            #transform > .transform(@var-scale);
         }
-        .inseption(@var-x, @var-y);
+        .recursion(@var-x, @var-y);
     }
     
     // @methode: .scaleX
     // @usage: #transform > .scaleX(0.5);
     
-    .scaleX(@var-ratio) {
-        @var: scaleX(@var-ratio);
-        #transform > .transform(@var, @var);
+    .scaleX(@var-scale) {
+        .recursion(@var-scale) when (isnumber(@var-scale)) {
+            @var-scaleX: scaleX(@var-scale);
+            #transform > .transform(@var-scaleX);
+        }
+        .recursion(@var-scale);
     }
     
     // @methode: .scaleY
     // @usage: #transform > .scaleY(0.5);
     
-    .scaleY(@var-ratio) {
-        @var: scaleY(@var-ratio);
-        #transform > .transform(@var, @var);
+    .scaleY(@var-scale) {
+        .recursion(@var-scale) when (isnumber(@var-scale)) {
+            @var-scaleY: scaleY(@var-scale);
+            #transform > .transform(@var-scaleY);
+        }
+        .recursion(@var-scale);
     }
     
     // @methode: .skew
     // @usage: #transform > .skew(35deg, 0deg);
     
     .skew(@var-x, @var-y: false) {
-        .inseption(@var, @var-1) when (@var-1 = false) {
-            @var-webkit: skew(@var);
-            @var-ms: skewX(@var) skewY(@var);
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (isnumber(@var-y)) {
+            @var-webkit: skew(@var-x, @var-y);
+            @var-ms: skewX(@var-x) skewY(@var-y);
             #transform > .transform(@var-webkit, @var-ms);
         }
-        .inseption(@var, @var-1) when not (@var-1 = false) {
-            @var-webkit: skew(@var, @var-1);
-            @var-ms: skewX(@var) skewY(@var-1);
+        .recursion(@var-x, @var-y) when (isnumber(@var-x)) and (@var-y = false) {
+            @var-webkit: skew(@var-x);
+            @var-ms: skewX(@var-x) skewY(@var-x);
             #transform > .transform(@var-webkit, @var-ms);
         }
-        .inseption(@var-x, @var-y);
-        #base > .backface-visibility(hidden);
+        .recursion(@var-x, @var-y);
     }
     
     // @methode: .skewX
     // @usage: #transform > .skewX(35deg);
     
     .skewX(@var-deg) {
-        @var: skewX(@var-deg);
-        #transform > .transform(@var, @var);
+        .recursion(@var-deg) when (isnumber(@var-deg)) {
+            @var-skewX: skewX(@var-deg);
+            #transform > .transform(@var-skewX);
+        }
+        .recursion(@var-deg);
     }
     
     // @methode: .skewY
     // @usage: #transform > .skewY(35deg);
     
     .skewY(@var-deg) {
-        @var: skewY(@var-deg);
-        #transform > .transform(@var, @var);
+        .recursion(@var-deg) when (isnumber(@var-deg)) {
+            @var-skewY: skewY(@var-deg);
+            #transform > .transform(@var-skewY);
+        }
+        .recursion(@var-deg);
     }
     
     // @methode: .rotate
     // @usage: #transform > .rotate(35deg);
     
     .rotate(@var-deg) {
-        @var: rotate(@var-deg);
-        #transform > .transform(@var, @var);
+        .recursion(@var-deg) when (isnumber(@var-deg)) {
+            @var-rotate: rotate(@var-deg);
+            #transform > .transform(@var-rotate);
+        }
+        .recursion(@var-deg);
     }
     
     // @methode: .rotate3d
     // @usage: #transform > .rotate3d(35deg, 15deg, 10deg);
     
     .rotate3d(@var-x, @var-y: 0, @var-z: 0) {
-        @var: rotateX(@var-x) rotateY(@var-y) rotateZ(@var-z);
-        #transform > .transform(@var, @var);
-        #transform > .style(preserve-3d);
+        .recursion(@var-x, @var-y, @var-z)) when (isnumber(@var-x)) and (isnumber(@var-y)) and (isnumber(@var-z)) {
+            @var-rotate: rotateX(@var-x) rotateY(@var-y) rotateZ(@var-z);
+            #transform > .transform(@var-rotate);
+            #transform > .style(preserve-3d);
+        }
+        .recursion(@var-x, @var-y, @var-z);
     }
     
     // @methode: .style
     // @usage: #transform > .style(preserve-3d);
     
-    .style(@var) {
-        -webkit-transform-style: @var;
-           -moz-transform-style: @var;
-            -ms-transform-style: @var;
-             -o-transform-style: @var;
-                transform-style: @var;
+    .style(@var-style) {
+        .recursion(@var-style) when (iskeyword(@var-style)) {
+            -webkit-transform-style: @var-style;
+               -moz-transform-style: @var-style;
+                -ms-transform-style: @var-style;
+                 -o-transform-style: @var-style;
+                    transform-style: @var-style;
+        }
+        .recursion(@var-style);
     }
+}
+
+// @direct-methode: .transform
+// @usage: .transform(~"scale(1) rotate(360deg) translate(20px, 0px) skew(320deg, 0deg)");
+
+.transform(@var-webkit, @var-ms: false) {
+    #transform > .transform(@var-webkit, @var-ms);
 }

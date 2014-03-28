@@ -1,0 +1,126 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ table
+// #table > .defaults();
+// #table > .table(default, 14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+// #table > .default-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+// #table > .striped-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+// #table > .bordered-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+
+// @namespace: #table
+
+#table {
+    
+    // @methode: .default
+    // @usage: #table > .default();
+    
+    .default() {
+        #table > .default-table();
+    }
+    
+    // @methode: .table
+    // @usage: #table > .table(default, 14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+    
+    .table(@var-table-type: default, @var-font-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-table-cell-padding-factor: 0.4, @var-distance-factor-top: 1, @var-distance-factor-bottom: 1, @var-table-thead-border: @base-table-thead-border, @var-table-tbody-border: @base-table-tbody-border, @var-table-tfoot-border: @base-table-tfoot-border, @var-table-bg: @base-table-bg, @var-table-bg-accent: @base-table-bg-accent) {
+        .recursion(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = default) {
+            table {
+                width: 100%;
+                max-width: 100%;
+                background-color: @var-10;
+                border-collapse: collapse;
+                border-spacing: 0;
+                #font > .shorthand(@var-1, normal, @var-2);
+                margin-top: ceil(@var-3 * @var-5);
+                margin-bottom: ceil(@var-3 * @var-6);
+                
+                tr {
+                    th,
+                    td {
+                        padding: ceil(@var-3 * @var-4);
+                        vertical-align: top;
+                        text-align: left;
+                    }
+                    th {
+                        font-weight: bold;
+                    }
+                }
+                thead {
+                    th,
+                    td {
+                        border-bottom: @var-7;
+                    }
+                }
+                tbody {
+                    th,
+                    td {
+                        border-top: @var-8;
+                    }
+                }
+                tfoot {
+                    th,
+                    td {
+                        border-top: @var-9;
+                    }
+                }
+            }
+        }
+        .recursion(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = striped) {
+            #table > .table(default, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11);
+            
+            table {
+                tbody {
+                    tr {
+                        &:nth-child(odd) {
+                            > th,
+                            > td {
+                                background-color: @var-11;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        .recursion(@var, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11) when (@var = bordered) {
+            #table > .table(default, @var-1, @var-2, @var-3, @var-4, @var-5, @var-6, @var-7, @var-8, @var-9, @var-10, @var-11);
+            
+            table {
+                border: @var-8;
+                
+                thead,
+                tbody,
+                tfoot {
+                    tr {
+                        > th,
+                        > td {
+                            border: @var-8;
+                        }
+                    }
+                }
+            }
+        }
+        .recursion(@var-table-type, @var-font-size, @var-line-height, @var-distance, @var-table-cell-padding-factor, @var-distance-factor-top, @var-distance-factor-bottom, @var-table-thead-border, @var-table-tbody-border, @var-table-tfoot-border, @var-table-bg, @var-table-bg-accent);
+    }
+    
+    // @methode: .default-table
+    // @usage: #table > .default-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+    
+    .default-table(@var-font-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-table-cell-padding-factor: 0.4, @var-distance-factor-top: 1, @var-distance-factor-bottom: 1, @var-table-thead-border: @base-table-thead-border, @var-table-tbody-border: @base-table-tbody-border, @var-table-tfoot-border: @base-table-tfoot-border, @var-table-bg: @base-table-bg, @var-table-bg-accent: @base-table-bg-accent) {
+        #table > .table(default, @var-font-size, @var-line-height, @var-distance, @var-table-cell-padding-factor, @var-distance-factor-top, @var-distance-factor-bottom, @var-table-thead-border, @var-table-tbody-border, @var-table-tfoot-border, @var-table-bg, @var-table-bg-accent);
+    }
+    
+    // @methode: .striped-table
+    // @usage: #table > .striped-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+    
+    .striped-table(@var-font-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-table-cell-padding-factor: 0.4, @var-distance-factor-top: 1, @var-distance-factor-bottom: 1, @var-table-thead-border: @base-table-thead-border, @var-table-tbody-border: @base-table-tbody-border, @var-table-tfoot-border: @base-table-tfoot-border, @var-table-bg: @base-table-bg, @var-table-bg-accent: @base-table-bg-accent) {
+        #table > .table(striped, @var-font-size, @var-line-height, @var-distance, @var-table-cell-padding-factor, @var-distance-factor-top, @var-distance-factor-bottom, @var-table-thead-border, @var-table-tbody-border, @var-table-tfoot-border, @var-table-bg, @var-table-bg-accent);
+    }
+    
+    // @methode: .bordered-table
+    // @usage: #table > .bordered-table(14px, 1.4, 20px, 0.4, 1, 1, @base-table-thead-border, @base-table-tbody-border, @base-table-tfoot-border, #fefefe, #eee);
+    
+    .bordered-table(@var-font-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-table-cell-padding-factor: 0.4, @var-distance-factor-top: 1, @var-distance-factor-bottom: 1, @var-table-thead-border: @base-table-thead-border, @var-table-tbody-border: @base-table-tbody-border, @var-table-tfoot-border: @base-table-tfoot-border, @var-table-bg: @base-table-bg, @var-table-bg-accent: @base-table-bg-accent) {
+        #table > .table(bordered, @var-font-size, @var-line-height, @var-distance, @var-table-cell-padding-factor, @var-distance-factor-top, @var-distance-factor-bottom, @var-table-thead-border, @var-table-tbody-border, @var-table-tfoot-border, @var-table-bg, @var-table-bg-accent);
+    }
+}

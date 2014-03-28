@@ -1,36 +1,93 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
-// ----------------------------------------------------- ~ forms
-// #form > .form();
+// ----------------------------------------------------- ~ form
+// #form > .base(12px, 1.4em, 20px, 0.75, 14px, #444, none, bold);
+// #form > .label(bold, 20px, 0.25);
+// #form > .input(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px);
+// #form > .textarea(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px)
+// #form > .checkboxes(20px);
+// #form > .radio(20px);
+// #form > .select(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px);
+// #form > .button(20px);
+
+// @namespace: #form
 
 #form {
+    
+    // @methode: .input-element
+    // @usage: #form > .input-element(13px, 1.4em, 20px, ~"1px solid #ddd", @base-form-input-shadow, 2px, 100%, 0.2, 0.4, 0.75);
+    
+    .input-element(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-input-border, @var-shadow: @base-form-input-shadow, @var-radius: @base-form-input-radius, @var-width: 100%, @var-padding-top-bottom-factor: 0.2, @var-padding-left-right-factor: 0.4, @var-margin-bottom-factor: 0.75) {
+        #box > .display(inline-block);
+        #box > .shadow(@var-shadow);
+        #box > .sizing(border-box);
+        #border > .radius(@var-radius);
+        font-size: @var-size;
+        line-height: @var-line-height;
+        width: @var-width;
+        border: @var-border;
+        padding: ceil(@var-distance * @var-padding-top-bottom-factor) ceil(@var-distance * @var-padding-left-right-factor);
+        margin: 0 0 ceil(@var-distance * @var-margin-bottom-factor) 0;
+        vertical-align: middle;
+    }
+    
+    // @methode: .input-color
+    // @usage: #form > .input-color(#888);
+    .input-color(@var-color) {
+        color: @var-color;
+    }
+    
+    // @methode: .input-focus-color
+    // @usage: #form > .input-focus-color(#000);
+    .input-focus-color(@var-color) {
+        &:focus {
+            color: @var-color;
+        }
+    }
+    
+    // @methode: .input-focus-border
+    // @usage: #form > .input-focus-border(#ccc);
+    
+    .input-focus-border(@var-border: @base-form-input-border-focus) {
+        &:focus {
+            border-color: @var-border;
+        }
+    }
+    
+    // @methode: .input-focus
+    // @usage: #form > .input-focus(#000, #ccc);
+    
+    .input-focus(@var-color: #000, @var-border: @base-form-input-border-focus) {
+        #form > .input-focus-border(@var-border);
+        #form > .input-focus-color(@var-color);
+    }
     
     // @methode: .defaults
     // @usage: #form > .defaults();
     
     .defaults() {
-        #form > .form();
-        #form > .labels();
-        #form > .textareas();
-        #form > .inputs();
-        #form > .selects();
+        #form > .base();
+        #form > .label();
+        #form > .textarea();
+        #form > .input();
+        #form > .select();
         #form > .checkboxes();
-        #form > .radios();
-        #form > .buttons();
+        #form > .radio();
+        #form > .button();
     }
     
     // @methode: .form()
-    // @usage: #form > .form();
+    // @usage: #form > .form(12px, 1.4em, 20px, 0.75, 14px, #444, none, bold);
     
     .form(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75, @var-legend-size: @base-form-legend-size, @var-legend-color: @base-form-legend-color, @var-legend-border: @base-form-legend-border, @var-label-weight: @base-font-label-weight) {
         form {
             #box > .display(block);
             #unset > .distances();
-            margin: ceil(@var-distance * @var-distance-factor) 0;
             #form > .shorthand(@var-size, normal, @var-line-height);
             #form > .legend(@var-legend-size, @var-line-height, @var-legend-color, @var-legend-border, @var-distance);
+            margin: ceil(@var-distance * @var-distance-factor) 0;
             
             fieldset {
                 #box > .display(block);
@@ -44,10 +101,10 @@
             legend {
                 #unset > .distances();
                 #box > .display(block);
+                #font > .shorthand(@var-legend-size, normal, @var-line-height);
                 color: @var-legend-color;
                 border: @var-legend-border;
                 width: 100%;
-                #font > .shorthand(@var-legend-size, normal, @var-line-height);
                 
                 + * {
                     padding-top: @var-distance;
@@ -62,10 +119,17 @@
         }
     }
     
-    // @methode: .labels
-    // @usage: #form > .labels();
+    // @methode: .base()
+    // @usage: #form > .base(12px, 1.4em, 20px, 0.75, 14px, #444, none, bold);
     
-    .labels(@var-weight: @base-font-label-weight, @var-distance: @base-distance, @var-factor: 0.25) {
+    .base(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-distance-factor: 0.75, @var-legend-size: @base-form-legend-size, @var-legend-color: @base-form-legend-color, @var-legend-border: @base-form-legend-border, @var-label-weight: @base-font-label-weight) {
+        #form > .form(@var-size, @var-line-height, @var-distance, @var-distance-factor, @var-legend-size, @var-legend-color, @var-legend-border, @var-label-weight);
+    }
+    
+    // @methode: .label
+    // @usage: #form > .label(bold, 20px, 0.25);
+    
+    .label(@var-weight: @base-font-label-weight, @var-distance: @base-distance, @var-factor: 0.25) {
         label {
             #box > .display(block);
             margin-bottom: ceil(@var-distance * @var-factor);
@@ -73,10 +137,10 @@
         }
     }
     
-    // @methode: .inputs
-    // @usage: #form > .inputs();
+    // @methode: .input
+    // @usage: #form > .input(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px);
     
-    .inputs(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-input-border, @var-border-focus: @base-form-input-border-focus, @var-shadow: @base-form-input-shadow, @var-radius: @base-form-input-radius) {
+    .input(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-input-border, @var-border-focus-color: @base-form-input-border-focus, @var-shadow: @base-form-input-shadow, @var-radius: @base-form-input-radius) {
         input {
             &[type="text"],
             &[type="password"],
@@ -92,8 +156,8 @@
             &[type="search"],
             &[type="tel"],
             &[type="color"] {
-                #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
-                #form > .input-focus(@var-border-focus);
+                #form > .input-element(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+                #form > .input-focus-border(@var-border-focus-color);
             }
             &[type="file"] {
                 #box > .display(block);
@@ -102,18 +166,18 @@
         }
     }
     
-    // @methode: .textareas
-    // @usage: #form > .textareas();
+    // @methode: .textarea
+    // @usage: #form > .textarea(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px);
     
-    .textareas(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-area-border, @var-border-focus: @base-form-area-border-focus, @var-shadow: @base-form-area-shadow, @var-radius: @base-form-area-radius) {
+    .textarea(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-area-border, @var-border-focus-color: @base-form-area-border-focus, @var-shadow: @base-form-area-shadow, @var-radius: @base-form-area-radius) {
         textarea {
-            #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
-            #form > .input-focus(@var-border-focus);
+            #form > .input-element(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+            #form > .input-focus-border(@var-border-focus-color);
         }
     }
     
     // @methode: .checkboxes
-    // @usage: #form > .checkboxes();
+    // @usage: #form > .checkboxes(20px);
     
     .checkboxes(@var-distance: @base-distance) {
         input {
@@ -126,10 +190,10 @@
         }
     }
     
-    // @methode: .radios
-    // @usage: #form > .radios();
+    // @methode: .radio
+    // @usage: #form > .radio(20px);
     
-    .radios(@var-distance: @base-distance) {
+    .radio(@var-distance: @base-distance) {
         input {
             &[type="radio"]{
                 float: left;
@@ -140,20 +204,20 @@
         }
     }
     
-    // @methode: .selects
-    // @usage: #form > .selects();
+    // @methode: .select
+    // @usage: #form > .select(12px, 1.4em, 20px, ~"1px solid #ddd", #333, @base-form-area-shadow, 3px);
     
-    .selects(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-select-border, @var-border-focus: @base-form-select-border-focus, @var-shadow: @base-form-select-shadow, @var-radius: @base-form-select-radius) {
+    .select(@var-size: @base-font-size, @var-line-height: @base-line-height, @var-distance: @base-distance, @var-border: @base-form-select-border, @var-border-focus-color: @base-form-select-border-focus, @var-shadow: @base-form-select-shadow, @var-radius: @base-form-select-radius) {
         select {
-            #form > .input(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
-            #form > .input-focus(@var-border-focus);
+            #form > .input-element(@var-size, @var-line-height, @var-distance, @var-border, @var-shadow, @var-radius, 100%, 0.2, 0.4, 0.75);
+            #form > .input-focus-border(@var-border-focus-color);
         }
     }
     
-    // @methode: .buttons
-    // @usage: #form > .buttons();
+    // @methode: .button
+    // @usage: #form > .button(20px);
     
-    .buttons(@var-distance: @base-distance) {
+    .button(@var-distance: @base-distance) {
         .button-style() {
             #button > .base();
             #button > .border();

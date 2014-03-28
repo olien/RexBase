@@ -1,7 +1,36 @@
 <?php
 class rex_slice_status {
-	static function fetchSliceStatus() {
+	public static function getSliceStatus($sliceId) {
+		global $REX;
+
+		$sqlStatement = 'SELECT id, status FROM ' . $REX['TABLE_PREFIX'] . 'article_slice WHERE id = ' . $sliceId;
+		$sql = rex_sql::factory();
+		$sql->setQuery($sqlStatement);
+
+		if ($sql->getRows() > 0) {
+			return $sql->getValue('status');
+		} else {
+			return -1;
+		}
+	}
+
+	public static function setSliceStatus($sliceId, $newStatus) {
+		global $REX;
+
+		if (!$REX['REDAXO']) {
+			require_once($REX['INCLUDE_PATH'] . '/functions/function_rex_generate.inc.php');
+		}
+
+		$slice = OOArticleSlice::getArticleSliceById($sliceId);
+
+		if (is_object($slice)) {
+			self::updateSliceStatus($slice->getArticleId(), $slice->getClang(), $sliceId, $newStatus);
+		}
+	}
+
+	public static function fetchSliceStatus() {
 		global $REX, $I18N;
+
 		$fetchedSliceStatus = array();
 	
 		$sqlStatement = 'SELECT id, status FROM ' . $REX['TABLE_PREFIX'] . 'article_slice';
@@ -22,10 +51,8 @@ class rex_slice_status {
 		return $fetchedSliceStatus;
 	}
 
-	static function modifySliceEditMenu($params) {
-		global $REX;
-		global $I18N;
-		global $slices;
+	public static function modifySliceEditMenu($params) {
+		global $REX, $I18N, $slices;
 	
 		extract($params);
 
@@ -77,7 +104,7 @@ class rex_slice_status {
 		return $subject;
 	}
 
-	static function sliceShow($params) {
+	public static function sliceShow($params) {
 		global $REX;
 	
 		extract($params);
@@ -93,7 +120,7 @@ class rex_slice_status {
 		}
 	}
 
-	static function updateSliceStatus($articleID, $cLang, $sliceID, $newStatus) {
+	public static function updateSliceStatus($articleID, $cLang, $sliceID, $newStatus) {
 		global $REX;
 
 		// update db
@@ -104,7 +131,7 @@ class rex_slice_status {
 		rex_deleteCacheArticleContent($articleID, $cLang);
 	}
 
-	static function appendToPageHeader($params) {
+	public static function appendToPageHeader($params) {
 		global $REX;
 
 		$insert = '<!-- BEGIN slice_status -->' . PHP_EOL;
@@ -115,7 +142,7 @@ class rex_slice_status {
 		return $params['subject'] . PHP_EOL . $insert;
 	}
 
-	static function afterDBImport($params) {
+	public static function afterDBImport($params) {
 		global $REX, $I18N;
 
 		if (count(rex_slice_status::fetchSliceStatus()) == 0) {
@@ -124,7 +151,7 @@ class rex_slice_status {
 		}
 	}
 
-	static function getMediaAddonDir() {
+	public static function getMediaAddonDir() {
 		global $REX;
 
 		// check for media addon dir var introduced in REX 4.5
@@ -133,6 +160,10 @@ class rex_slice_status {
 		} else {
 			return 'files/addons';
 		}
+	}
+
+	public static function versionAddonFix($params) {
+		rex_deleteCacheArticleContent(rex_request('article_id'), rex_request('clang'));
 	}
 }
 

@@ -41,18 +41,23 @@ div.magnific-popup-gallery img {
 	-webkit-box-shadow: 0 0 5px #ccc;
 }
 
-/* ------------- lightbox title ------------- */
+/* ---------- magnific popup title ---------- */
 
 .mfp-title,
 .mfp-counter {
-	font-family: Arial, Helvetica, sans-serif;
+	font-family: Arial, Helvetica, sans-serif !important;
 }
 
 .mfp-title {
-	font-size: 13px;
+	font-size: 13px !important;
 }
 
-/* ----------- lightbox animation ----------- */
+.mfp-close {
+	font-weight: normal !important;
+	margin: 0 !important;
+}
+
+/* -------- magnific popup animation -------- */
 
 .mfp-with-fade .mfp-content,
 .mfp-with-fade .mfp-arrow,

@@ -1,5 +1,5 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ transition
@@ -8,10 +8,7 @@
 // #transition > .set(all, 2s, linear);
 // #transition > .delay(40ms);
 // #transition > .duration(15ms);
-
-// @helper methode: ../elements/helper.less
-// #transition > .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
-// #transition > .transition(~"150ms ease-in-out, background 150ms ease-in-out, border 150ms ease-in-out", transform);
+// .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
 
 // @namespace: #transition
 
@@ -21,63 +18,102 @@
     // @usage: #transition > .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
     // @usage: #transition > .transition(~"150ms ease-in-out, background 150ms ease-in-out, border 150ms ease-in-out", transform);
     
-    .transition(@var, @type: false) {
-        .inseption(@var, @var-1) when (@var-1 = transform) {
-            -webkit-transition: -webkit-transform @var;
-               -moz-transition: -moz-transform @var;
-                -ms-transition: -ms-transform @var;
-                 -o-transition: -o-transform @var;
-                    transition: transform @var;
+    .transition(@var-transition, @var-type: false) {
+        .recursion(@var-transition, @var-type) when (@var-type = transform) and (isstring(@var-transition)) {
+            -webkit-transition: -webkit-transform @var-transition;
+               -moz-transition: -moz-transform @var-transition;
+                -ms-transition: -ms-transform @var-transition;
+                 -o-transition: -o-transform @var-transition;
+                    transition: transform @var-transition;
         }
-        .inseption(@var, @var-1) when not (@var-1 = transform) {
-            -webkit-transition: @var;
-               -moz-transition: @var;
-                -ms-transition: @var;
-                 -o-transition: @var;
-                    transition: @var;
+        .recursion(@var-transition, @var-type) when not (@var-type = transform) and (isstring(@var-transition)) {
+            -webkit-transition: @var-transition;
+               -moz-transition: @var-transition;
+                -ms-transition: @var-transition;
+                 -o-transition: @var-transition;
+                    transition: @var-transition;
         }
-        .inseption(@var, @type);
+        .recursion(@var-transition, @var-type);
     }
     
     // @methode: .transform
     // @usage: #transition > .transform(~"150ms ease-in-out, border 150ms ease-in-out");
     
-    .transform(@var) {
-        #transition > .transition(@var, transform);
+    .transform(@var-transform) {
+        #transition > .transition(@var-transform, transform);
+    }
+    
+    // @methode: .property
+    // @usage: #transition > .property(width);
+    
+    .property(@var-property) {
+        .recursion(@var-property) when (iskeyword(@var-property)) {
+            -webkit-transition-property: @var-property;
+               -moz-transition-property: @var-property;
+                 -o-transition-property: @var-property;
+                    transition-property: @var-property;
+        }
+        .recursion(@var-property);
+    }
+    
+    // @methode: .timing-function
+    // @usage: #transition > .timing-function(linear);
+    
+    .timing-function(@var-timing-function) {
+        .recursion(@var-timing-function) when (iskeyword(@var-timing-function)) {
+            -webkit-transition-timing-function: @var-timing-function;
+               -moz-transition-timing-function: @var-timing-function;
+                 -o-transition-timing-function: @var-timing-function;
+                    transition-timing-function: @var-timing-function;
+        }
+        .recursion(@var-timing-function);
     }
     
     // @methode: .delay
     // @usage: #transition > .delay(40ms);
     
-    .delay(@var) {
-        -webkit-transition-delay: @var;
-           -moz-transition-delay: @var;
-             -o-transition-delay: @var;
-                transition-delay: @var;
+    .delay(@var-delay) {
+        .recursion(@var-delay) when (isnumber(@var-delay)) {
+        -webkit-transition-delay: @var-delay;
+           -moz-transition-delay: @var-delay;
+             -o-transition-delay: @var-delay;
+                transition-delay: @var-delay;
+        }
+        .recursion(@var-delay);
     }
     
     // @methode: .duration
     // @usage: #transition > .duration(15ms);
     
-    .duration(@var) {
-        -webkit-transition-duration: @var;
-           -moz-transition-duration: @var;
-             -o-transition-duration: @var;
-                transition-duration: @var;
+    .duration(@var-duration) {
+        .recursion(@var-duration) when (isnumber(@var-duration)) {
+            -webkit-transition-duration: @var-duration;
+               -moz-transition-duration: @var-duration;
+                 -o-transition-duration: @var-duration;
+                    transition-duration: @var-duration;
+        }
+        .recursion(@var-duration);
     }
     
     // @methode: .set
     // @usage: #transition > .set(all, 2s, linear);
     
-    .set(@prop: all, @time: 1s, @ease: linear) {
-        .inseption(@var, @var-1, @var-2) when (@var = transform) {
-            @var-3: @var-1 @var-2;
-            #transition > .transition(@var-3, @var);
+    .set(@var-prop: all, @var-time: 1s, @var-ease: linear) {
+        .recursion(@var-prop, @var-time, @var-ease) when (@var-prop = transform) {
+            @var-set: ~"@{var-time} @{var-ease}";
+            #transition > .transition(@var-set, @var-prop);
         }
-        .inseption(@var, @var-1, @var-2) when not (@var = transform) {
-            @var-3: @var @var-1 @var-2;
-            #transition > .transition(@var-3);
+        .recursion(@var-prop, @var-time, @var-ease) when not (@var-prop = transform) {
+            @var-set: ~"@{var-prop} @{var-time} @{var-ease}";
+            #transition > .transition(@var-set);
         }
-        .inseption(@prop, @time, @ease);
+        .recursion(@var-prop, @var-time, @var-ease);
     }
+}
+
+// @direct-methode: .transition
+// @usage: .transition(~"background-color 150ms ease-in-out, border 150ms ease-in-out");
+
+.transition(@var-transition, @type: false) {
+    #transition > .transition(@var-transition, @type);
 }

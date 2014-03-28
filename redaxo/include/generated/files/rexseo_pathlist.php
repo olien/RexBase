@@ -18,8 +18,6 @@ $REXSEO_IDS = array (
     0 => array ('url' => 'noch-einer/sub-2.html',),),
   9 => array (
     0 => array ('url' => 'noch-einer/offline.html',),),
-  10 => array (
-    0 => array ('url' => 'alle-meta-daten-anzeigen.html',),),
 );
 $REXSEO_URLS = array (
   '' => array ('id' => 1,'clang' => 0,),
@@ -31,5 +29,4 @@ $REXSEO_URLS = array (
   'noch-einer/sub.html' => array ('id' => 7,'clang' => 0,),
   'noch-einer/sub-2.html' => array ('id' => 8,'clang' => 0,),
   'noch-einer/offline.html' => array ('id' => 9,'clang' => 0,),
-  'alle-meta-daten-anzeigen.html' => array ('id' => 10,'clang' => 0,),
 );

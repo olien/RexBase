@@ -1,0 +1,94 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ button
+// #button > .base(12px, normal, sans-serif, 0.5em 1em, 0);
+// #button > .color(#333, #fff, #fff);
+// #button > .border(1px solid #d4d4d4, 1px solid #d4d4d4, 1px solid #d4d4d4, 0.2em);
+// #button > .background(#f4f4f4, #599bdc, #3072b3, #ececec, #3072b3, #599bdc);
+
+// @namespace: #button
+
+#button {
+    
+    // @methode: .base
+    // @usage: #button > .base();
+    
+    .base(@font-size, @font-weight, @font-family, @distance-inner, @distance-out) {
+        #base > .pointer();
+        #unset > .outline();
+        #box > .display(inline-block);
+        position: relative;
+        overflow: visible;
+        padding: @distance-inner;
+        margin:  @distance-out;
+        font-size: @font-size;
+        font-weight: @font-weight;
+        font-family: @font-family;
+        text-decoration: none;
+        text-align: center;
+        white-space: nowrap;
+        zoom: 1;
+        *display: inline;
+        
+        &::-moz-focus-inner {
+            #unset > .distances();
+        }
+        i[class^="icon-"],
+        i[class*=" icon-"] {
+            min-width: inherit;
+            margin-left: 0;
+        }
+    }
+    
+    // @methode: .base
+    // @usage: #button > .base();
+    
+    .color(@color, @hover-color, @activ-color) {
+        color: @color;
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            color: @hover-color;
+        }
+        &:active,
+        &.active {
+            color: @activ-color;
+        }
+    }
+    .border(@border, @border-hover, @border-active, @border-radius) {
+        #border > .radius(@border-radius);
+        #border > .lines(@border);
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+            #border > .lines(@border-hover);
+        }
+        &:active,
+        &.active {
+            #border > .lines(@border-active);
+        }
+    }
+    .background ( 
+      @start-color, @start-hover-color, @start-active-color, @end-color, @end-hover-color, @end-active-color,
+      @between-color : '', @between-hover-color : '', @between-active-color : '', @color-stop : 50%
+    ) {
+        #gradient > .vertical(@start-color, @end-color, @between-color, @color-stop);
+        
+        &:hover,
+        &:focus,
+        &:active,
+        &.active {
+          #gradient > .vertical(@start-hover-color, @end-hover-color, @between-hover-color, @color-stop);
+        }
+        &:active,
+        &.active {
+          #gradient > .vertical(@start-active-color, @end-active-color, @between-active-color, @color-stop);
+        }
+    }
+}

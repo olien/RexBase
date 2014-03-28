@@ -1,0 +1,31 @@
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
+// licensed under MIT or GPLv3 ~ git.io/OJYZgw
+
+// ----------------------------------------------------- ~ appearance
+// #appearance > .appearance(button); // normal|icon|window|button|menu|field...
+// .appearance(button); // normal|icon|window|button|menu|field...
+
+// @namespace: #appearance
+
+#appearance {
+    
+    // @methode: .appearance
+    // @usage: #appearance > .appearance(button); // normal|icon|window|document|workspace|desktop|tooltip|dialog|button|push-button|hyperlink|radio-button|checkbox|menu|menubar|pull-down-menu|pop-up-menu|list-menu|radio-group|checkbox-group|outline-tree|field|inherit
+    
+    .appearance(@var-appearance: normal) {
+        .recursion(@var-appearance) when (iskeyword(@var-appearance)) {
+            -webkit-appearance: @var-appearance;
+               -moz-appearance: @var-appearance;
+                    appearance: @var-appearance;
+        }
+        .recursion(@var-appearance);
+    }
+}
+
+// @direct methode: .appearance
+// @usage: .appearance(button); // normal|icon|window|button|menu|field...
+
+.appearance(@var-appearance: normal) () {
+    #appearance > .appearance(@var-appearance);
+}

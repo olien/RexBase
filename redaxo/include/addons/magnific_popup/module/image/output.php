@@ -2,7 +2,7 @@
 // module: magnific_popup_image_out
 
 $imageType = 'magnific_popup_image_thumb';
-$imageFile = 'REX_FILE[1]';
+$imageFile = 'REX_MEDIA[1]';
 
 if ($imageFile != '') {
 	$media = OOMedia::getMediaByFilename($imageFile);

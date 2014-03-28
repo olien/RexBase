@@ -1,5 +1,5 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ grid
@@ -12,6 +12,9 @@
 // #grid > .write-columns(col-, 12, 70px, 30px);
 // #grid > .write-offsets(offset-, 12, 70px, 30px, right);
 
+// @dependency: clearing.less
+// @dependency: float.less
+
 // @namespace: #grid
 
 #grid {
@@ -20,38 +23,50 @@
     // @usage: #grid > .wrapper(12, 70px, 30px);
     
     .wrapper(@number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
-        #base > .center();
-        width: (((@column-width * @number-of-columns) + (@gutter-width * @number-of-columns)) - @gutter-width);
+        .recursion(@number-of-columns, @column-width, @gutter-width) when (isnumber(@number-of-columns)) and (isnumber(@column-width)) and (isnumber(@gutter-width)) {
+            #base > .center();
+            width: (((@column-width * @number-of-columns) + (@gutter-width * @number-of-columns)) - @gutter-width);
+        }
+        .recursion(@number-of-columns, @column-width, @gutter-width);
     }
     
     // @methode: .row
-    // @usage: #grid > .row(30px);
+    // @usage: #grid > .row(30px); // @base-gutter-width
     
-    .row(@gutter-width: @base-gutter-width) {
-        #clear > .clearfix();
-        margin-left: -(@gutter-width);
+    .row(@var: @base-gutter-width) {
+        .recursion(@var) when (isnumber(@var)) {
+            #clear > .clearfix();
+            margin-left: -(@var);
+        }
+        .recursion(@var);
     }
     
     // @methode: .column
     // @usage: #grid > .column(1, 70px, 30px);
     
     .column(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
-        #float > .left();
-        width: ((@column-width * @index) + (@gutter-width * (@index - 1 )));
-        margin-left: @gutter-width;
+        .recursion(@index, @column-width, @gutter-width) when (isnumber(@index)) and (isnumber(@column-width)) and (isnumber(@gutter-width)) {
+            #float > .left();
+            width: ((@column-width * @index) + (@gutter-width * (@index - 1 )));
+            margin-left: @gutter-width;
+        }
+        .recursion(@index, @column-width, @gutter-width);
     }
     
     // @methode: .offset
     // @usage: #grid > .offset(1, 70px, 30px, right);
     
     .offset(@index: 1, @column-width: @base-column-width, @gutter-width: @base-gutter-width, @var-direction: left) {
-        .inseption(@var, @var-1, @var-2, @var-3) when (@var-3 = left) {
-            margin-left: ((@var-1 * @var) + (@var-2 * (@var + 1)));
+        .recursion(@index, @column-width, @gutter-width, @var-direction) when (@var-direction = left) {
+            margin-left: ((@column-width * @index) + (@gutter-width * (@index + 1)));
         }
-        .inseption(@var, @var-1, @var-2, @var-3) when (@var-3 = right) {
-            margin-right: ((@var-1 * @var) + (@var-2 * (@var + 1)));
+        .recursion(@index, @column-width, @gutter-width, @var-direction) when (@var-direction = right) {
+            margin-right: ((@column-width * @index) + (@gutter-width * (@index + 1)));
         }
-        .inseption(@index, @column-width, @gutter-width, @var-direction);
+        .recursion-request(@index, @column-width, @gutter-width, @var-direction) when (isnumber(@index)) and (isnumber(@column-width)) and (isnumber(@gutter-width)) {
+            .recursion(@index, @column-width, @gutter-width, @var-direction);
+        }
+        .recursion-request(@index, @column-width, @gutter-width, @var-direction);
     }
     
     // @methode: .offset-left
@@ -69,7 +84,7 @@
     }
     
     // @methode: .write-columns
-    // @usage: #grid > .write-columns(1, 70px, 30px);
+    // @usage: #grid > .write-columns(col-, 12, 70px, 30px);
     
     .write-columns(@column-class: col-, @number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width) {
         .columns (@index) when (@index > 0) {
@@ -83,7 +98,7 @@
     }
     
     // @methode: .write-offsets
-    // @usage: #grid > .write-offsets(1, 70px, 30px, right);
+    // @usage: #grid > .write-offsets(offset-, 12, 70px, 30px, right);
     
     .write-offsets(@offset-class: offset-, @number-of-columns: @base-number-of-columns, @column-width: @base-column-width, @gutter-width: @base-gutter-width, @var-direction: left) {
         .offsets(@index) when (@index > 0) {

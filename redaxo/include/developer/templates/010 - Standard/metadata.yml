@@ -1,8 +1,0 @@
-name: '010 - Standard'
-active: true
-attributes:
-    categories:
-        all: '1'
-    ctype: {  }
-    modules:
-        1: { all: '1' }

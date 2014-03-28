@@ -1,16 +1,13 @@
-// basecondition ~ less-framework ~ v3.1
-// copyright 2013 ~ Joachim Doerr ~ hello@basecondition.com
+// basecondition ~ less-framework ~ v3.2.1
+// copyright 2014 ~ Joachim Doerr ~ hello@basecondition.com
 // licensed under MIT or GPLv3 ~ git.io/OJYZgw
 
 // ----------------------------------------------------- ~ base
-//  #base > .center();
-//  #base > .center-list();
-//  #base > .pointer();
-//  .center();
-
-// @helper methode: ../../elements/helper.less
-// @usage: .center();
-// @usage: .center-list();
+// #base > .center();
+// #base > .center-list();
+// #base > .pointer();
+// .center();
+// .center-list();
 
 // @namespace: #base
 
@@ -83,4 +80,18 @@
             content: "You've left description empty!";
         }
     }
+}
+
+// @direct-methode: .center
+// @usage: .center();
+
+.center() {
+    #base > .center();
+}
+
+// @direct-methode: .center-list
+// @usage: .center-list();
+
+.center-list() {
+    #base > .center-list();
 }

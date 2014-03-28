@@ -1,0 +1,149 @@
+﻿.overflowhidden {
+    overflow: hidden;
+}
+
+.addon-header-wrapper {
+    width: 100%;
+}
+
+td.td_dl, td.td_status {
+    text-align: center;
+}
+
+.clear_it {
+    clear: both;
+}
+
+div.rex-addon-output.float_it {
+    float: left !important;
+    width: 49%;
+    margin-right: 14px;
+}
+
+.rex-addon-output {
+    position: relative;
+}
+
+.action_bar_wrapper {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+div.rex-addon-output.float_it.last {
+    margin-right: 0 !important;
+}
+
+.rex-table tr:hover {
+	background-color: #eee;
+}
+
+#installer-addonlist tr td {
+    cursor: pointer;
+}
+
+#ajax-result {
+    position: fixed;
+    z-index: 3000;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    display: none;
+    overflow: auto;
+}
+
+.ajax-result-content {
+    max-width: 75%;
+    min-width: 700px;
+    margin: 0 auto;
+    margin-top: 50px;
+    background: #eee;
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin-bottom: 50px;
+}
+
+.ajax-result-content .rex-addon-output {
+    outline: none;
+    float: none;
+}
+
+.ajax-result-content .action_after_unzip {
+    margin-left: 0;
+}
+
+p.forceversion {
+    margin-bottom: 10px;
+    cursor: help;
+}
+
+p.forceversion span {
+    border-bottom:1px dotted #000;
+}
+
+
+.spinnwrap {
+    padding: 5px 10px;
+}
+
+table tr.updateAvailable {
+	background-color: #a8e19f;
+}
+
+table tr.updateAvailable:hover {
+	background-color: #a8e19f;
+}
+
+input#search_lupe {
+     background: url("search.gif") no-repeat;
+     width: 22px;
+     height: 22px;
+}
+
+input#search_module,
+input#search_addon {
+    height: 20px;
+    width: 700px;
+    padding-left: 5px;
+    margin: 5px;
+}
+
+input#search_addon {
+	width: 735px;
+}
+
+#noresults {
+	display: none;
+}
+
+tr.noHover:hover {
+	background-color: transparent;
+}
+
+.rex-hl2 {
+    font-size: 12px;
+}
+
+.action_after_unzip {
+    padding: 0px;
+    list-style-type: none;
+}
+
+.action_after_unzip li {
+    padding: 5px 10px;
+    border-bottom: 1px solid #eee;
+    background: #f5f5f5;
+    color: #999;
+}
+
+.action_after_unzip li:hover {
+    background: #eee;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.action_after_unzip li a {
+    display: block;
+}

@@ -4,7 +4,7 @@ require $REX['INCLUDE_PATH'] . '/layout/top.php';
 
 rex_title($I18N->msg('developer_name'), $REX['ADDON']['pages']['developer']);
 
-if (rex_post('func', 'string') == 'update') {
+if (rex_post('function', 'string') == 'update') {
     $settings = (array) rex_post('settings', 'array', array());
     $settings['dir'] = trim($settings['dir'], '/');
     $msg = '';
@@ -28,22 +28,13 @@ if (rex_post('func', 'string') == 'update') {
     }
 }
 
-$templates = '';
-if ($REX['ADDON']['settings']['developer']['templates'] == '1') {
-    $templates = ' checked="checked"';
-}
-$modules = '';
-if ($REX['ADDON']['settings']['developer']['modules'] == '1') {
-    $modules = ' checked="checked"';
-}
-$actions = '';
-if ($REX['ADDON']['settings']['developer']['actions'] == '1') {
-    $actions = ' checked="checked"';
-}
-$prefix = '';
-if ($REX['ADDON']['settings']['developer']['prefix'] == '1') {
-    $prefix = ' checked="checked"';
-}
+$templates = $REX['ADDON']['settings']['developer']['templates'] ? ' checked="checked"' : '';
+$modules   = $REX['ADDON']['settings']['developer']['modules'] ? ' checked="checked"' : '';
+$actions   = $REX['ADDON']['settings']['developer']['actions'] ? ' checked="checked"' : '';
+$rename    = $REX['ADDON']['settings']['developer']['rename'] ? ' checked="checked"' : '';
+$prefix    = $REX['ADDON']['settings']['developer']['prefix'] ? ' checked="checked"' : '';
+$umlauts   = $REX['ADDON']['settings']['developer']['umlauts'] ? ' checked="checked"' : '';
+$delete    = $REX['ADDON']['settings']['developer']['delete'] ? ' checked="checked"' : '';
 
 echo '
 
@@ -58,7 +49,7 @@ echo '
 
         <fieldset class="rex-form-col-1">
             <div class="rex-form-wrapper">
-                <input type="hidden" name="func" value="update" />
+                <input type="hidden" name="function" value="update" />
 
                 <div class="rex-form-row">
                     <p class="rex-form-checkbox rex-form-label-right">
@@ -86,9 +77,33 @@ echo '
 
                 <div class="rex-form-row">
                     <p class="rex-form-checkbox rex-form-label-right">
+                        <input type="hidden" name="settings[rename]" value="0" />
+                        <input class="rex-form-checkbox" type="checkbox" id="rename" name="settings[rename]" value="1"' . $rename . ' />
+                        <label for="rename">' . $I18N->msg('developer_rename') . '</label>
+                    </p>
+                </div>
+
+                <div class="rex-form-row">
+                    <p class="rex-form-checkbox rex-form-label-right">
                         <input type="hidden" name="settings[prefix]" value="0" />
                         <input class="rex-form-checkbox" type="checkbox" id="prefix" name="settings[prefix]" value="1"' . $prefix . ' />
                         <label for="prefix">' . $I18N->msg('developer_prefix') . '</label>
+                    </p>
+                </div>
+
+                <div class="rex-form-row">
+                    <p class="rex-form-checkbox rex-form-label-right">
+                        <input type="hidden" name="settings[umlauts]" value="0" />
+                        <input class="rex-form-checkbox" type="checkbox" id="umlauts" name="settings[umlauts]" value="1"' . $umlauts . ' />
+                        <label for="umlauts">' . $I18N->msg('developer_umlauts') . '</label>
+                    </p>
+                </div>
+
+                <div class="rex-form-row">
+                    <p class="rex-form-checkbox rex-form-label-right">
+                        <input type="hidden" name="settings[delete]" value="0" />
+                        <input class="rex-form-checkbox" type="checkbox" id="delete" name="settings[delete]" value="1"' . $delete . ' />
+                        <label for="delete">' . $I18N->msg('developer_delete') . '</label>
                     </p>
                 </div>
 
@@ -101,7 +116,7 @@ echo '
 
                 <div class="rex-form-row">
                     <p>
-                        <input type="submit" class="rex-form-submit" name="FUNC_UPDATE" value="' . $I18N->msg('developer_save') . '" />
+                        <input type="submit" class="rex-form-submit" value="' . $I18N->msg('developer_save') . '" />
                     </p>
                 </div>
 

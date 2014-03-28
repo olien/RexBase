@@ -5,7 +5,7 @@ if (isset($REX['USER']) && !$REX['USER']->isAdmin() && $REX['USER']->hasPerm('se
 } elseif (isset($REX['USER']) && !$REX['USER']->isAdmin() && $REX['USER']->hasPerm('seo42[redirects_only]')) {
 	$startSubpage = 'redirects';
 } else {
-	$startSubpage = 'welcome';
+	$startSubpage = 'start';
 }
 
 $myself = rex_request('page', 'string');
@@ -35,8 +35,8 @@ if (isset($REX['ADDON']['seo42']['settings']['langcodes'])) {
 switch($subpage){
 	case '':
 		$subpage = $startSubpage;
-	case 'welcome':
-	case 'options':
+	case 'start':
+	case 'settings':
 	case 'redirects':
 	case 'tools':
 	case 'setup':

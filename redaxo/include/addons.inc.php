@@ -36,9 +36,6 @@ $REX['ADDON']['status']['decaf_piwik_tracker'] = '0';
 $REX['ADDON']['install']['developer'] = '1';
 $REX['ADDON']['status']['developer'] = '1';
 
-$REX['ADDON']['install']['downloadstats'] = '0';
-$REX['ADDON']['status']['downloadstats'] = '0';
-
 $REX['ADDON']['install']['image_manager'] = '1';
 $REX['ADDON']['status']['image_manager'] = '1';
 
@@ -48,8 +45,11 @@ $REX['ADDON']['status']['imagecropper'] = '0';
 $REX['ADDON']['install']['import_export'] = '1';
 $REX['ADDON']['status']['import_export'] = '1';
 
-$REX['ADDON']['install']['magnific_popup'] = '1';
-$REX['ADDON']['status']['magnific_popup'] = '1';
+$REX['ADDON']['install']['installer'] = '1';
+$REX['ADDON']['status']['installer'] = '1';
+
+$REX['ADDON']['install']['magnific_popup'] = '0';
+$REX['ADDON']['status']['magnific_popup'] = '0';
 
 $REX['ADDON']['install']['metainfo'] = '1';
 $REX['ADDON']['status']['metainfo'] = '1';
@@ -83,9 +83,6 @@ $REX['ADDON']['status']['textile'] = '1';
 
 $REX['ADDON']['install']['watson'] = '1';
 $REX['ADDON']['status']['watson'] = '0';
-
-$REX['ADDON']['install']['website_manager'] = '0';
-$REX['ADDON']['status']['website_manager'] = '0';
 
 $REX['ADDON']['install']['xform'] = '1';
 $REX['ADDON']['status']['xform'] = '1';

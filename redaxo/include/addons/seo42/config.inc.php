@@ -3,7 +3,7 @@
 // register addon
 $REX['ADDON']['rxid']['seo42'] = '0';
 $REX['ADDON']['name']['seo42'] = 'SEO42';
-$REX['ADDON']['version']['seo42'] = '2.8.2';
+$REX['ADDON']['version']['seo42'] = '3.2.0';
 $REX['ADDON']['author']['seo42'] = 'Markus Staab, Wolfgang Huttegger, Dave Holloway, Jan Kristinus, jdlx, RexDude';
 $REX['ADDON']['supportpage']['seo42'] = 'forum.redaxo.de';
 $REX['ADDON']['perm']['seo42'] = 'seo42[]';
@@ -17,9 +17,10 @@ $REX['EXTPERM'][] = 'seo42[seo_extended]';
 $REX['EXTPERM'][] = 'seo42[url_default]';
 
 // includes
+require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.res42.inc.php');
+require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.nav42.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.seo42.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.seo42_utils.inc.php');
-require_once($REX['INCLUDE_PATH'] . '/addons/seo42/classes/class.nav42.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/seo42/settings.dyn.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/seo42/settings.advanced.inc.php');
 require_once($REX['INCLUDE_PATH'] . '/addons/seo42/settings.lang.inc.php');
@@ -48,7 +49,7 @@ if (!$REX['SETUP']) {
 		}
 	}
 
-	// init 42
+	// init seo42
 	rex_register_extension('ADDONS_INCLUDED', 'seo42_utils::init', '', REX_EXTENSION_EARLY);
 
 	// send additional headers if necessary
@@ -83,7 +84,7 @@ if ($REX['REDAXO']) {
 	} else {
 		// add subpages
 		$REX['ADDON']['seo42']['SUBPAGES'] = array(
-			array('', $I18N->msg('seo42_welcome')),
+			array('', $I18N->msg('seo42_start')),
 			array('tools', $I18N->msg('seo42_tools')),
 			array('redirects', $I18N->msg('seo42_redirects'))
 		);
@@ -92,13 +93,15 @@ if ($REX['REDAXO']) {
 		$plugins = OOPlugin::getAvailablePlugins('seo42');
 
 		for ($i = 0; $i < count($plugins); $i++) {
-			$I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/seo42/plugins/' . $plugins[$i] . '/lang/'); // make msg for subpage available at this point 
-			array_push($REX['ADDON']['seo42']['SUBPAGES'], array($plugins[$i], $I18N->msg('seo42_' . $plugins[$i])));
+            if (file_exists($REX['INCLUDE_PATH'] . '/addons/seo42/plugins/' . $plugins[$i] . '/pages/' . $plugins[$i]) ) {
+				$I18N->appendFile($REX['INCLUDE_PATH'] . '/addons/seo42/plugins/' . $plugins[$i] . '/lang/'); // make msg for subpage available at this point 
+				array_push($REX['ADDON']['seo42']['SUBPAGES'], array($plugins[$i], $I18N->msg('seo42_' . $plugins[$i])));
+            }
 		}
 
 		// rest of sub pages
 		array_push($REX['ADDON']['seo42']['SUBPAGES'], 
-			array('options', $I18N->msg('seo42_settings')),
+			array('settings', $I18N->msg('seo42_settings')),
 			array('setup', $I18N->msg('seo42_setup')),
 			array('help', $I18N->msg('seo42_help'))
 		);
@@ -113,7 +116,11 @@ if ($REX['REDAXO']) {
 	if (!$REX['ADDON']['seo42']['settings']['one_page_mode'] || ($REX['ADDON']['seo42']['settings']['one_page_mode'] && $REX['ARTICLE_ID'] == $REX['START_ARTICLE_ID'])) {
 		if (isset($REX['USER']) && ($REX['USER']->isAdmin())) {
 			// admins get everything :)
-			seo42_utils::enableURLPage(); // injection order is important
+
+			if (!$REX['ADDON']['seo42']['settings']['one_page_mode']) { // url page not needed when in one page mode
+				seo42_utils::enableURLPage(); // injection order is important
+			}
+
 			seo42_utils::enableSEOPage();
 		} else {
 			if (isset($REX['USER']) && $REX['USER']->hasPerm('seo42[url_default]')) {
@@ -145,6 +152,24 @@ if ($REX['REDAXO']) {
 	// inform user when article hat different url type
 	if (rex_request('page') == 'content' && rex_request('mode') == 'edit' && rex_request('function') == '') {
 		rex_register_extension('PAGE_CONTENT_OUTPUT', 'seo42_utils::showUrlTypeMsg');
+	}
+
+	// handle remove_root_cats_for_categories option
+	if (count($REX['ADDON']['seo42']['settings']['remove_root_cats_for_categories']) > 0) {
+		rex_register_extension('ART_ADDED', 'seo42_utils::addRemoveRootCatUrlType');
+		rex_register_extension('CAT_ADDED', 'seo42_utils::addRemoveRootCatUrlType');
+	}
+} else {
+	// init res42 class
+	rex_register_extension('ADDONS_INCLUDED', 'res42::init');
+
+	// send additional headers for article if necessary
+	rex_register_extension('OUTPUT_FILTER_CACHE', 'seo42_utils::sendHeadersForArticleOnly');
+
+	// fix headers for image manager images if necessary
+	if ($REX['ADDON']['seo42']['settings']['fix_image_manager_cache_control_header'] && (isset($_GET['rex_img_type']))) {
+		header('Cache-Control: max-age=604800'); // 1 week
+		header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 604800));
 	}
 }
 

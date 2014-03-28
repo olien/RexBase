@@ -19,6 +19,10 @@ class seo42 {
 	protected static $rewriterEnabled;
 	protected static $is404Response;
 	protected static $ignoreQueryParams;
+	protected static $navigationClass;
+
+	const downloadDir = 'download';
+	const imageTypesDir = 'imagetypes';
 	
 	public static function init() {
 		// to be called before resolve()
@@ -38,6 +42,7 @@ class seo42 {
 		self::$fullUrls = $REX['ADDON']['seo42']['settings']['full_urls'];
 		self::$is404Response = false; // will be set from outside by set404ResponseFlag()
 		self::$ignoreQueryParams = $REX['ADDON']['seo42']['settings']['ignore_query_params'];
+		self::$navigationClass = 'nav42';
 
 		// pull apart server url
 		$urlParts = parse_url(self::$serverUrl);
@@ -107,7 +112,24 @@ class seo42 {
 			// use default website name if user did not set different one
 			$websiteName = self::getWebsiteName();
 		}
-	
+		
+		if (self::getArticleValue('seo_ignore_prefix') == '1') {
+			// no prefix, just the title
+			$fullTitle = self::getTitlePart();
+		} else { 
+			if (self::isStartArticle()) {
+				// the start article shows the website name first
+				$fullTitle = $websiteName . ' ' . self::getTitleDelimiter() . ' ' . self::getTitlePart();
+			} else {
+				// all other articles will show title first
+				$fullTitle = self::getTitlePart() . ' ' . self::getTitleDelimiter() . ' ' . $websiteName;
+			}
+		 }
+
+		return htmlspecialchars($fullTitle);
+	}
+
+	public static function getTitlePart() {
 		if (self::getArticleValue('seo_title') == '') {
 			// use article name as title
 			$titlePart = self::getArticleName();
@@ -115,21 +137,8 @@ class seo42 {
 			// use title that user defined
 			$titlePart = self::getArticleValue('seo_title');
 		}
-		
-		if (self::getArticleValue('seo_ignore_prefix') == '1') {
-			// no prefix, just the title
-			$fullTitle = $titlePart;
-		} else { 
-			if (self::isStartArticle()) {
-				// the start article shows the website name first
-				$fullTitle = $websiteName . ' ' . self::getTitleDelimiter() . ' ' . $titlePart;
-			} else {
-				// all other articles will show title first
-				$fullTitle = $titlePart . ' ' . self::getTitleDelimiter() . ' ' . $websiteName;
-			}
-		 }
 
-		return htmlspecialchars($fullTitle);
+		return $titlePart;
 	}
 
 	public static function getDescription() {
@@ -191,7 +200,7 @@ class seo42 {
 		}
 
 		// automatic canonical url
-		return self::getFullUrl(self::$curArticle->getId()) . self::getQueryString();
+		return self::getServerUrl() . self::getRequestUriWithoutQueryString() . self::getQueryString();
 	}
 
 	public static function getQueryString() {
@@ -203,7 +212,18 @@ class seo42 {
 		} else {
 			return '';
 		}
-	}  
+	}
+
+	public static function getRequestUriWithoutQueryString() {
+		if (seo42::isSubDirInstall()) {
+			// remove subdir from request uri
+			$requestUri = seo42_utils::trimSubDir($_SERVER['REQUEST_URI']);
+		} else {
+			$requestUri = $_SERVER['REQUEST_URI'];
+		}
+
+		return ltrim(strtok($requestUri, '?'), '/');
+	}
 
 	public static function getLangTags($indent = "\t") {
 		global $REX;
@@ -211,24 +231,24 @@ class seo42 {
 		$out = '';
 		$i = 0;
 
-		if (self::has404ResponseFlag()) {
-			return '';
-		}
+		if (!self::has404ResponseFlag() && self::isMultiLangInstall() && (self::getFullUrl($REX['ARTICLE_ID'], $REX['CUR_CLANG']) == self::getServerUrl() . self::getRequestUriWithoutQueryString())) { // check if its an normal article url (no special url_control urls etc.)
+			foreach ($REX['CLANG'] as $clangId => $clangName) {
+				$article = OOArticle::getArticleById(self::$curArticle->getId(), $clangId);
 
-		foreach ($REX['CLANG'] as $clangId => $clangName) {
-			$article = OOArticle::getArticleById(self::$curArticle->getId(), $clangId);
+				if ($article->isOnline() || $REX['CUR_CLANG'] == $clangId) {
+					$hreflang = self::getLangCode($clangId);
 
-			if ($article->isOnline() || $REX['CUR_CLANG'] == $clangId) {
-				$hreflang = self::getLangCode($clangId);
+					if ($i > 0) {
+						$out .= $indent;
+					}
 
-				if ($i > 0) {
-					$out .= $indent;
+					$out .= '<link rel="alternate" href="' . self::getFullUrl(self::$curArticle->getId(), $clangId)  . self::getQueryString() . '" hreflang="' . $hreflang . '" />' . PHP_EOL;
+
+					$i++;
 				}
-
-				$out .= '<link rel="alternate" href="' . self::getFullUrl(self::$curArticle->getId(), $clangId)  . self::getQueryString() . '" hreflang="' . $hreflang . '" />' . PHP_EOL;
-
-				$i++;
 			}
+		} else {
+			$out = PHP_EOL;
 		}
 
 		return $out;
@@ -280,13 +300,17 @@ class seo42 {
 		if ($imageType == '') {
 			$url = self::getMediaFile($imageFile);
 		} else {
-			$url = self::getImageManagerUrl($imageFile, $imageType);
+			$url = self::getImageManagerFile($imageFile, $imageType);
 		}
 
 		return '<img src="' . $url . '" width="' . $imgWidth . '" height="' . $imgHeight . '" alt="' . $altAttribute . '" />';
 	}
 
 	public static function getImageManagerUrl($imageFile, $imageType) {
+		return self::getImageManagerFile($imageFile, $imageType);
+	}
+
+	public static function getImageManagerFile($imageFile, $imageType) {
 		global $REX;
 	
 		if ($REX['REDAXO']) {
@@ -294,11 +318,15 @@ class seo42 {
 			return $REX['HTDOCS_PATH'] . 'redaxo/index.php?rex_img_type=' . $imageType . '&amp;rex_img_file=' . $imageFile;
 		} else {
 			if (self::$seoFriendlyImageManagerUrls && self::$rewriterEnabled) {
-				return self::getUrlStart() . self::$mediaDir . '/imagetypes/' . $imageType . '/' . $imageFile;
+				return self::getUrlStart() . self::imageTypesDir . '/' . $imageType . '/' . $imageFile;
 			} else {
 				return self::getUrlStart() . 'index.php?rex_img_type=' . $imageType . '&amp;rex_img_file=' . $imageFile;
 			}
 		}
+	}
+
+	public static function getDownloadFile($file) {
+		return self::getUrlStart() . self::downloadDir . '/' . $file;
 	}
 
 	public static function getHtml($indent = "\t") {
@@ -454,6 +482,10 @@ class seo42 {
 		return self::getMediaDir() . $file;
 	}
 
+	public static function getMediaUrl($file) {
+		return self::getServerUrl() . self::$mediaDir . '/' . $file;
+	}
+
 	public static function getMediaAddonDir() {
 		global $REX;
 
@@ -511,6 +543,11 @@ class seo42 {
 		$out .= '<tr><td class="left"><code>REDAXO Version</code></td><td class="right"><code>' . $REX['VERSION'] . '.' . $REX['SUBVERSION'] . '.' . $REX['MINORVERSION'] . '</code></td></tr>';
 		$out .= '<tr><td class="left"><code>SEO42 Version</code></td><td class="right"><code>' . $REX['ADDON']['version']['seo42'] . '</code></td></tr>';
 		$out .= '<tr><td class="left"><code>PHP Version</code></td><td class="right"><code>' . phpversion() . '</code></td></tr>';
+
+		if (isset($REX['ADDON']['version']['community'])) {
+			$out .= '<tr><td class="left"><code>Community Version</code></td><td class="right"><code>' . $REX['ADDON']['version']['community'] . '</code></td></tr>';
+		}
+
 		$out .= '</table>';
 
 		// methods
@@ -521,6 +558,7 @@ class seo42 {
 		$out .= self::getDebugInfoRow('seo42::getTrimmedUrl', array(self::$curArticle->getId()));
 		$out .= self::getDebugInfoRow('seo42::getFullUrl', array(self::$curArticle->getId()));
 		$out .= self::getDebugInfoRow('seo42::getTitle');
+		$out .= self::getDebugInfoRow('seo42::getTitlePart');
 		$out .= self::getDebugInfoRow('seo42::getDescription');
 		$out .= self::getDebugInfoRow('seo42::getKeywords');
 		$out .= self::getDebugInfoRow('seo42::getRobotRules');
@@ -538,6 +576,7 @@ class seo42 {
 		$out .= self::getDebugInfoRow('seo42::getServer');
 		$out .= self::getDebugInfoRow('seo42::getServerWithSubDir');
 		$out .= self::getDebugInfoRow('seo42::getServerSubDir');
+		$out .= self::getDebugInfoRow('seo42::isWwwServerUrl');
 		$out .= self::getDebugInfoRow('seo42::hasTemplateBaseTag');
 		$out .= self::getDebugInfoRow('seo42::isSubDirInstall');
 		$out .= self::getDebugInfoRow('seo42::isMultiLangInstall');
@@ -548,11 +587,13 @@ class seo42 {
 		$out .= self::getDebugInfoRow('seo42::getQueryString');
 		$out .= self::getDebugInfoRow('seo42::getMediaDir');
 		$out .= self::getDebugInfoRow('seo42::getMediaFile', array('image.png'));
+		$out .= self::getDebugInfoRow('seo42::getMediaUrl', array('image.png'));
 		$out .= self::getDebugInfoRow('seo42::getMediaAddonDir');
 		$out .= self::getDebugInfoRow('seo42::getLangTags');
 		$out .= self::getDebugInfoRow('seo42::getHtml');
 		$out .= self::getDebugInfoRow('seo42::getImageTag', array('image.png', 'rex_mediapool_detail', '150', '100'));
-		$out .= self::getDebugInfoRow('seo42::getImageManagerUrl', array('image.png', 'rex_mediapool_detail'));
+		$out .= self::getDebugInfoRow('seo42::getImageManagerFile', array('image.png', 'rex_mediapool_detail'));
+		$out .= self::getDebugInfoRow('seo42::getDownloadFile', array('doc.pdf'));
 		$out .= self::getDebugInfoRow('seo42::getAnswer');
 
 		$out .= '</table>';
@@ -710,6 +751,66 @@ class seo42 {
 		} else {
 			return false;
 		}
+	}
+
+	public static function isWwwServerUrl() {
+		$parsedServerUrl = parse_url(self::getServerUrl());
+
+		if (isset($parsedServerUrl['host'])) {
+			return strpos($parsedServerUrl['host'], "www.") === 0;
+		} else {
+			return true;
+		}
+	}
+
+	public static function setNavigationClass($class) {
+		self::$navigationClass = $class;
+	}
+
+	public static function getUrlString($string) {
+		global $REX;
+	
+		return strtolower(rexseo_parse_article_name($string, $REX['ARTICLE_ID'], $REX['CUR_CLANG']));
+	}
+
+	public static function getNavigationByLevel($levelStart = 0, $levelDepth = 2, $showAll = false, $ignoreOfflines = true, $hideWebsiteStartArticle = false, $currentClass = 'selected', $firstUlId = '', $firstUlClass = '', $liIdFromMetaField = '', $liClassFromMetaField = '', $linkFromUserFunc = '') {
+		return call_user_func(self::$navigationClass . '::getNavigationByLevel', $levelStart, $levelDepth, $showAll, $ignoreOfflines, $hideWebsiteStartArticle, $currentClass, $firstUlId, $firstUlClass, $liIdFromMetaField, $liClassFromMetaField, $linkFromUserFunc);		
+	}
+
+	public static function getNavigationByCategory($categoryId, $levelDepth = 2, $showAll = false, $ignoreOfflines = true, $hideWebsiteStartArticle = false, $currentClass = 'selected', $firstUlId = '', $firstUlClass = '', $liIdFromMetaField = '', $liClassFromMetaField = '', $linkFromUserFunc = '') {
+		return call_user_func(self::$navigationClass . '::getNavigationByCategory', $categoryId, $levelDepth, $showAll, $ignoreOfflines, $hideWebsiteStartArticle, $currentClass, $firstUlId, $firstUlClass, $liIdFromMetaField, $liClassFromMetaField, $linkFromUserFunc);
+	}
+
+	public static function getLangNavigation($ulId = '', $currentClass = 'selected', $showLiClasses = false, $hideLiIfOfflineArticle = false, $useLangCodeAsLinkText = false, $upperCaseLinkText = false) {
+		return call_user_func(self::$navigationClass . '::getLangNavigation', $ulId, $currentClass, $showLiClasses, $hideLiIfOfflineArticle, $useLangCodeAsLinkText, $upperCaseLinkText);
+	}
+
+	public static function getCSSFile($file, $vars = array()) {
+		return res42::getCSSFile($file, $vars);
+	}
+
+	public static function getJSFile($file) {
+		return res42::getJSFile($file);
+	}
+
+	public static function getImageFile($file) {
+		return res42::getImageFile($file);
+	}
+
+	public static function getCombinedCSSFile($combinedFile, $sourceFiles) {
+		return res42::getCombinedCSSFile($combinedFile, $sourceFiles);
+	}
+
+	public static function getCombinedJSFile($combinedFile, $sourceFiles) {
+		 return res42::getCombinedJSFile($combinedFile, $sourceFiles);
+	}
+
+	public static function getJSCodeFromTemplate($templateId, $simpleMinify = true) {
+		return res42::getJSCodeFromTemplate($templateId, $simpleMinify);
+	}
+
+	public static function getJSCodeFromFile($file, $simpleMinify = true) {
+		return res42::getJSCodeFromFile($file, $simpleMinify);
 	}
 
 	public static function getAnswer() {

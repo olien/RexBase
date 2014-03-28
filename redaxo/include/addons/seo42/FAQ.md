@@ -17,13 +17,13 @@ Gibts was bestimmtes zu beachten wenn ich REDAXO in einem Unterordner installier
 ---------------------------------------------------------------------------------------
 
 Im SEO42 Setup (URL der Website) und in der .htaccess den Unterordner mit angeben: `RewriteBase /unterordner`
-Desweiteren sollten Ihre URLs nicht mit / beginnen. Nutzen Sie die PHP-Methoden aus Codebeispiel Nr.2!
+Desweiteren sollten Ihre URLs nicht mit / beginnen. Nutzen Sie die PHP-Methoden aus Codebeispiel 1!
 
 
-Wie kann ich zwecks SEO die Ladegeschwindigkeit meiner Seite verbessern?
+Warum soll man mit seo42::getCSSFile() und seo42::getJSFile() seine CSS/JS Dateien ausgeben lassen?
 ------------------------------------------------------------------------
 
-Man sollte einen Blick auf die HTML5 Boilerplate [.htaccess Datei](https://github.com/h5bp/html5-boilerplate/blob/master/.htaccess) wegen Caching und Kompressionseinstellungen werfen oder aber einfach das [Resource Includer](https://github.com/RexDude/resource_includer) AddOn für REDAXO nutzen :)
+Weil in der .htaccess Datei standardmäßig ein Caching von 4 Wochen eingestellt ist und durch das Anhängen eines Versionsstrings an die Dateien dann diese automatisch neu heruntergeladen werden bei einem Update.
 
 
 Wie muss die URL der Website im Setup genau angegeben werden?
@@ -35,7 +35,13 @@ Die URL der Website muss mit `http://` beginnen und mit einem `/` enden.
 Kann ich den Base-Tag auch weglassen?
 -------------------------------------
 
-Ja, wenn Sie alle Ihre URLs anhand der PHP-Methoden aus Codebeispiel Nr.2 generieren lassen. Dies gilt insbesondere für REDAXO-Unterordner-Installationen.
+Ja, wenn Sie alle Ihre URLs anhand der PHP-Methoden aus Codebeispiel 1 generieren lassen. Dies gilt insbesondere für REDAXO-Unterordner-Installationen.
+
+
+Wenn ich Links mit Anchors nutze, lande ich immer auf der Startseite?
+---------------------------------------------------------------------
+
+Entweder vollständige Links inkl. vorangestelltem Artikel benutzen, z.B. `redaxo://13#anker`. Oder Base-Tag (der eigentliche Grund warum die Anker nicht mehr funktionieren) weglassen und auf einheitliche URLs achten, siehe Codebeispiel 1.
 
 
 Wo legt SEO42 die Backups für die .htaccess Dateien an?
@@ -65,7 +71,7 @@ Der zuständige Parameter heißt `title_delimiter` und ist in der `settings.adva
 Wie kann ich den Titel sonst noch beinflussen?
 ----------------------------------------------
 
-Auf der SEO-Seite eines Artikels kann man einen individuellen Titel eintragen. Über "Kein Prefix" (wenn aktiv) wird dieser ohne Zusatz angezeigt. Man kann außerdem die Methode `seo42::getTitle()` überschreiben, siehe dazu Codebeispiel Nr.7.
+Auf der SEO-Seite eines Artikels kann man einen individuellen Titel eintragen. Über "Kein Prefix" (wenn aktiv) wird dieser ohne Zusatz angezeigt. Man kann außerdem die Methode `seo42::getTitle()` überschreiben, siehe dazu Codebeispiel 7.
 
 
 Warum wird der Titel für die Startseite "andersherum" ausgegeben wie für die Folgeseiten?
@@ -89,7 +95,7 @@ Vorläufig wurden diese hier ausgelagert: `settings.advanced.inc.php`
 Wie kann ich suchmaschinenfreundliche URLs für Bilder erhalten, die über den Image Manager generiert wurden?
 ------------------------------------------------------------------------------------------------------------
 
-Zum Beispiel über die Methode `seo42::getImageManagerUrl()`. Siehe dazu Codebeispiel Nr.3 in der Hilfe.
+Zum Beispiel über die Methode `seo42::getImageManagerFile()`. Siehe dazu Codebeispiel 3 in der Hilfe.
 
 
 Ich möchte nicht-www Anfragen auf die www Variante umleiten lassen. Soll doch SEO-technisch gut sein, oder?
@@ -108,12 +114,6 @@ Habe gehört das es SEO-technisch gut wäre wenn Bilder ein Alt-Attribut zugewie
 -------------------------------------------------------------------------------------------
 
 Dafür kann man die Methode `seo42::getImageTag()` nutzen, die dann einen kompletten Image-Tag inkl. Alt-Attribut ausspuckt (siehe Codebeispiel 3). Und im Medienpool wird dieser dann im Titel-Feld gesetzt.
-
-
-Wenn ich Links mit Anchors nutze, lande ich immer auf der Startseite?
----------------------------------------------------------------------
-
-Entweder vollständige Links inkl. vorangestelltem Artikel benutzen, z.B. `redaxo://13#anker`. Oder Base-Tag (der eigentliche Grund warum die Anker nicht mehr funktionieren) weglassen und auf einheitliche URLs achten, siehe Codebeispiel Nr.2.
 
 
 Mir gefällt SEO42 nicht! Wie bekomme ich das AddOn wieder entfernt?
