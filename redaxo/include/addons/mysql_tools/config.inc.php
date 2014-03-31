@@ -93,13 +93,7 @@ $REX["ADDON"]["mysql_tools"]["settings"] = array (
     array (
       'user' => 'olien',
       'ip' => '127.0.0.1',
-      'session_id' => '957df862dcf242eaa067097e6c216abb',
-    ),
-    'adminer' => 
-    array (
-      'user' => 'olien',
-      'ip' => '127.0.0.1',
-      'session_id' => '54d5279f12be790f3b559756252fcead',
+      'session_id' => '3d856c97ee23b14eceec0ae3650e3ae1',
     ),
   ),
 );

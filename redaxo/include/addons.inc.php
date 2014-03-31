@@ -66,6 +66,9 @@ $REX['ADDON']['status']['phpmailer'] = '1';
 $REX['ADDON']['install']['rex_markitup'] = '1';
 $REX['ADDON']['status']['rex_markitup'] = '1';
 
+$REX['ADDON']['install']['rex_multiupload'] = '1';
+$REX['ADDON']['status']['rex_multiupload'] = '1';
+
 $REX['ADDON']['install']['rexpixel'] = '1';
 $REX['ADDON']['status']['rexpixel'] = '1';
 

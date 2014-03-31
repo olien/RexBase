@@ -1,0 +1,20 @@
+<?php
+$REX['MEDIA']['FILENAME']['test3_1.png']['file_id'] = '5';
+$REX['MEDIA']['FILENAME']['test3_1.png']['re_file_id'] = '0';
+$REX['MEDIA']['FILENAME']['test3_1.png']['category_id'] = '0';
+$REX['MEDIA']['FILENAME']['test3_1.png']['attributes'] = '';
+$REX['MEDIA']['FILENAME']['test3_1.png']['filetype'] = 'image/png';
+$REX['MEDIA']['FILENAME']['test3_1.png']['filename'] = 'test3_1.png';
+$REX['MEDIA']['FILENAME']['test3_1.png']['originalname'] = 'test3_1.png';
+$REX['MEDIA']['FILENAME']['test3_1.png']['filesize'] = '601010';
+$REX['MEDIA']['FILENAME']['test3_1.png']['width'] = '1200';
+$REX['MEDIA']['FILENAME']['test3_1.png']['height'] = '1750';
+$REX['MEDIA']['FILENAME']['test3_1.png']['title'] = '';
+$REX['MEDIA']['FILENAME']['test3_1.png']['createdate'] = '1396015252';
+$REX['MEDIA']['FILENAME']['test3_1.png']['updatedate'] = '1396015252';
+$REX['MEDIA']['FILENAME']['test3_1.png']['createuser'] = 'olien';
+$REX['MEDIA']['FILENAME']['test3_1.png']['updateuser'] = 'olien';
+$REX['MEDIA']['FILENAME']['test3_1.png']['revision'] = '0';
+$REX['MEDIA']['FILENAME']['test3_1.png']['med_description'] = '';
+$REX['MEDIA']['FILENAME']['test3_1.png']['med_copyright'] = '';
+?>
